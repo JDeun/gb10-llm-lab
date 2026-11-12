@@ -12,6 +12,7 @@ import os
 import shutil
 import subprocess
 import time
+import traceback
 import urllib.request
 from datetime import date, datetime
 from pathlib import Path
@@ -335,6 +336,10 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
     except EntryFailed as exc:
         failure = {"kind": exc.kind, "detail": exc.detail[:600], "engine_log_tail": engine_log_tail(entry)}
         log(f"{eid} FAILED {exc}")
+    except Exception as exc:  # noqa: BLE001 - a runner bug must fail this entry, not crash-loop the whole queue
+        failure = {"kind": "runner_error", "detail": f"{type(exc).__name__}: {exc}"[:600],
+                   "engine_log_tail": traceback.format_exc()[-3000:]}
+        log(f"{eid} RUNNER ERROR {failure['detail']}")
     new_dirs = snapshot_dirs() - before
     try:
         digest_text = digests(entry, new_dirs)
