@@ -86,3 +86,19 @@
 | NC AI VAETKI 112B | 양자화 파일 없음 (BF16 약 224 GB) |
 | Kakao kanana-2 | 공개 모델이 3B 이하 |
 | DeepSeek-V4-Pro | GGUF가 UD-Q4/Q8뿐이라 1 TB 범위 초과 |
+
+## 엔진 비교 세트 (2026-11-12 추가)
+
+같은 GGUF 파일을 한 번만 받아 여러 엔진이 이어서 사용합니다(앞 항목이 `keep_for`로 파일을 남김). 엔진만 바뀌는 비교입니다.
+
+| 세트 | 공유 파일 | 엔진 |
+|---|---|---|
+| A | Qwen3.6-35B-A3B UD-Q4_K_XL (22 GB) | llama.cpp · ik_llama.cpp · InferSSD · colibri (+ vLLM NVFP4 기준) |
+| B | GLM-5.3-Flash UD-Q2_K_XL (109 GB) | llama.cpp · ik_llama.cpp · colibri |
+| C | Muse-Spark-Open 816B UD-Q4_K_XL (505 GB) | InferSSD · colibri · llama.cpp |
+| Kimi | Kimi K3 IQ1_S-XS (580 GB) | llama.cpp · ik_llama.cpp · colibri |
+| 2.4T | Qwen3.8-2.4T UD-IQ1_S (508 GB) | llama.cpp · ik_llama.cpp |
+
+colibri 전용 극한 후보: Mistral-Large-4 1T (233 GB), GLM-5.3 744B (217 GB), Inkling 975B UD-IQ1_M (285 GB), MiMo-V2.6 Pro 1.02T 2.0bpw (256 GB), MiMo-V2.6 Flash 309B Q2_K (126 GB).
+
+엔진은 InferSSD 0.1.4, ik_llama.cpp(ARM에서 `-DGGML_NATIVE=OFF -DGGML_ARCH_FLAGS=-mcpu=native`, 이슈 #2651), colibri(`coli import` → `build` → `serve`)를 GB10에 설치했습니다.
