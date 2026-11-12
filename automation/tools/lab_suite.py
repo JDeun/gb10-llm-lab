@@ -23,6 +23,14 @@ PROFILES = {
 }
 CASE_FILES = {"sanity": LAB / "prompts/sanity.jsonl", "sanity-mini": LLM / "prompts/sanity-mini.jsonl"}
 THROUGHPUT = LAB / "prompts/throughput_ko.txt"
+ENGINE_REVISIONS = {
+    "vllm": "vllm/vllm-openai:v0.32.0",
+    "strata": "Strata v0.2.13 (engine 0.1.59)",
+    "llamacpp": "llama.cpp v0.9.0 (cd959ba), CUDA sm_121 build",
+    "ikllama": "ik_llama.cpp main (2a0832d), CUDA sm_121, -march=armv8.6-a+dotprod+i8mm+bf16",
+    "inferssd": "InferSSD 0.1.4 (261109.216.02ed6a8)",
+    "colibri": "colibri main (0a5504a), coli build --gpu auto",
+}
 
 
 class EntryFailed(Exception):
@@ -50,9 +58,9 @@ def manifest_path(eid: str) -> Path:
 
 
 def write_manifest(entry: dict, alias: str | None) -> Path:
-    engine_rev = {"vllm": "vllm/vllm-openai:v0.32.0", "strata": "Strata v0.2.13 (engine 0.1.59)",
-                  "llamacpp": "llama.cpp v0.9.0 (cd959ba), CUDA sm_121 build"}[entry["engine"]]
-    command = entry.get("launch") or entry.get("vllm_args") or entry.get("llama_args") or []
+    engine_rev = ENGINE_REVISIONS.get(entry["engine"], entry["engine"])
+    command = (entry.get("launch") or entry.get("vllm_args") or entry.get("llama_args")
+               or entry.get("inferssd_args") or entry.get("colibri_args") or [])
     spec = {"experiment_id": f"{datetime.now():%Y-%m-%d}-{entry['id']}",
             "model": {"api_alias": alias, "repository": entry["repository"],
                       "quantization": ", ".join(entry.get("hf_include", [])) or None,

@@ -1,0 +1,55 @@
+{
+ "cases": 3,
+ "passed": 3,
+ "errors": 0,
+ "rows": [
+  {
+   "case_id": "solid-red",
+   "expected": "red",
+   "response": "red",
+   "passed": true,
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 285,
+    "total_tokens": 287,
+    "completion_tokens": 2,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "elapsed_s": 0.87,
+   "error": null
+  },
+  {
+   "case_id": "split-blue-left",
+   "expected": "left",
+   "response": "left",
+   "passed": true,
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 292,
+    "total_tokens": 294,
+    "completion_tokens": 2,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "elapsed_s": 0.48,
+   "error": null
+  },
+  {
+   "case_id": "three-squares",
+   "expected": "3",
+   "response": "3",
+   "passed": true,
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 286,
+    "total_tokens": 288,
+    "completion_tokens": 2,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "elapsed_s": 0.47,
+   "error": null
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+  "captured_utc": "2026-11-12T06:31:42.837586+00:00",
+  "scope": "benchmark_client_host",
+  "inference_server_is_this_host": null,
+  "platform": {
+    "system": "Linux",
+    "machine": "aarch64",
+    "kernel": "7.0.0-1025-nvidia",
+    "python": "3.12.3",
+    "logical_cpus": 20
+  },
+  "memory": {
+    "timestamp_utc": "2026-11-12T06:31:42.837799+00:00",
+    "monotonic_s": 7424.921877858,
+    "scope": "whole_system_not_model_process",
+    "host_scope": "benchmark_client_host",
+    "meminfo_kib": {
+      "MemTotal": 127533208,
+      "MemAvailable": 22387564,
+      "Cached": 55380904,
+      "SwapTotal": 16777212,
+      "SwapFree": 16072864,
+      "Dirty": 4384,
+      "Writeback": 0
+    },
+    "vmstat_counters": {
+      "pswpin": 51930,
+      "pswpout": 172506,
+      "pgmajfault": 36770,
+      "oom_kill": 0
+    },
+    "io_pressure": "some avg10=3.52 avg60=1.30 avg300=1.87 total=24030711\nfull avg10=3.52 avg60=1.29 avg300=1.87 total=23944154",
+    "disk_counters": {
+      "nvme0n1": {
+        "read_bytes": 139175775744,
+        "write_bytes": 1462670336,
+        "io_ms": 69928
+      },
+      "nvme0n1p1": {
+        "read_bytes": 9952768,
+        "write_bytes": 1024,
+        "io_ms": 24
+      },
+      "nvme0n1p2": {
+        "read_bytes": 5496832,
+        "write_bytes": 0,
+        "io_ms": 13
+      },
+      "nvme0n1p3": {
+        "read_bytes": 139157880832,
+        "write_bytes": 1462669312,
+        "io_ms": 116699
+      }
+    }
+  },
+  "cgroup_v2": {
+    "memory.max": null,
+    "memory.high": null,
+    "memory.current": null,
+    "memory.swap.max": null,
+    "memory.swap.current": null
+  },
+  "cgroup_v2_read_root": "/sys/fs/cgroup",
+  "cgroup_v2_scope": "values_at_read_root_not_verified_model_process_limits",
+  "disk": {
+    "checked_path": "<user-home>/gb10-llm-lab",
+    "total_bytes": 992716673024,
+    "free_bytes": 748599992320
+  },
+  "versions": {
+    "cuda_compiler": {
+      "available": false
+    },
+    "strata": {
+      "available": false
+    },
+    "llama_server": {
+      "available": false
+    }
+  },
+  "gpu": {
+    "available": true,
+    "returncode": 0,
+    "output": "NVIDIA GB10, 580.178.04, 41.32, 65"
+  },
+  "notes": [
+    "This inventory and telemetry describe the client host; the inference server may be elsewhere.",
+    "Cgroup values are read at the stated root, not resolved for the model process; ancestor limits may also apply.",
+    "GB10 CPU/GPU share memory: count the pool once.",
+    "nvidia-smi memory can be N/A on GB10; host MemAvailable includes reclaimable memory.",
+    "Do not sum whole-disk and partition counters; other processes affect all system counters.",
+    "This does not inventory model weights, processes, SSH settings, or environment variables."
+  ]
+}

@@ -19,3 +19,6 @@ weights/
 *.ftw
 *.log
 .DS_Store
+
+# Public, redacted per-run data inside result bundles is part of the record (local/ stays private).
+!results/*/runs/
