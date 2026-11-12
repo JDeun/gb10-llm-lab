@@ -1,0 +1,12 @@
+[Unit]
+Description=Default LLM server (mode in ~/llm/serve-mode)
+After=default.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=%h/llm/tools/serve-default.sh start
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

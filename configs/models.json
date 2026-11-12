@@ -92,6 +92,11 @@
     "About 539.7 GiB (~579.5 decimal GB), 34 shards. Select only this quant.",
     "Author measurements used much larger RAM hardware; storage fit does not establish GB10 execution.",
     "Exclude IQ1_S-XXS-832e, which removes experts."
+   ],
+   "queue_entries": [
+    "colibri-kimi-k3-iq1s-xs",
+    "ikllama-kimi-k3-iq1s-xs",
+    "llamacpp-kimi-k3-iq1s-xs"
    ]
   },
   {
@@ -175,6 +180,9 @@
    ],
    "notes": [
     "Text only. Repo also holds original/ and metal/ copies; download only the MXFP4 weights."
+   ],
+   "queue_entries": [
+    "vllm-gpt-oss-120b"
    ]
   },
   {
@@ -196,6 +204,10 @@
    ],
    "notes": [
     "Text only."
+   ],
+   "queue_entries": [
+    "vllm-nemotron3-super-120b-nvfp4",
+    "vllm-nemotron3-super-120b-nvfp4-reasoning-parser"
    ]
   },
   {
@@ -217,6 +229,9 @@
    ],
    "notes": [
     "Dense: expect lower decode speed than MoE of similar size."
+   ],
+   "queue_entries": [
+    "vllm-qwen38-27b-fp8"
    ]
   },
   {
@@ -239,6 +254,11 @@
    ],
    "notes": [
     "Vision model; low-bit only on one GB10."
+   ],
+   "queue_entries": [
+    "colibri-glm53-flash-udq2kxl",
+    "ikllama-glm53-flash-udq2kxl",
+    "llamacpp-glm53-flash-udq2kxl"
    ]
   },
   {
@@ -261,6 +281,9 @@
    ],
    "notes": [
     "HF safetensors metadata reports 220.5B; parameter scope not verified against the 135 GB 2-bit artifact."
+   ],
+   "queue_entries": [
+    "llamacpp-minimax-m31-flash-udiq2xxs"
    ]
   },
   {
@@ -282,6 +305,10 @@
    ],
    "notes": [
     "Precision comparison against IQ3_S; Strata lists UD packs, Spark support untested in its docs."
+   ],
+   "queue_entries": [
+    "strata-qwen38fn-q8",
+    "strata-qwen38fn-udq4kxl"
    ]
   },
   {
@@ -325,7 +352,582 @@
    ],
    "notes": [
     "Smaller 2T-class alternative to Kimi K3; llama.cpp architecture support to be confirmed before download."
+   ],
+   "queue_entries": [
+    "ikllama-qwen38-24t-udiq1s",
+    "llamacpp-qwen38-24t-udiq1s"
    ]
+  },
+  {
+   "id": "deepseek-v4.1-flash-1017-gsq-rco-gguf",
+   "name": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF (IST-DAS 2.00bpw)",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 256800000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "strata"
+   ],
+   "queue_entries": [
+    "strata-deepseek-v41-flash-200bpw",
+    "strata-deepseek-v41-flash-225bpw"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF"
+   ],
+   "notes": [
+    "Full six experts per token (--speed full). n-gram (Engram) table read from SSD."
+   ]
+  },
+  {
+   "id": "gemma-4-26b-a4b-it",
+   "name": "google/gemma-4-26B-A4B-it",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 51600000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-gemma4-26b-a4b"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/google/gemma-4-26B-A4B-it"
+   ],
+   "notes": []
+  },
+  {
+   "id": "ornith-1.0-35b",
+   "name": "ornith-ai/Ornith-1.0-35B",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 70200000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-ornith-1.0-35b"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/ornith-ai/Ornith-1.0-35B"
+   ],
+   "notes": []
+  },
+  {
+   "id": "qwen3.6-27b-fp8",
+   "name": "Qwen/Qwen3.6-27B-FP8",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 30900000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-qwen36-27b-fp8"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.6-27B-FP8"
+   ],
+   "notes": []
+  },
+  {
+   "id": "qwen3.6-35b-a3b-gguf",
+   "name": "unsloth/Qwen3.6-35B-A3B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 22400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri",
+    "ikllama",
+    "inferssd",
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-qwen36-35b-udq4kxl",
+    "ikllama-qwen36-35b-udq4kxl",
+    "inferssd-qwen36-35b-udq4kxl",
+    "colibri-qwen36-35b-udq4kxl"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF"
+   ],
+   "notes": [
+    "Engine set A (same file)."
+   ]
+  },
+  {
+   "id": "exaone-4.5-33b-awq",
+   "name": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 22800000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-kr-exaone-4.5-33b-awq"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/LGAI-EXAONE/EXAONE-4.5-33B-AWQ"
+   ],
+   "notes": [
+    "Korean model (LG AI Research)."
+   ]
+  },
+  {
+   "id": "hyperclovax-seed-think-32b",
+   "name": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 66600000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-kr-hyperclovax-seed-think-32b"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/naver-hyperclovax/HyperCLOVAX-SEED-Think-32B"
+   ],
+   "notes": [
+    "Korean model (NAVER)."
+   ]
+  },
+  {
+   "id": "gravity-30b-a5b-preview",
+   "name": "trillionlabs/Gravity-30B-A5B-Preview",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 59100000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-kr-gravity-30b-a5b"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/trillionlabs/Gravity-30B-A5B-Preview"
+   ],
+   "notes": [
+    "Korean model (Trillion Labs)."
+   ]
+  },
+  {
+   "id": "solar-open-100b-gguf",
+   "name": "mradermacher/Solar-Open-100B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 62300000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-kr-solar-open-100b-q4km"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/mradermacher/Solar-Open-100B-GGUF"
+   ],
+   "notes": [
+    "Korean model (Upstage)."
+   ]
+  },
+  {
+   "id": "ling-3.0-flash-gguf",
+   "name": "AtomicChat/Ling-3.0-flash-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 75300000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-ling-3.0-flash-q4km"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/AtomicChat/Ling-3.0-flash-GGUF"
+   ],
+   "notes": []
+  },
+  {
+   "id": "solar-open2-250b-gguf",
+   "name": "prometheusAIR/Solar-Open2-250B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 95400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-kr-solar-open2-250b-q2k"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/prometheusAIR/Solar-Open2-250B-GGUF"
+   ],
+   "notes": [
+    "Korean model (Upstage), community GGUF."
+   ]
+  },
+  {
+   "id": "mistral-medium-3.5-128b-nvfp4",
+   "name": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 95300000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "vllm"
+   ],
+   "queue_entries": [
+    "vllm-mistral-medium-3.5-128b-nvfp4"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/nvidia/Mistral-Medium-3.5-128B-NVFP4"
+   ],
+   "notes": [
+    "Dense 128B; expected slow."
+   ]
+  },
+  {
+   "id": "nvidia-nemotron-3-ultra-550b-a55b-gguf",
+   "name": "unsloth/NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 193800000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-nemotron3-ultra-550b-udiq2xxs"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF"
+   ],
+   "notes": []
+  },
+  {
+   "id": "a.x-k2-gguf",
+   "name": "skt/A.X-K2-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 370400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "llamacpp-kr-ax-k2-iq4xs"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/skt/A.X-K2-GGUF"
+   ],
+   "notes": [
+    "Korean model (SKT), 692B, official GGUF."
+   ]
+  },
+  {
+   "id": "qwen3.8-flash-next-gguf",
+   "name": "bartowski/Qwen3.8-Flash-Next-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 100000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "inferssd"
+   ],
+   "queue_entries": [
+    "inferssd-qwen38fn-iq4xs"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/bartowski/Qwen3.8-Flash-Next-GGUF"
+   ],
+   "notes": [
+    "Engine comparison against Strata on the same model family (InferSSD tested profile)."
+   ]
+  },
+  {
+   "id": "deepseek-v4.1-flash-1017-gguf",
+   "name": "mrfakename/DeepSeek-V4.1-Flash-1017-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 505000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "inferssd"
+   ],
+   "queue_entries": [
+    "inferssd-deepseek-v41-flash-q8"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/mrfakename/DeepSeek-V4.1-Flash-1017-GGUF"
+   ],
+   "notes": [
+    "Near-original precision DeepSeek-V4.1-Flash (experts MXFP4 native) streamed from SSD; compare with Strata 2.00/2.25bpw."
+   ]
+  },
+  {
+   "id": "muse-spark-open-816b-a42b-gguf",
+   "name": "unsloth/Muse-Spark-Open-816B-A42B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 505000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri",
+    "inferssd",
+    "llamacpp"
+   ],
+   "queue_entries": [
+    "inferssd-muse-spark-open-816b",
+    "colibri-muse-spark-open-816b-udq4kxl",
+    "llamacpp-muse-spark-open-816b-udq4kxl"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/Muse-Spark-Open-816B-A42B-GGUF"
+   ],
+   "notes": [
+    "816B total / 42B active; InferSSD README reports a DGX Spark run."
+   ]
+  },
+  {
+   "id": "mistral-large-4-1t-a52b-gguf",
+   "name": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 233000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri"
+   ],
+   "queue_entries": [
+    "colibri-mistral-large-4-1t-udiq1s"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/Mistral-Large-4-1T-A52B-GGUF"
+   ],
+   "notes": [
+    "1T total / 52B active; colibri-only extreme candidate (not supported by Strata)."
+   ]
+  },
+  {
+   "id": "glm-5.3-gguf",
+   "name": "unsloth/GLM-5.3-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 216700000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri"
+   ],
+   "queue_entries": [
+    "colibri-glm-5.3-744b-udiq1s"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/GLM-5.3-GGUF"
+   ],
+   "notes": [
+    "744B; colibri GLM engine (glm-dsa) on the published GGUF."
+   ]
+  },
+  {
+   "id": "mimo-v2.6-flash-rl-gguf",
+   "name": "ggml-org/MiMo-V2.6-Flash-RL-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 126400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri"
+   ],
+   "queue_entries": [
+    "colibri-mimo-v2.6-flash-q2k"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/ggml-org/MiMo-V2.6-Flash-RL-GGUF"
+   ],
+   "notes": []
+  },
+  {
+   "id": "inkling-gguf",
+   "name": "unsloth/inkling-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 285000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri"
+   ],
+   "queue_entries": [
+    "colibri-inkling-975b-udiq1m"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/inkling-GGUF"
+   ],
+   "notes": [
+    "975B; colibri inkling engine."
+   ]
+  },
+  {
+   "id": "mimo-v2.6-pro-mopd-gguf",
+   "name": "AesSedai/MiMo-V2.6-Pro-MOPD-GGUF",
+   "role": "queued_candidate",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 255800000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engines": [
+    "colibri"
+   ],
+   "queue_entries": [
+    "colibri-mimo-v2.6-pro-1t-bpw2"
+   ],
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/AesSedai/MiMo-V2.6-Pro-MOPD-GGUF"
+   ],
+   "notes": [
+    "1.02T; colibri mimo engine."
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "id": "K-EXAONE-2.0-750B-A37B",
+   "reason": "NVFP4 526 GB > memory for vLLM; only community GGUF marked NOT_WORKING"
+  },
+  {
+   "id": "NC VAETKI 112B",
+   "reason": "no quantized artifact found (BF16 ~224 GB)"
+  },
+  {
+   "id": "Kakao kanana-2",
+   "reason": "public models are <=3B"
+  },
+  {
+   "id": "DeepSeek-V4-Pro",
+   "reason": "only UD-Q4/Q8 GGUF found (far over 1 TB budget)"
+  },
+  {
+   "id": "Kimi K3 via Strata",
+   "reason": "Strata issue #1954 closed not_planned; run via llama.cpp instead"
   }
  ]
 }
