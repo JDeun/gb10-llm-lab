@@ -49,3 +49,40 @@
 - 디스크 785 GiB 안에서 한 번에 대형 후보 하나만 둡니다. 측정을 마친 후보의 파일은 결과 커밋 후 삭제하고, 상시 서빙용 두 모델(Qwen3.6, Qwen3.8 IQ3_S)은 유지합니다. 7·8번 전에는 Qwen3.8 IQ3_S도 임시로 지울 수 있습니다.
 - 다운로드는 Wi-Fi로 받으며 실측 약 10~35 MB/s입니다. 500 GB급 후보는 다운로드만 4~14시간이 걸릴 수 있습니다.
 - 다운로드 중 측정한 run은 결과 README에 그 사실을 적습니다.
+
+## 2차 추가 후보 (2026-11-12): 범용·한국 모델·극한 규모
+
+무인 실행기 큐(`~/llm/queue.json`, 23개)에 추가한 후보입니다. 크기는 HF 파일 목록 합계입니다.
+
+| 구분 | 후보 | 크기 | 엔진 |
+|---|---|---:|---|
+| 범용 | Gemma 4 26B-A4B (이미지) | 52 GB | vLLM |
+| 범용 | Ornith-1.0-35B | 70 GB | vLLM |
+| 범용 | Qwen3.6-27B FP8 (dense, 이미지) | 31 GB | vLLM |
+| 범용 | Ling-3.0-flash 127.5B Q4_K_M (MIT) | 75 GB | llama.cpp |
+| 범용 | Mistral-Medium-3.5 128B dense NVFP4 | 95 GB | vLLM |
+| 한국 | LG EXAONE-4.5-33B AWQ (이미지) | 23 GB | vLLM |
+| 한국 | NAVER HyperCLOVAX-SEED-Think-32B (이미지) | 67 GB | vLLM |
+| 한국 | Trillion Labs Gravity-30B-A5B | 59 GB | vLLM |
+| 한국 | Upstage Solar-Open-100B Q4_K_M | 62 GB | llama.cpp |
+| 한국 | Upstage Solar-Open2-250B Q2_K | 95 GB | llama.cpp |
+| 한국·극한 | **SKT A.X-K2 692B IQ4_XS (공식 GGUF)** | 370 GB | llama.cpp (mmap) |
+| 극한·Strata | **DeepSeek-V4.1-Flash 2.25bpw** (최고 품질 세트, 전문가 6개) | 274 GB | Strata |
+| 극한·Strata | Qwen3.8-Flash-Next Q8_0 (메모리 초과분 SSD) | 188 GB | Strata |
+| 극한 | Nemotron-3-Ultra 550B-A55B UD-IQ2_XXS | 194 GB | llama.cpp (mmap) |
+| 극한 | Qwen3.8-2.4T-A95B UD-IQ1_S | 508 GB | llama.cpp (mmap) |
+| 극한 | Kimi K3 2.8T IQ1_S-XS | 580 GB | llama.cpp (mmap) |
+
+### 극한 규모를 두 경로로 나눈 이유
+
+- **Strata**는 Qwen3.8-Flash-Next·Qwen3.6·DeepSeek-V4.1-Flash 계열만 지원합니다. Kimi K3 지원 요청(이슈 #1954)은 "계획 없음"으로 닫혔고, GLM-5.3-Flash는 커뮤니티 포크에서만 동작합니다. 그래서 Strata 극한은 **지원 모델의 최대 정밀도·최대 크기 세트**(DeepSeek 2.25bpw, Qwen3.8 Q8_0)로 측정합니다.
+- Strata가 지원하지 않는 초대형 모델은 **llama.cpp v0.9.0(Kimi-K3 정식 지원, PR #26185)**에서 전문가 가중치를 SSD mmap으로 두고(`--cpu-moe`) 실행 가능 여부·속도를 측정합니다.
+
+### 제외한 후보와 이유
+
+| 후보 | 이유 |
+|---|---|
+| LG K-EXAONE-2.0-750B-A37B (Apache 2.0) | NVFP4 526 GB는 vLLM 메모리 한도 초과, 커뮤니티 GGUF는 제작자가 "NOT_WORKING"으로 표시 |
+| NC AI VAETKI 112B | 양자화 파일 없음 (BF16 약 224 GB) |
+| Kakao kanana-2 | 공개 모델이 3B 이하 |
+| DeepSeek-V4-Pro | GGUF가 UD-Q4/Q8뿐이라 1 TB 범위 초과 |
