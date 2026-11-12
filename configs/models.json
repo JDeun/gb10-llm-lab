@@ -1,139 +1,331 @@
 {
-  "schema_version": "1.0",
-  "reviewed_on": "2026-11-12",
-  "constraints": {
-    "device_count": 1,
-    "storage_nominal_bytes": 1000000000000,
-    "memory_bytes": null,
-    "storage_scope": "existing_internal_ssd_only",
-    "external_storage_allowed": false,
-    "expert_pruning_allowed": false
+ "schema_version": "1.0",
+ "reviewed_on": "2026-11-12",
+ "constraints": {
+  "device_count": 1,
+  "storage_nominal_bytes": 1000000000000,
+  "memory_bytes": null,
+  "storage_scope": "existing_internal_ssd_only",
+  "external_storage_allowed": false,
+  "expert_pruning_allowed": false
+ },
+ "notes": [
+  "Estimates are not download plans or local measurements.",
+  "Only one quantization tier at a time. Resolve immutable revisions and peak preparation space before acquisition.",
+  "Total parameters, activated parameters, precision and file size are separate axes."
+ ],
+ "candidates": [
+  {
+   "id": "qwen-current",
+   "name": "Qwen3.6-35B-A3B-NVFP4",
+   "role": "existing_baseline",
+   "total_parameters_billion_approx": 35,
+   "active_parameters_billion_approx": 3,
+   "checkpoint_bytes_estimate": null,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "user_reports_already_running",
+   "excluded_from_current_scope": false,
+   "sources": [],
+   "notes": [
+    "Actual publisher, served alias, runtime and artifact size need inventory."
+   ]
   },
-  "notes": [
-    "Estimates are not download plans or local measurements.",
-    "Only one quantization tier at a time. Resolve immutable revisions and peak preparation space before acquisition.",
-    "Total parameters, activated parameters, precision and file size are separate axes."
-  ],
-  "candidates": [
-    {
-      "id": "qwen-current",
-      "name": "Qwen3.6-35B-A3B-NVFP4",
-      "role": "existing_baseline",
-      "total_parameters_billion_approx": 35,
-      "active_parameters_billion_approx": 3,
-      "checkpoint_bytes_estimate": null,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "user_reports_already_running",
-      "excluded_from_current_scope": false,
-      "sources": [],
-      "notes": [
-        "Actual publisher, served alias, runtime and artifact size need inventory."
-      ]
-    },
-    {
-      "id": "deepseek-v41-flash-225",
-      "name": "DeepSeek V4.1 Flash 2.25bpw full six experts",
-      "role": "large_model_engine_control",
-      "total_parameters_billion_approx": null,
-      "checkpoint_bytes_estimate": 274000000000,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "author_cli_report_on_experimental_uma_branch",
-      "excluded_from_current_scope": false,
-      "sources": [
-        "https://github.com/Niko1221/Strata/blob/main/docs/DEEPSEEK41.md",
-        "https://github.com/Niko1221/Strata/pull/5453"
-      ],
-      "notes": [
-        "Pack includes Engram and drafter. Normalize parameter scope before ranking.",
-        "Freeze full six routed experts, precision and expert profile; default Faster changes expert count.",
-        "2.25bpw source/pack duplication during preparation must be measured."
-      ]
-    },
-    {
-      "id": "deepseek-v4-pro-iq1s",
-      "name": "DeepSeek V4 Pro IQ1_S",
-      "role": "trillion_parameter_reproduction",
-      "total_parameters_billion_approx": 1600,
-      "checkpoint_bytes_estimate": 337000000000,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "individual_gx10_cpu_mmap_short_output_report",
-      "excluded_from_current_scope": false,
-      "sources": [
-        "https://github.com/epappas/gx10-cluster/blob/main/workspaces/inference/llamacpp-deepseek-v4-pro-gguf/README.md"
-      ],
-      "notes": [
-        "Published success used CPU+mmap, not GPU acceleration. General quality is unvalidated.",
-        "Parameter count is approximate until the exact revision and component scope are audited."
-      ]
-    },
-    {
-      "id": "kimi-k3-iq1s-xs",
-      "name": "Kimi K3 IQ1_S-XS (all 896 experts)",
-      "role": "maximum_parameter_exploratory_candidate",
-      "total_parameters_billion_approx": 2800,
-      "active_parameters_billion_approx": 104,
-      "checkpoint_bytes_estimate": 579498462413,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "single_gb10_execution_not_verified",
-      "excluded_from_current_scope": false,
-      "sources": [
-        "https://huggingface.co/qtum/Kimi-K3-GGUF",
-        "https://huggingface.co/6block/Kimi-K3-GGUF"
-      ],
-      "notes": [
-        "About 539.7 GiB (~579.5 decimal GB), 34 shards. Select only this quant.",
-        "Author measurements used much larger RAM hardware; storage fit does not establish GB10 execution.",
-        "Exclude IQ1_S-XXS-832e, which removes experts."
-      ]
-    },
-    {
-      "id": "kimi-k3-unsloth-iq1s",
-      "name": "Kimi K3 Unsloth UD-IQ1_S",
-      "role": "alternative_maximum_parameter_quant",
-      "total_parameters_billion_approx": 2800,
-      "active_parameters_billion_approx": 104,
-      "checkpoint_bytes_estimate": 594000000000,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "single_gb10_execution_not_verified",
-      "excluded_from_current_scope": false,
-      "sources": [
-        "https://huggingface.co/unsloth/Kimi-K3-GGUF/tree/main/UD-IQ1_S"
-      ],
-      "notes": [
-        "Alternative to IQ1_S-XS, not an instruction to store both.",
-        "Requires validated architecture, ARM64 backend and bounded memory path."
-      ]
-    },
-    {
-      "id": "kimi-k3-nvfp4-ftw",
-      "name": "Kimi K3 NVFP4/FP8 FTW",
-      "role": "external_reference_out_of_scope",
-      "total_parameters_billion_approx": 2800,
-      "active_parameters_billion_approx": 104,
-      "checkpoint_bytes_estimate": 1610936311808,
-      "additional_preparation_bytes_estimate": null,
-      "checkpoint_revision": null,
-      "engine_revision": null,
-      "gb10_evidence": "published_single_128gb_gb10_capacity_only",
-      "excluded_from_current_scope": true,
-      "sources": [
-        "https://huggingface.co/oakmindai/Kimi-K3-NVFP4-FTW",
-        "https://github.com/sixteen-miles-labs/sparklab/blob/main/benchmarks/gb10/results/GB10-KIMI-001.json"
-      ],
-      "notes": [
-        "Artifact alone exceeds the user's 1 TB SSD; not a current download candidate.",
-        "Published speed/TTFT must not be reused for low-bit GGUF candidates."
-      ]
-    }
-  ]
+  {
+   "id": "deepseek-v41-flash-225",
+   "name": "DeepSeek V4.1 Flash 2.25bpw full six experts",
+   "role": "large_model_engine_control",
+   "total_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 274000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "author_cli_report_on_experimental_uma_branch",
+   "excluded_from_current_scope": false,
+   "sources": [
+    "https://github.com/Niko1221/Strata/blob/main/docs/DEEPSEEK41.md",
+    "https://github.com/Niko1221/Strata/pull/5453"
+   ],
+   "notes": [
+    "Pack includes Engram and drafter. Normalize parameter scope before ranking.",
+    "Freeze full six routed experts, precision and expert profile; default Faster changes expert count.",
+    "2.25bpw source/pack duplication during preparation must be measured."
+   ]
+  },
+  {
+   "id": "deepseek-v4-pro-iq1s",
+   "name": "DeepSeek V4 Pro IQ1_S",
+   "role": "trillion_parameter_reproduction",
+   "total_parameters_billion_approx": 1600,
+   "checkpoint_bytes_estimate": 337000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "individual_gx10_cpu_mmap_short_output_report",
+   "excluded_from_current_scope": false,
+   "sources": [
+    "https://github.com/epappas/gx10-cluster/blob/main/workspaces/inference/llamacpp-deepseek-v4-pro-gguf/README.md"
+   ],
+   "notes": [
+    "Published success used CPU+mmap, not GPU acceleration. General quality is unvalidated.",
+    "Parameter count is approximate until the exact revision and component scope are audited."
+   ]
+  },
+  {
+   "id": "kimi-k3-iq1s-xs",
+   "name": "Kimi K3 IQ1_S-XS (all 896 experts)",
+   "role": "maximum_parameter_exploratory_candidate",
+   "total_parameters_billion_approx": 2800,
+   "active_parameters_billion_approx": 104,
+   "checkpoint_bytes_estimate": 579498462413,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "single_gb10_execution_not_verified",
+   "excluded_from_current_scope": false,
+   "sources": [
+    "https://huggingface.co/qtum/Kimi-K3-GGUF",
+    "https://huggingface.co/6block/Kimi-K3-GGUF"
+   ],
+   "notes": [
+    "About 539.7 GiB (~579.5 decimal GB), 34 shards. Select only this quant.",
+    "Author measurements used much larger RAM hardware; storage fit does not establish GB10 execution.",
+    "Exclude IQ1_S-XXS-832e, which removes experts."
+   ]
+  },
+  {
+   "id": "kimi-k3-unsloth-iq1s",
+   "name": "Kimi K3 Unsloth UD-IQ1_S",
+   "role": "alternative_maximum_parameter_quant",
+   "total_parameters_billion_approx": 2800,
+   "active_parameters_billion_approx": 104,
+   "checkpoint_bytes_estimate": 594000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "single_gb10_execution_not_verified",
+   "excluded_from_current_scope": false,
+   "sources": [
+    "https://huggingface.co/unsloth/Kimi-K3-GGUF/tree/main/UD-IQ1_S"
+   ],
+   "notes": [
+    "Alternative to IQ1_S-XS, not an instruction to store both.",
+    "Requires validated architecture, ARM64 backend and bounded memory path."
+   ]
+  },
+  {
+   "id": "kimi-k3-nvfp4-ftw",
+   "name": "Kimi K3 NVFP4/FP8 FTW",
+   "role": "external_reference_out_of_scope",
+   "total_parameters_billion_approx": 2800,
+   "active_parameters_billion_approx": 104,
+   "checkpoint_bytes_estimate": 1610936311808,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "gb10_evidence": "published_single_128gb_gb10_capacity_only",
+   "excluded_from_current_scope": true,
+   "sources": [
+    "https://huggingface.co/oakmindai/Kimi-K3-NVFP4-FTW",
+    "https://github.com/sixteen-miles-labs/sparklab/blob/main/benchmarks/gb10/results/GB10-KIMI-001.json"
+   ],
+   "notes": [
+    "Artifact alone exceeds the user's 1 TB SSD; not a current download candidate.",
+    "Published speed/TTFT must not be reused for low-bit GGUF candidates."
+   ]
+  },
+  {
+   "id": "qwen38fn-iq3s",
+   "name": "Qwen3.8-Flash-Next IQ3_S (ISTA-DASLab GSQ-RCO)",
+   "role": "measured_reference",
+   "total_parameters_billion_approx": 125,
+   "active_parameters_billion_approx": 6,
+   "checkpoint_bytes_estimate": 83617662656,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "strata",
+   "license": "qwen-community-1.0",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"
+   ],
+   "notes": [
+    "Measured 2026-11-12 (64K, vision, 128K)."
+   ]
+  },
+  {
+   "id": "gpt-oss-120b",
+   "name": "gpt-oss-120b MXFP4",
+   "role": "stable_text_control",
+   "total_parameters_billion_approx": 117,
+   "active_parameters_billion_approx": 5.1,
+   "checkpoint_bytes_estimate": 65000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "vllm",
+   "license": "apache-2.0",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/openai/gpt-oss-120b"
+   ],
+   "notes": [
+    "Text only. Repo also holds original/ and metal/ copies; download only the MXFP4 weights."
+   ]
+  },
+  {
+   "id": "nemotron3-super-nvfp4",
+   "name": "NVIDIA Nemotron-3-Super-120B-A12B NVFP4",
+   "role": "vendor_optimized_mid",
+   "total_parameters_billion_approx": 120,
+   "active_parameters_billion_approx": 12,
+   "checkpoint_bytes_estimate": 80400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "vllm",
+   "license": "nvidia-nemotron-open-model-license",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4"
+   ],
+   "notes": [
+    "Text only."
+   ]
+  },
+  {
+   "id": "qwen38-27b-fp8",
+   "name": "Qwen3.8-27B FP8 (dense)",
+   "role": "dense_quality_reference",
+   "total_parameters_billion_approx": 27.8,
+   "active_parameters_billion_approx": 27.8,
+   "checkpoint_bytes_estimate": 30900000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "vllm",
+   "license": "apache-2.0",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
+   ],
+   "notes": [
+    "Dense: expect lower decode speed than MoE of similar size."
+   ]
+  },
+  {
+   "id": "glm53-flash-udq2kxl",
+   "name": "GLM-5.3-Flash UD-Q2_K_XL",
+   "role": "large_permissive_license",
+   "total_parameters_billion_approx": 321,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 108700000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "llama.cpp",
+   "license": "mit",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/zai-org/GLM-5.3-Flash",
+    "https://huggingface.co/unsloth/GLM-5.3-Flash-GGUF"
+   ],
+   "notes": [
+    "Vision model; low-bit only on one GB10."
+   ]
+  },
+  {
+   "id": "minimax-m31-flash-udiq2xxs",
+   "name": "MiniMax-M3.1-Flash UD-IQ2_XXS",
+   "role": "large_recent",
+   "total_parameters_billion_approx": null,
+   "active_parameters_billion_approx": null,
+   "checkpoint_bytes_estimate": 134900000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "llama.cpp",
+   "license": "minimax-community",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash",
+    "https://huggingface.co/unsloth/MiniMax-M3.1-Flash-GGUF"
+   ],
+   "notes": [
+    "HF safetensors metadata reports 220.5B; parameter scope not verified against the 135 GB 2-bit artifact."
+   ]
+  },
+  {
+   "id": "qwen38fn-udq4kxl",
+   "name": "Qwen3.8-Flash-Next UD-Q4_K_XL",
+   "role": "precision_axis",
+   "total_parameters_billion_approx": 125,
+   "active_parameters_billion_approx": 6,
+   "checkpoint_bytes_estimate": 111000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "strata",
+   "license": "qwen-community-1.0",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF"
+   ],
+   "notes": [
+    "Precision comparison against IQ3_S; Strata lists UD packs, Spark support untested in its docs."
+   ]
+  },
+  {
+   "id": "qwen38fn-q8",
+   "name": "Qwen3.8-Flash-Next Q8_0",
+   "role": "precision_reference",
+   "total_parameters_billion_approx": 125,
+   "active_parameters_billion_approx": 6,
+   "checkpoint_bytes_estimate": 188000000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "strata",
+   "license": "qwen-community-1.0",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF"
+   ],
+   "notes": [
+    "Near-original reference; experts exceed RAM, read partly from SSD."
+   ]
+  },
+  {
+   "id": "qwen38-24t-udiq1s",
+   "name": "Qwen3.8-2.4T-A95B UD-IQ1_S",
+   "role": "maximum_parameter_exploratory_candidate",
+   "total_parameters_billion_approx": 2446,
+   "active_parameters_billion_approx": 95,
+   "checkpoint_bytes_estimate": 508400000000,
+   "additional_preparation_bytes_estimate": null,
+   "checkpoint_revision": null,
+   "engine_revision": null,
+   "planned_engine": "llama.cpp",
+   "license": "qwen3.8-max",
+   "excluded_from_current_scope": false,
+   "added_on": "2026-11-12",
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+    "https://huggingface.co/unsloth/Qwen3.8-2.4T-A95B-GGUF"
+   ],
+   "notes": [
+    "Smaller 2T-class alternative to Kimi K3; llama.cpp architecture support to be confirmed before download."
+   ]
+  }
+ ]
 }
