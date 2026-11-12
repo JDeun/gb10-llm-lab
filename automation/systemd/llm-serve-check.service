@@ -1,0 +1,7 @@
+[Unit]
+Description=Health check for the default LLM server
+
+[Service]
+Type=oneshot
+ExecStart=%h/llm/tools/serve-default.sh check
+TimeoutStartSec=900

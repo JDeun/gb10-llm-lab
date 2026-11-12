@@ -102,3 +102,53 @@
 colibri 전용 극한 후보: Mistral-Large-4 1T (233 GB), GLM-5.3 744B (217 GB), Inkling 975B UD-IQ1_M (285 GB), MiMo-V2.6 Pro 1.02T 2.0bpw (256 GB), MiMo-V2.6 Flash 309B Q2_K (126 GB).
 
 엔진은 InferSSD 0.1.4, ik_llama.cpp(ARM에서 `-DGGML_NATIVE=OFF -DGGML_ARCH_FLAGS=-mcpu=native`, 이슈 #2651), colibri(`coli import` → `build` → `serve`)를 GB10에 설치했습니다.
+
+## 현재 실행 큐 전체 (`configs/queue.json`, 2026-11-12)
+
+무인 실행기가 이 순서로 처리합니다. 이 표는 `configs/queue.json`에서 생성했으며, 큐가 바뀌면 함께 갱신합니다. 측정 단계와 프로필 정의는 [automation.md](automation.md)에 있습니다.
+
+| # | 항목 ID | 엔진 | 프로필 | 받는 파일 | 크기 | 이미지 검사 | 입력 길이 단계 |
+|---|---|---|---|---|---:|---|---|
+| 1 | `strata-deepseek-v41-flash-200bpw` | strata | standard | ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF (IST-DAS 2.00bpw) · 엔진 기본 | 257 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 2 | `vllm-gpt-oss-120b` | vllm | full | openai/gpt-oss-120b · 엔진 기본 | 65 GB | - | 512 / 2k / 8k / 32k / 60k |
+| 3 | `vllm-nemotron3-super-120b-nvfp4` | vllm | full | nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4 · 엔진 기본 | 80 GB | - | 512 / 2k / 8k / 32k / 60k |
+| 4 | `vllm-qwen38-27b-fp8` | vllm | full | Qwen/Qwen3.8-27B-FP8 · 엔진 기본 | 31 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 5 | `vllm-nemotron3-super-120b-nvfp4-reasoning-parser` | vllm | full | nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4 · 엔진 기본 | 80 GB | - | 512 / 2k / 8k / 32k / 60k |
+| 6 | `vllm-gemma4-26b-a4b` | vllm | full | google/gemma-4-26B-A4B-it · 엔진 기본 | 52 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 7 | `vllm-ornith-1.0-35b` | vllm | full | ornith-ai/Ornith-1.0-35B · 엔진 기본 | 70 GB | - | 512 / 2k / 8k / 32k / 60k |
+| 8 | `vllm-qwen36-27b-fp8` | vllm | full | Qwen/Qwen3.6-27B-FP8 · 엔진 기본 | 31 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 9 | `llamacpp-qwen36-35b-udq4kxl` | llamacpp | standard | unsloth/Qwen3.6-35B-A3B-GGUF · Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf | 22 GB | - | 512 / 2k / 8k / 32k |
+| 10 | `ikllama-qwen36-35b-udq4kxl` | ikllama | standard | unsloth/Qwen3.6-35B-A3B-GGUF · Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf | 22 GB | - | 512 / 2k / 8k / 32k |
+| 11 | `inferssd-qwen36-35b-udq4kxl` | inferssd | standard | unsloth/Qwen3.6-35B-A3B-GGUF · Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf | 22 GB | - | 512 / 2k / 8k / 32k |
+| 12 | `colibri-qwen36-35b-udq4kxl` | colibri | standard | unsloth/Qwen3.6-35B-A3B-GGUF · Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf | 22 GB | - | 512 / 2k / 8k / 32k |
+| 13 | `vllm-kr-exaone-4.5-33b-awq` | vllm | full | LGAI-EXAONE/EXAONE-4.5-33B-AWQ · 엔진 기본 | 23 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 14 | `vllm-kr-hyperclovax-seed-think-32b` | vllm | full | naver-hyperclovax/HyperCLOVAX-SEED-Think-32B · 엔진 기본 | 67 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 15 | `vllm-kr-gravity-30b-a5b` | vllm | full | trillionlabs/Gravity-30B-A5B-Preview · 엔진 기본 | 59 GB | - | 512 / 2k / 8k / 32k / 60k |
+| 16 | `llamacpp-kr-solar-open-100b-q4km` | llamacpp | slow | mradermacher/Solar-Open-100B-GGUF · Solar-Open-100B.Q4_K_M.gguf | 62 GB | - | 512 / 2k / 8k |
+| 17 | `llamacpp-ling-3.0-flash-q4km` | llamacpp | slow | AtomicChat/Ling-3.0-flash-GGUF · Q4_K_M_STOCK/* | 75 GB | - | 512 / 2k / 8k |
+| 18 | `llamacpp-glm53-flash-udq2kxl` | llamacpp | slow | unsloth/GLM-5.3-Flash-GGUF · UD-Q2_K_XL/* | 109 GB | - | 512 / 2k / 8k |
+| 19 | `ikllama-glm53-flash-udq2kxl` | ikllama | slow | unsloth/GLM-5.3-Flash-GGUF · UD-Q2_K_XL/* | 109 GB | - | 512 / 2k / 8k |
+| 20 | `colibri-glm53-flash-udq2kxl` | colibri | slow | unsloth/GLM-5.3-Flash-GGUF · UD-Q2_K_XL/* | 109 GB | - | 512 / 2k / 8k |
+| 21 | `llamacpp-minimax-m31-flash-udiq2xxs` | llamacpp | slow | unsloth/MiniMax-M3.1-Flash-GGUF · UD-IQ2_XXS/* | 135 GB | - | 512 / 2k / 8k |
+| 22 | `llamacpp-kr-solar-open2-250b-q2k` | llamacpp | slow | prometheusAIR/Solar-Open2-250B-GGUF · Q2_K/* | 95 GB | - | 512 / 2k / 8k |
+| 23 | `vllm-mistral-medium-3.5-128b-nvfp4` | vllm | slow | nvidia/Mistral-Medium-3.5-128B-NVFP4 · 엔진 기본 | 95 GB | - | 512 / 2k / 8k |
+| 24 | `strata-qwen38fn-udq4kxl` | strata | standard | unsloth/Qwen3.8-Flash-Next-GGUF (UD-Q4_K_XL) · 엔진 기본 | 111 GB | - | 512 / 2k / 8k / 32k |
+| 25 | `strata-qwen38fn-q8` | strata | standard | unsloth/Qwen3.8-Flash-Next-GGUF (Q8_0) · 엔진 기본 | 188 GB | - | 512 / 2k / 8k / 32k |
+| 26 | `strata-deepseek-v41-flash-225bpw` | strata | standard | ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF (IST-DAS 2.25bpw) · 엔진 기본 | 274 GB | O | 512 / 2k / 8k / 32k / 60k |
+| 27 | `llamacpp-nemotron3-ultra-550b-udiq2xxs` | llamacpp | capacity | unsloth/NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF · UD-IQ2_XXS/* | 194 GB | - | 512 |
+| 28 | `llamacpp-kr-ax-k2-iq4xs` | llamacpp | capacity | skt/A.X-K2-GGUF · A.X-K2-IQ4_XS.gguf | 370 GB | - | 512 |
+| 29 | `inferssd-qwen38fn-iq4xs` | inferssd | standard | bartowski/Qwen3.8-Flash-Next-GGUF · 엔진 기본 | 100 GB | - | 512 / 2k / 8k / 32k |
+| 30 | `inferssd-deepseek-v41-flash-q8` | inferssd | slow | mrfakename/DeepSeek-V4.1-Flash-1017-GGUF · 엔진 기본 | 505 GB | - | 512 / 2k / 8k |
+| 31 | `inferssd-muse-spark-open-816b` | inferssd | slow | unsloth/Muse-Spark-Open-816B-A42B-GGUF · UD-Q4_K_XL/* | 505 GB | - | 512 / 2k / 8k |
+| 32 | `colibri-muse-spark-open-816b-udq4kxl` | colibri | slow | unsloth/Muse-Spark-Open-816B-A42B-GGUF · UD-Q4_K_XL/* | 505 GB | - | 512 / 2k / 8k |
+| 33 | `llamacpp-muse-spark-open-816b-udq4kxl` | llamacpp | slow | unsloth/Muse-Spark-Open-816B-A42B-GGUF · UD-Q4_K_XL/* | 505 GB | - | 512 / 2k / 8k |
+| 34 | `llamacpp-qwen38-24t-udiq1s` | llamacpp | capacity | unsloth/Qwen3.8-2.4T-A95B-GGUF · UD-IQ1_S/* | 508 GB | - | 512 |
+| 35 | `ikllama-qwen38-24t-udiq1s` | ikllama | capacity | unsloth/Qwen3.8-2.4T-A95B-GGUF · UD-IQ1_S/* | 508 GB | - | 512 |
+| 36 | `colibri-mistral-large-4-1t-udiq1s` | colibri | capacity | unsloth/Mistral-Large-4-1T-A52B-GGUF · UD-IQ1_S/* | 233 GB | - | 512 |
+| 37 | `colibri-glm-5.3-744b-udiq1s` | colibri | capacity | unsloth/GLM-5.3-GGUF · UD-IQ1_S/* | 217 GB | - | 512 |
+| 38 | `colibri-mimo-v2.6-flash-q2k` | colibri | slow | ggml-org/MiMo-V2.6-Flash-RL-GGUF · MiMo-V2.6-Flash-RL-Q2_K.gguf | 126 GB | - | 512 / 2k / 8k |
+| 39 | `colibri-inkling-975b-udiq1m` | colibri | capacity | unsloth/inkling-GGUF · UD-IQ1_M/* | 285 GB | - | 512 |
+| 40 | `colibri-mimo-v2.6-pro-1t-bpw2` | colibri | capacity | AesSedai/MiMo-V2.6-Pro-MOPD-GGUF · BPW2.0/* | 256 GB | - | 512 |
+| 41 | `llamacpp-kimi-k3-iq1s-xs` | llamacpp | capacity | qtum/Kimi-K3-GGUF · Kimi-K3-IQ1_S-XS-* | 579 GB | - | 512 |
+| 42 | `ikllama-kimi-k3-iq1s-xs` | ikllama | capacity | qtum/Kimi-K3-GGUF · Kimi-K3-IQ1_S-XS-* | 579 GB | - | 512 |
+| 43 | `colibri-kimi-k3-iq1s-xs` | colibri | capacity | qtum/Kimi-K3-GGUF · Kimi-K3-IQ1_S-XS-* | 579 GB | - | 512 |

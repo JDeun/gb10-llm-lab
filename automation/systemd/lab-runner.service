@@ -1,0 +1,15 @@
+[Unit]
+Description=GB10 LLM lab experiment queue runner
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/llm/tools
+ExecStart=/usr/bin/python3 %h/llm/tools/lab_runner.py
+Restart=on-failure
+RestartSec=60
+StandardOutput=append:%h/llm/logs/lab-runner.log
+StandardError=append:%h/llm/logs/lab-runner.log
+
+[Install]
+WantedBy=default.target
