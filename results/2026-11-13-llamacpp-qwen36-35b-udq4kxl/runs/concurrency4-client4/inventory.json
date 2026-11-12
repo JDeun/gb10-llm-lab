@@ -1,0 +1,98 @@
+{
+  "captured_utc": "2026-11-12T17:48:28.467165+00:00",
+  "scope": "benchmark_client_host",
+  "inference_server_is_this_host": null,
+  "platform": {
+    "system": "Linux",
+    "machine": "aarch64",
+    "kernel": "7.0.0-1025-nvidia",
+    "python": "3.12.3",
+    "logical_cpus": 20
+  },
+  "memory": {
+    "timestamp_utc": "2026-11-12T17:48:28.467382+00:00",
+    "monotonic_s": 48030.551460467,
+    "scope": "whole_system_not_model_process",
+    "host_scope": "benchmark_client_host",
+    "meminfo_kib": {
+      "MemTotal": 127533208,
+      "MemAvailable": 97522908,
+      "Cached": 25584704,
+      "SwapTotal": 16777212,
+      "SwapFree": 16203640,
+      "Dirty": 1644,
+      "Writeback": 0
+    },
+    "vmstat_counters": {
+      "pswpin": 1838144,
+      "pswpout": 3861542,
+      "pgmajfault": 2002480,
+      "oom_kill": 0
+    },
+    "io_pressure": "some avg10=0.00 avg60=0.32 avg300=0.36 total=348363446\nfull avg10=0.00 avg60=0.31 avg300=0.36 total=347171621",
+    "disk_counters": {
+      "nvme0n1": {
+        "read_bytes": 1576658238976,
+        "write_bytes": 722305197056,
+        "io_ms": 1358576
+      },
+      "nvme0n1p1": {
+        "read_bytes": 9952768,
+        "write_bytes": 1024,
+        "io_ms": 24
+      },
+      "nvme0n1p2": {
+        "read_bytes": 5496832,
+        "write_bytes": 0,
+        "io_ms": 13
+      },
+      "nvme0n1p3": {
+        "read_bytes": 1576640344064,
+        "write_bytes": 722305196032,
+        "io_ms": 1642633
+      }
+    }
+  },
+  "cgroup_v2": {
+    "memory.max": null,
+    "memory.high": null,
+    "memory.current": null,
+    "memory.swap.max": null,
+    "memory.swap.current": null
+  },
+  "cgroup_v2_read_root": "/sys/fs/cgroup",
+  "cgroup_v2_scope": "values_at_read_root_not_verified_model_process_limits",
+  "disk": {
+    "checked_path": "<user-home>/llm/tools",
+    "total_bytes": 992716673024,
+    "free_bytes": 721889165312
+  },
+  "versions": {
+    "cuda_compiler": {
+      "available": true,
+      "returncode": 0,
+      "output": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Wed_Aug_20_01:57:39_PM_PDT_2025\nCuda compilation tools, release 13.0, V13.0.88\nBuild cuda_13.0.r13.0/compiler.36424714_0"
+    },
+    "strata": {
+      "available": true,
+      "returncode": 0,
+      "output": "strata 0.2.13 (build 0.1.59; python 3.12.15 at <user-home>/.local/share/strata/terminal/0.1.59/python/bin/python3.12)"
+    },
+    "llama_server": {
+      "available": false
+    }
+  },
+  "gpu": {
+    "available": true,
+    "returncode": 0,
+    "output": "NVIDIA GB10, 580.178.04, 30.22, 55"
+  },
+  "notes": [
+    "This inventory and telemetry describe the client host; the inference server may be elsewhere.",
+    "Cgroup values are read at the stated root, not resolved for the model process; ancestor limits may also apply.",
+    "GB10 CPU/GPU share memory: count the pool once.",
+    "nvidia-smi memory can be N/A on GB10; host MemAvailable includes reclaimable memory.",
+    "Do not sum whole-disk and partition counters; other processes affect all system counters.",
+    "This does not inventory model weights, processes, SSH settings, or environment variables."
+  ]
+}
