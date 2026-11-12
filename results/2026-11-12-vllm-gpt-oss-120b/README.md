@@ -56,3 +56,11 @@
 - `concurrency4-summary.json`: `{"clients": 4, "requests": 8, "errors": 0, "wall_s": 16.21, "completion_tokens_total": 2048, "aggregate_completion_tokens_per_s": 126.34, "per_request_e2e_tokens_per_s_median": 32.4848503601086, "note": "Aggregate = all completion tokens / wall time from first start to last end; includes prefill."}`
 
 측정이 끝난 모델 파일은 결과 커밋 후 디스크 확보를 위해 삭제합니다.
+
+## 해석 (2026-11-12 추가)
+
+- **정상 동작:** sanity 512·2048 모두 12/12.
+- **속도:** 단일 요청 e2e 약 **35 tok/s** (커뮤니티 수치 33.5 tok/s와 일치), 4동시 합계 **126 tok/s**(요청당 약 32).
+- **긴 입력 검색 실패:** 682~9,254 토큰은 3/3이지만 **36,704 토큰 1/3, 66,979 토큰 1/3**. 오답은 형식 문제가 아니라 다른 레코드의 코드를 답한 실제 오답입니다(예: 기대 `EFNA-N3ZC` → 응답 `9B8J-2HJ3`). 같은 문제에서 Qwen3.6·Qwen3.8·DeepSeek은 모두 3/3이었습니다.
+- **해석:** 짧은 대화·툴 호출 용도로는 안정적이지만 **30K 토큰 이상 긴 문맥 근거 찾기에는 이 측정에서 신뢰도가 낮습니다.**
+- `artifact.sha256`은 자동 실행 직후 잘못된 해시(캐시 내용 저장소 이름)로 기록되어 같은 날 LFS sha256으로 정정했습니다.
