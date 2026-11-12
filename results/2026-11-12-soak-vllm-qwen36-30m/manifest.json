@@ -1,0 +1,83 @@
+{
+ "schema_version": "1.0",
+ "status": "actual_machine_measurement",
+ "experiment_id": "2026-11-12-vllm-qwen36-35b-a3b-nvfp4",
+ "role": "maximum_capacity_or_fixed_model_speed_or_quality",
+ "hardware": {
+  "device": "NVIDIA GB10",
+  "physical_devices": 1,
+  "memory_bytes": 130594004992,
+  "os": "Ubuntu 24.04.5 LTS",
+  "kernel": "7.0.0-1025-nvidia",
+  "driver": "580.178.04",
+  "cuda": "13.0 (driver-reported runtime family; engine bundles its own CUDA libraries)",
+  "storage_model": "BG7 KIOXIA 1024GB",
+  "storage_path": "<user-home>/.cache/huggingface/hub",
+  "filesystem": "ext4",
+  "available_storage_bytes": 747657904128,
+  "power_profile": "default (not changed)",
+  "ambient_temperature_c": null
+ },
+ "model": {
+  "api_alias": "qwen3.6-35b-a3b",
+  "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "revision": "1355db6a052410cfd62085d94b58866fd0f2c3c5",
+  "artifact_fingerprint": "HF cache blob sha256 (verified on download); see artifact.sha256",
+  "files_digest_manifest": "results/<run>/artifact.sha256",
+  "total_parameters": "~35B (+ vision encoder)",
+  "active_parameters": "~3B per token",
+  "quantization": "NVFP4 routed experts (ModelOpt), other layers per model card",
+  "resident_weight_profile": "all weights in unified memory (21.89 GiB loaded)",
+  "routed_experts_total": null,
+  "routed_experts_per_token": null,
+  "pruned": false
+ },
+ "engine": {
+  "name": "vLLM",
+  "repository": "docker.io/vllm/vllm-openai",
+  "revision": "v0.32.0 (image digest sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34)",
+  "tracked_dirty": false,
+  "patch_digest": null,
+  "build_options": "official arm64 image",
+  "startup_command_without_secrets": "vllm serve nvidia/Qwen3.6-35B-A3B-NVFP4 --served-model-name qwen3.6-35b-a3b --tensor-parallel-size 1 --trust-remote-code --kv-cache-dtype fp8 --attention-backend flashinfer --moe-backend marlin --gpu-memory-utilization 0.4 --max-model-len 262144 --max-num-seqs 4 --max-num-batched-tokens 8192 --enable-chunked-prefill --async-scheduling --enable-prefix-caching --speculative-config {method:mtp,num_speculative_tokens:3,moe_backend:triton} --reasoning-parser qwen3 --tool-call-parser qwen3_xml --enable-auto-tool-choice (API key via env)"
+ },
+ "workload": {
+  "prompt_file_sha256": null,
+  "tokenizer_revision": null,
+  "chat_template_sha256": null,
+  "thinking_mode": "model default (reasoning on)",
+  "context_limit": 262144,
+  "max_output_tokens": null,
+  "temperature": 0,
+  "seed": null,
+  "batch_size": 1,
+  "concurrent_clients": 1,
+  "prefix_cache_policy": "--enable-prefix-caching",
+  "process_cache_state": "warm process after load",
+  "filesystem_cache_state": "unknown_not_assumed_cold"
+ },
+ "runtime": {
+  "draft_model": "built-in MTP head",
+  "speculation": "mtp, 3 speculative tokens",
+  "expert_profile_sha256": null,
+  "expert_profile_readonly": null,
+  "expert_cache_policy": "n/a (all resident)",
+  "expert_cache_capacity": null,
+  "cpu_threads": null,
+  "prefill_chunk": "max-num-batched-tokens 8192",
+  "prefetch_settings": null,
+  "memory_headroom_gib": null,
+  "swap_policy": "system default"
+ },
+ "measurement": {
+  "client": "bench.py",
+  "client_version": "2026-11-12",
+  "engine_log_path": "docker logs vllm-qwen36",
+  "telemetry_scope": "whole_system_not_model_process",
+  "decode_io_measured_separately": false
+ },
+ "notes": [
+  "NVIDIA model-card recommended DGX Spark command minus --load-format fastsafetensors.",
+  "generation_config overrides sampling defaults (temperature 1.0, top_k 20, top_p 0.95) unless the request sets them; bench sends temperature 0."
+ ]
+}
