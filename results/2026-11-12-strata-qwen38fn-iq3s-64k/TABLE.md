@@ -1,0 +1,20 @@
+| part | attempted/planned | complete | correct/graded | truncated | prompt tok (med) | TTFT s (med) | TTFT cold s (max, no cache reuse) | prefill tok/s (engine) | decode tok/s (engine) | e2e tok/s | errors |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| capacity-cap1 | 1/1 | 0 | - | 1 | 210 | 1.46 | 1.46 | 186.2 | 33.7 | 0.69 | - |
+| capacity-cap16 | 1/1 | 0 | - | 1 | 210 | 0.1 | None | 96.7 | 72.3 | 54.66 | - |
+| capacity-cap256 | 1/1 | 0 | - | 1 | 210 | 0.12 | None | 74.0 | 53.7 | 52.76 | - |
+| capacity-cap64 | 1/1 | 0 | - | 1 | 210 | 0.12 | None | 67.3 | 63.2 | 57.89 | - |
+| concurrency4-client1 | 2/2 | 0 | - | 2 | 210 | 0.41 | None | 71.4 | 20.95 | 20.33 | - |
+| concurrency4-client2 | 2/2 | 0 | - | 2 | 210 | 0.34 | None | 76.1 | 20.85 | 20.34 | - |
+| concurrency4-client3 | 2/2 | 0 | - | 2 | 210 | 0.21 | None | 76.5 | 20.65 | 20.37 | - |
+| concurrency4-client4 | 2/2 | 0 | - | 2 | 210 | 0.13 | None | 79.6 | 20.6 | 20.43 | - |
+| context-2k | 3/3 | 3 | 3/3 | 0 | 2906 | 1.66 | 1.73 | 1799.7 | 62.6 | 22.91 | - |
+| context-32k | 3/3 | 3 | 3/3 | 0 | 44945 | 6.45 | 21.48 | 1956.4 | 61.5 | 11.84 | - |
+| context-512 | 3/3 | 3 | 3/3 | 0 | 805 | 1.14 | 1.2 | 735.8 | 67.3 | 24.54 | - |
+| context-60k | 1/3 | 0 | 0/0 | 0 | None | None | None | None | None | None | {'kind': 'http_error', 'status': 400, 'detail': '{"error": { |
+| context-8k | 3/3 | 3 | 3/3 | 0 | 11311 | 5.56 | 5.7 | 2060.4 | 74.2 | 13.62 | - |
+| sanity-2048 | 12/12 | 12 | 12/12 | 0 | 86 | 0.61 | 0.63 | 154.1 | 73.15 | 48.05 | - |
+| sanity-512 | 12/12 | 12 | 12/12 | 0 | 86 | 0.63 | 0.67 | 154.0 | 73.2 | 47.0 | - |
+| throughput-1 | 1/1 | 0 | - | 1 | 210 | 0.87 | 0.87 | 255.2 | 53.0 | 45.17 | - |
+| throughput-2 | 1/1 | 0 | - | 1 | 210 | 0.12 | None | 72.4 | 54.2 | 53.2 | - |
+| throughput-3 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 81.2 | 53.4 | 52.5 | - |

@@ -1,0 +1,83 @@
+{
+ "schema_version": "1.0",
+ "status": "actual_machine_measurement",
+ "experiment_id": "2026-11-12-strata-qwen38fn-iq3s-64k-vision",
+ "role": "maximum_capacity_or_fixed_model_speed_or_quality",
+ "hardware": {
+  "device": "NVIDIA GB10",
+  "physical_devices": 1,
+  "memory_bytes": 130594004992,
+  "os": "Ubuntu 24.04.5 LTS",
+  "kernel": "7.0.0-1025-nvidia",
+  "driver": "580.178.04",
+  "cuda": "13.0 (driver-reported runtime family; engine bundles its own CUDA libraries)",
+  "storage_model": "BG7 KIOXIA 1024GB",
+  "storage_path": "<user-home>/.local/share/strata/Strata-data",
+  "filesystem": "ext4",
+  "available_storage_bytes": 747663241216,
+  "power_profile": "default (not changed)",
+  "ambient_temperature_c": null
+ },
+ "model": {
+  "api_alias": "qwen3.8-flash-next-iq3_s",
+  "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+  "revision": "ed59f92082b1e93c0e96d60a8b11aab089b52f09 (HF main at download; files verified by LFS sha256)",
+  "artifact_fingerprint": "sha256 00001=4c1eb2ceb4915e1192f4..., 00002=316b46f3a2dbd68c900f..., mtp-q2_0=a22206a4d74eafbf3106...",
+  "files_digest_manifest": "results/<run>/artifact.sha256",
+  "total_parameters": "~125B (incl. n-gram PLE table)",
+  "active_parameters": "~6B per token",
+  "quantization": "GSQ-RCO IQ3_S (GGUF); PLE table in 00002 shard",
+  "resident_weight_profile": "all 24,576 experts in GPU cache via mmap; PLE locked in RAM (--ple-io ram)",
+  "routed_experts_total": 24576,
+  "routed_experts_per_token": null,
+  "pruned": false
+ },
+ "engine": {
+  "name": "Strata",
+  "repository": "github.com/Niko1221/Strata",
+  "revision": "release v0.2.13, terminal build 0.1.59, engine 0.1.59-linux-aarch64-cuda-cuda13 (signed feed)",
+  "tracked_dirty": false,
+  "patch_digest": null,
+  "build_options": "prebuilt signed engine package",
+  "startup_command_without_secrets": "strata launch --family qwen --model iq3_s --context 64k --vision gpu --drafting mtp --tune skip --access local --port 8080 --no-tui --yes"
+ },
+ "workload": {
+  "prompt_file_sha256": null,
+  "tokenizer_revision": null,
+  "chat_template_sha256": null,
+  "thinking_mode": "model default (reasoning on)",
+  "context_limit": 65536,
+  "max_output_tokens": null,
+  "temperature": 0,
+  "seed": null,
+  "batch_size": 1,
+  "concurrent_clients": 1,
+  "prefix_cache_policy": "engine default",
+  "process_cache_state": "warm process after load",
+  "filesystem_cache_state": "unknown_not_assumed_cold"
+ },
+ "runtime": {
+  "draft_model": "MTP q2_0 (Strata mtp pack)",
+  "speculation": "--spec 4 --spec-min-p 0.5 --mtp-q4 all --mtp-hnorm stream",
+  "expert_profile_sha256": null,
+  "expert_profile_readonly": null,
+  "expert_cache_policy": "auto, --mmap-experts",
+  "expert_cache_capacity": null,
+  "cpu_threads": null,
+  "prefill_chunk": "auto:32768",
+  "prefetch_settings": null,
+  "memory_headroom_gib": null,
+  "swap_policy": "system default (16 GiB swap present)"
+ },
+ "measurement": {
+  "client": "bench.py",
+  "client_version": "2026-11-12",
+  "engine_log_path": "<user-home>/.local/state/strata/launch/iq3_s-64k.engine.log",
+  "telemetry_scope": "whole_system_not_model_process",
+  "decode_io_measured_separately": false
+ },
+ "notes": [
+  "Vision ON (GPU picture reader, mmproj ~0.9 GB). Otherwise identical to the vision-off run.",
+  "GB10 SM121 speed switches on by default (PF_FUSED PREFILL_NVFP4 HC_UPMIX SIDE_MIXER SPEC_COST)."
+ ]
+}
