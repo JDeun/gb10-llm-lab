@@ -1,0 +1,31 @@
+{
+ "requests": 1158,
+ "errors": 0,
+ "error_kinds": [],
+ "wall_s": 1802.1,
+ "completion_tokens": 296448,
+ "aggregate_tok_s": 164.5,
+ "per_request_e2e_tok_s_by_5min": {
+  "0-5min": 85.4,
+  "5-10min": 85.7,
+  "10-15min": 85.0,
+  "15-20min": 85.5,
+  "20-25min": 85.5,
+  "25-30min": 86.0
+ },
+ "gpu_temp_c": {
+  "min": 50,
+  "max": 69
+ },
+ "power_w": {
+  "median": 30.1,
+  "max": 31.98
+ },
+ "sm_clock_mhz": {
+  "min": 2405,
+  "max": 2411
+ },
+ "mem_available_gib_min": 66.1,
+ "concurrent_clients": 2,
+ "note": "DeepSeek download (~10-45 MB/s Wi-Fi + disk writes) ran during the whole soak."
+}
