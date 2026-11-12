@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "status": "proposed_measurement_policy_not_acceptance_claim",
+  "scope": {
+    "device_count": 1,
+    "storage_nominal_bytes": 1000000000000,
+    "external_compute": false,
+    "external_storage": false
+  },
+  "usability_thresholds": {
+    "min_task_success_rate": null,
+    "min_completion_rate": null,
+    "max_ttft_seconds": null,
+    "min_decode_tokens_per_second": null,
+    "required_context_tokens": null,
+    "max_error_rate": null
+  },
+  "interpretation": "Null is undecided, never a pass. Report a tradeoff table until thresholds are frozen before confirmatory runs.",
+  "stages": {
+    "capacity_output_caps": [
+      1,
+      16,
+      64,
+      256
+    ],
+    "context_tokens_targets": [
+      512,
+      2048,
+      8192
+    ],
+    "capacity_repeats": 1,
+    "performance_pilot_repeats": 1,
+    "performance_confirmatory_pairs": 5,
+    "sustained_best_minutes": 30,
+    "quality_output_budget": null
+  },
+  "invariants_for_speed_ab": [
+    "artifact revision and hashes",
+    "precision and resident profile",
+    "full expert count and routing",
+    "prompt/template/thinking/sampling",
+    "context and concurrent clients",
+    "prefix cache treatment"
+  ],
+  "reporting": {
+    "aborted_runs_eligible_for_usability": false,
+    "sanity_is_general_capability_benchmark": false,
+    "unknown_metrics_are_null": true,
+    "conditional_accuracy_and_budget_success_both_required": true
+  },
+  "storage": {
+    "reserve_gib_default": 64,
+    "additional_preparation_bytes": null,
+    "default_is_planning_margin_not_hardware_requirement": true
+  }
+}

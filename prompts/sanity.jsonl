@@ -1,0 +1,12 @@
+{"id":"arithmetic-01","category":"arithmetic","prompt":"Calculate 36 * 17. Reply only with the integer.","expected_text":"612"}
+{"id":"arithmetic-02","category":"arithmetic","prompt":"Compute 1200 - 468. Reply only with the integer.","expected_text":"732"}
+{"id":"arithmetic-03","category":"arithmetic","prompt":"상자 하나에 공이 24개씩 들어 있습니다. 상자 7개에 들어 있는 공의 총 개수를 숫자만 답하세요.","expected_text":"168"}
+{"id":"arithmetic-04","category":"arithmetic","prompt":"84 divided by 7 plus 9 equals what? Return only the integer.","expected_text":"21"}
+{"id":"extract-01","category":"structured_extraction","prompt":"문장: \"주문 상품은 공책이고 수량은 4개입니다.\" 정보만 추출하세요. 설명이나 코드 블록 없이 JSON 객체만 출력하세요. 키는 item과 count이며 count는 정수입니다.","expected_json":{"item":"공책","count":4}}
+{"id":"extract-02","category":"structured_extraction","prompt":"Record: name=Mira; active=yes; count=2. Return only JSON with keys name (string), active (boolean), count (integer). No code fence.","expected_json":{"name":"Mira","active":true,"count":2}}
+{"id":"extract-03","category":"structured_extraction","prompt":"기록: 온도=25, 단위=C. 다음 두 키를 가진 JSON 객체 하나만 출력하세요: temperature(정수), unit(문자열). 코드 블록과 설명은 쓰지 마세요.","expected_json":{"temperature":25,"unit":"C"}}
+{"id":"extract-04","category":"structured_extraction","prompt":"Return only the JSON object {\"labels\":[\"red\",\"blue\"],\"valid\":false}. Do not add prose or code fences.","expected_json":{"labels":["red","blue"],"valid":false}}
+{"id":"lookup-01","category":"context_lookup","prompt":"Records: ORION=42; LYRA=19; VEGA=77. What is LYRA? Return only the number.","expected_text":"19"}
+{"id":"lookup-02","category":"context_lookup","prompt":"기록: 시료 가의 밀도는 7.2, 시료 나의 밀도는 8.1이다. 시료 가의 밀도 숫자만 답하세요.","expected_text":"7.2"}
+{"id":"lookup-03","category":"context_lookup","prompt":"Document: The first trial used code K17. The second used code M24. The third used code P08. Return only the second trial's code.","expected_text":"M24"}
+{"id":"lookup-04","category":"context_lookup","prompt":"기록: 1차 담당자는 지민, 2차 담당자는 수현, 3차 담당자는 하준이다. 3차 담당자의 이름만 답하세요.","expected_text":"하준"}
