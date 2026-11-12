@@ -70,10 +70,31 @@ def load_json(path: Path, default: dict) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
 
 
-def save_state(state: dict) -> None:
+RESET_FILE = LLM / "queue-reset.txt"  # entry ids to run again, one per line (consumed by the runner)
+
+
+def write_state(state: dict) -> None:
     tmp = STATE.with_suffix(".tmp")
     tmp.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(STATE)
+
+
+def save_record(eid: str, record: dict) -> None:
+    """Merge one entry's record into the file so edits made to other entries meanwhile are kept."""
+    state = load_json(STATE, {})
+    state[eid] = record
+    write_state(state)
+
+
+def apply_resets() -> None:
+    if not RESET_FILE.exists():
+        return
+    ids = {line.strip() for line in RESET_FILE.read_text().splitlines() if line.strip()}
+    state = load_json(STATE, {})
+    for eid in ids & state.keys():
+        log(f"reset {eid} (was {state.pop(eid).get('status')})")
+    write_state(state)
+    RESET_FILE.unlink()
 
 
 # ---------- files and disk ----------
@@ -274,7 +295,9 @@ def start_colibri(entry: dict):
     COLI_MODELS.mkdir(parents=True, exist_ok=True)
     if not model_dir.exists():
         run(["python3", str(COLI), "import", str(shard), "--out", str(model_dir)], timeout=4 * 3600, env=CUDA_ENV)
-    run(["python3", str(COLI), "build", "--model", str(model_dir), "--gpu", "auto"], timeout=4 * 3600, env=CUDA_ENV)
+    # coli build runs make with the Makefile default CUDA=0; force a CUDA rebuild (-B) for this family
+    run(["python3", str(COLI), "build", "--model", str(model_dir)], timeout=4 * 3600,
+        env={**CUDA_ENV, "CUDA": "1", "MAKEFLAGS": "-B"})
     proc = subprocess.Popen(["python3", str(COLI), "serve", "--model", str(model_dir), "--host", "127.0.0.1",
                              "--port", str(PORTS["colibri"]), "--model-id", entry["id"], "--gpu", "auto",
                              "--auto-tier", *entry.get("colibri_args", [])],
@@ -319,7 +342,7 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
     eid = entry["id"]
     record = state.setdefault(eid, {})
     record.update(status="running", started=datetime.now().isoformat(timespec="seconds"))
-    save_state(state)
+    save_record(eid, record)
     before = snapshot_dirs()
     result_dir = LAB / "results" / f"{date.today():%Y-%m-%d}-{eid}"
     failure, alias, evicted = None, None, []
@@ -357,7 +380,7 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
     status = "retry" if retry else ("failed" if failure else "done")
     record.update(status=status, attempts=attempts, failure=failure, removed=removed, evicted=evicted,
                   finished=datetime.now().isoformat(timespec="seconds"), result_dir=result_dir.name)
-    save_state(state)
+    save_record(eid, record)
 
 
 def finish_queue() -> None:
@@ -385,6 +408,7 @@ def main() -> None:
     (LLM / "serve-mode").write_text("none\n")
     while True:
         # re-read both files every entry so queue edits take effect without restarting the runner
+        apply_resets()
         queue, state = load_json(QUEUE, {"entries": []}), load_json(STATE, {})
         pending = pending_entries(queue, state)
         if not pending:
