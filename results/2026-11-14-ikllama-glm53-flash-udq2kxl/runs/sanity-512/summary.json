@@ -1,0 +1,72 @@
+{
+  "request_count": 12,
+  "recorded_requests": 12,
+  "planned_requests": 12,
+  "attempted_requests": 12,
+  "unrecorded_attempts": 0,
+  "unattempted_requests": 0,
+  "request_coverage": 1.0,
+  "run_status": "completed",
+  "final_text_complete_requests": 12,
+  "planned_correctness_requests": 12,
+  "correctness_checked_attempts": 12,
+  "correctness_accuracy_on_completed_answers": 1.0,
+  "correctness_success_rate_on_attempted_requests": 1.0,
+  "correctness_success_rate_on_planned_requests": 1.0,
+  "correctness_evaluation_coverage_on_attempted_requests": 1.0,
+  "transport_failures": 0,
+  "truncated_outputs": 0,
+  "correctness_evaluated": 12,
+  "correctness_passed": 12,
+  "correctness_failed": 0,
+  "correctness_incomplete": 0,
+  "correctness_transport_errors": 0,
+  "correctness_not_evaluated": 0,
+  "metrics": {
+    "elapsed_s": {
+      "n": 12,
+      "median": 9.482260291508283,
+      "p95": 24.602942529635037,
+      "min": 3.031039919005707,
+      "max": 25.128688770986628
+    },
+    "ttft_semantic_s": {
+      "n": 12,
+      "median": 1.376845291000791,
+      "p95": 1.7099736787451547,
+      "min": 1.0417836050037295,
+      "max": 1.7174009640002623
+    },
+    "ttft_visible_answer_s": {
+      "n": 12,
+      "median": 9.152755895003793,
+      "p95": 24.21500299083127,
+      "min": 2.734705849987222,
+      "max": 24.836994950979715
+    },
+    "end_to_end_completion_tokens_per_s": {
+      "n": 12,
+      "median": 5.697094316337601,
+      "p95": 6.174243394793079,
+      "min": 4.115907769412565,
+      "max": 6.1815703336907255
+    },
+    "engine_reported_decode_tokens_per_s": {
+      "n": 12,
+      "median": 6.642748467385458,
+      "p95": 7.009391751441875,
+      "min": 6.561792174473383,
+      "max": 7.036933344659444
+    }
+  },
+  "notes": [
+    "Descriptive summaries, not confidence intervals; a small-n p95 is unstable.",
+    "SSE events are not tokens. Token counts come only from server usage.",
+    "End-to-end throughput includes prefill and network time and is not decode speed.",
+    "Semantic TTFT may be reasoning; visible-answer TTFT is recorded separately.",
+    "Conditional accuracy divides passes by completed, evaluated answers only; always read coverage and success rates alongside it.",
+    "Attempted/planned success rates use ALL requests as their denominators, including incomplete, failed transport and unscored cases. Rates are null if no correctness checks are known.",
+    "Missing planned counts remain null; a detached results file does not establish a complete experiment.",
+    "Repeated identical prompts may reuse server prefix caches; cold cache is never implied."
+  ]
+}
