@@ -619,6 +619,36 @@
    ]
   },
   {
+   "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-64k",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": true,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Transformers backend loads the model; first try needed 36 GiB KV for 131072 tokens with 34 GiB available. 64K context, utilization 0.85."
+   ]
+  },
+  {
    "id": "llamacpp-ling-3.0-flash-q4km",
    "engine": "llamacpp",
    "profile": "slow",
@@ -1317,6 +1347,10 @@
   {
    "id": "Kimi K3 via Strata",
    "reason": "Strata issue #1954 closed not_planned; run via llama.cpp instead"
+  },
+  {
+   "id": "trillionlabs/Gravity-30B-A5B-Preview",
+   "reason": "vLLM 0.32 has no gravity_moe class and the Transformers backend rejects GravityMoEConfig (2026-11-13); no GGUF"
   }
  ]
 }
