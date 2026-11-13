@@ -26,13 +26,13 @@
 
 | part | attempted/planned | complete | correct/graded | truncated | prompt tok (med) | TTFT s (med) | TTFT cold s (max, no cache reuse) | prefill tok/s (engine) | decode tok/s (engine) | e2e tok/s | errors |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| capacity-cap1 | 1/1 | 0 | - | 1 | 123 | 0.21 | None | None | None | 4.74 | - |
-| capacity-cap16 | 1/1 | 0 | - | 1 | 123 | 0.11 | None | None | None | 12.28 | - |
-| capacity-cap64 | 1/1 | 0 | - | 1 | 123 | 0.12 | None | None | None | 12.42 | - |
-| context-512 | 3/3 | 3 | 3/3 | 0 | 733 | 0.17 | None | None | None | 12.21 | - |
-| sanity-mini-512 | 4/4 | 2 | 2/2 | 2 | 25 | 0.12 | None | None | None | 12.46 | - |
-| throughput-1 | 1/1 | 0 | - | 1 | 123 | 0.12 | None | None | None | 12.39 | - |
+| capacity-cap1 | 1/1 | 0 | - | 1 | 123 | 0.2 | None | None | None | 4.93 | - |
+| capacity-cap16 | 1/1 | 0 | - | 1 | 123 | 0.11 | None | None | None | 12.34 | - |
+| capacity-cap64 | 1/1 | 0 | - | 1 | 123 | 0.11 | None | None | None | 12.5 | - |
+| context-512 | 3/3 | 3 | 3/3 | 0 | 733 | 0.17 | None | None | None | 12.23 | - |
+| sanity-mini-512 | 4/4 | 2 | 2/2 | 2 | 25 | 0.11 | None | None | None | 12.41 | - |
+| throughput-1 | 1/1 | 0 | - | 1 | 123 | 0.11 | None | None | None | 12.44 | - |
 
-- `vision-check.json`: `{"cases": 3, "passed": 0, "errors": 0}`
+- `vision-check.json`: `{"cases": 3, "passed": 1, "errors": 0}`
 
 측정이 끝난 모델 파일은 결과 커밋 후 디스크 확보를 위해 삭제합니다.
