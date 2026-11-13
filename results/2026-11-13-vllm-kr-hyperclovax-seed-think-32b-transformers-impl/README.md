@@ -25,7 +25,7 @@
 엔진 로그 끝부분:
 
 ```
-ast one request with the model's max seq len (131072), (36.0 GiB KV cache is needed, which is larger than the available KV cache memory (34.66 GiB). Based on the available memory, the estimated maximum model length is 126176. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+ast one request with the model's max seq len (131072), (36.0 GiB KV cache is needed, which is larger than the available KV cache memory (34.16 GiB). Based on the available memory, the estimated maximum model length is 124368. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
     raise RuntimeError(
 RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
 --- last lines ---
