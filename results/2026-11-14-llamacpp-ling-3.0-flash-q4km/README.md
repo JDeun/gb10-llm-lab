@@ -26,17 +26,17 @@
 
 ```
 rg/llama.cpp/pull/25655)
-0.00.325.700 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
-0.00.461.886 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.0.ssm_f_a.weight' not found
-0.00.461.899 E llama_model_load_from_file_impl: failed to load model
-0.00.462.635 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
-0.00.553.909 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
-0.00.585.660 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.0.ssm_f_a.weight' not found
-0.00.585.665 E llama_model_load_from_file_impl: failed to load model
-0.00.585.670 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
-0.00.585.674 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
-0.00.585.676 I srv    operator(): operator(): cleaning up before exit...
-0.00.588.402 E srv  server_run_i: exiting due to model loading error
+0.00.299.248 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
+0.00.437.161 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.0.ssm_f_a.weight' not found
+0.00.437.174 E llama_model_load_from_file_impl: failed to load model
+0.00.437.202 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
+0.00.532.860 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.00.565.155 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.0.ssm_f_a.weight' not found
+0.00.565.161 E llama_model_load_from_file_impl: failed to load model
+0.00.565.168 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
+0.00.565.173 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--AtomicChat--Ling-3.0-flash-GGUF/snapshots/b0d27aaa5c1bfbc97f353fcb740b286d1de4754e/Q4_K_M_STOCK/Ling-3.0-flash-Q4_K_M_STOCK-00001-of-00002.gguf'
+0.00.565.175 I srv    operator(): operator(): cleaning up before exit...
+0.00.568.338 E srv  server_run_i: exiting due to model loading error
 
 ```
 
