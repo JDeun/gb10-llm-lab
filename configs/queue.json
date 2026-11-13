@@ -271,8 +271,7 @@
    ],
    "llama_args": [
     "-c",
-    "65536",
-    "-fmoe"
+    "65536"
    ],
    "keep_for": [
     "inferssd",
@@ -600,8 +599,7 @@
     "-c",
     "32768",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "keep_for": [
     "colibri"
@@ -1005,8 +1003,7 @@
     "-c",
     "8192",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."
@@ -1179,8 +1176,7 @@
     "-c",
     "8192",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."
