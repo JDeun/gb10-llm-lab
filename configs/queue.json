@@ -271,8 +271,7 @@
    ],
    "llama_args": [
     "-c",
-    "65536",
-    "-fmoe"
+    "65536"
    ],
    "keep_for": [
     "inferssd",
@@ -534,6 +533,92 @@
    ]
   },
   {
+   "id": "vllm-kr-exaone-4.5-33b-awq-vision4k",
+   "engine": "vllm",
+   "profile": "capacity",
+   "vision": true,
+   "repository": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+   "size_bytes": 22800000000,
+   "context": [
+    "512"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1"
+   ],
+   "notes": [
+    "Re-run of the image check with a 4096-token budget: the first run's reasoning used all 1024 tokens on every image (0/3, finish_reason=length)."
+   ],
+   "vision_max_tokens": 4096
+  },
+  {
+   "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-impl",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": true,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.8",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Retry of vllm-kr-hyperclovax-seed-think-32b: vLLM 0.32 has no native class for this architecture; try the Transformers backend."
+   ]
+  },
+  {
+   "id": "vllm-kr-gravity-30b-a5b-transformers-impl",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": false,
+   "repository": "trillionlabs/Gravity-30B-A5B-Preview",
+   "size_bytes": 59100000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.75",
+    "--trust-remote-code",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Retry of vllm-kr-gravity-30b-a5b: vLLM 0.32 has no native class for this architecture; try the Transformers backend."
+   ]
+  },
+  {
    "id": "llamacpp-ling-3.0-flash-q4km",
    "engine": "llamacpp",
    "profile": "slow",
@@ -600,8 +685,7 @@
     "-c",
     "32768",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "keep_for": [
     "colibri"
@@ -1005,8 +1089,7 @@
     "-c",
     "8192",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."
@@ -1179,8 +1262,7 @@
     "-c",
     "8192",
     "-ot",
-    "exps=CPU",
-    "-fmoe"
+    "exps=CPU"
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."

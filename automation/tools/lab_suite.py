@@ -27,7 +27,7 @@ ENGINE_REVISIONS = {
     "vllm": "vllm/vllm-openai:v0.32.0",
     "strata": "Strata v0.2.13 (engine 0.1.59)",
     "llamacpp": "llama.cpp v0.9.0 (cd959ba), CUDA sm_121 build",
-    "ikllama": "ik_llama.cpp main (2a0832d), CUDA sm_121, -march=armv8.6-a+dotprod+i8mm+bf16",
+    "ikllama": "ik_llama.cpp main (2a0832d), CUDA sm_121, -march=armv8.6-a+dotprod+i8mm+bf16+fp16",
     "inferssd": "InferSSD 0.1.4 (261109.216.02ed6a8)",
     "colibri": "colibri main (0a5504a), coli build --gpu auto",
 }
@@ -145,7 +145,8 @@ def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
             outcomes["concurrency4"] = run_concurrency(port, alias, base, step_timeout_s)
         if entry.get("vision") and server_up(port):
             subprocess.run(["python3", str(TOOLS / "vision_check.py"), "--base-url", f"http://127.0.0.1:{port}",
-                            "--model", alias, "--out", str(base / "vision-check.json")],
+                            "--model", alias, "--out", str(base / "vision-check.json"),
+                            "--max-tokens", str(entry.get("vision_max_tokens", 1024))],
                            capture_output=True, timeout=step_timeout_s, check=False)
             outcomes["vision-check"] = "ok"
     finally:

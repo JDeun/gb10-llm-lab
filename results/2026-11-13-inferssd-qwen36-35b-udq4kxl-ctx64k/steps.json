@@ -1,0 +1,12 @@
+{
+ "capacity-cap1": "ok",
+ "capacity-cap16": "ok",
+ "capacity-cap64": "ok",
+ "capacity-cap256": "ok",
+ "sanity-512": "ok",
+ "context-512": "ok",
+ "context-2k": "ok",
+ "context-8k": "ok",
+ "context-32k": "ok",
+ "throughput-1": "server_down_before_step"
+}
