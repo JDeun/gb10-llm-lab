@@ -533,6 +533,32 @@
    ]
   },
   {
+   "id": "vllm-kr-exaone-4.5-33b-awq-vision4k",
+   "engine": "vllm",
+   "profile": "capacity",
+   "vision": true,
+   "repository": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+   "size_bytes": 22800000000,
+   "context": [
+    "512"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1"
+   ],
+   "notes": [
+    "Re-run of the image check with a 4096-token budget: the first run's reasoning used all 1024 tokens on every image (0/3, finish_reason=length)."
+   ],
+   "vision_max_tokens": 4096
+  },
+  {
    "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-impl",
    "engine": "vllm",
    "profile": "full",

@@ -145,7 +145,8 @@ def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
             outcomes["concurrency4"] = run_concurrency(port, alias, base, step_timeout_s)
         if entry.get("vision") and server_up(port):
             subprocess.run(["python3", str(TOOLS / "vision_check.py"), "--base-url", f"http://127.0.0.1:{port}",
-                            "--model", alias, "--out", str(base / "vision-check.json")],
+                            "--model", alias, "--out", str(base / "vision-check.json"),
+                            "--max-tokens", str(entry.get("vision_max_tokens", 1024))],
                            capture_output=True, timeout=step_timeout_s, check=False)
             outcomes["vision-check"] = "ok"
     finally:
