@@ -14,12 +14,12 @@
   "storage_model": "BG7 KIOXIA 1024GB",
   "storage_path": "<user-home>/.",
   "filesystem": "ext4",
-  "available_storage_bytes": 718957563904,
+  "available_storage_bytes": 716625346560,
   "power_profile": "default (not changed)",
   "ambient_temperature_c": null
  },
  "model": {
-  "api_alias": null,
+  "api_alias": "colibri-qwen36-35b-udq4kxl",
   "repository": "unsloth/Qwen3.6-35B-A3B-GGUF",
   "revision": null,
   "artifact_fingerprint": null,
@@ -39,7 +39,7 @@
   "tracked_dirty": null,
   "patch_digest": null,
   "build_options": null,
-  "startup_command_without_secrets": "--ctx 32768"
+  "startup_command_without_secrets": "--ctx 65536"
  },
  "workload": {
   "prompt_file_sha256": null,
