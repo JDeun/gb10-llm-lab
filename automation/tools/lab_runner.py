@@ -328,7 +328,11 @@ def stop_servers() -> None:
 
 def engine_log_tail(entry: dict) -> str:
     if entry["engine"] == "vllm":
-        return run(["docker", "logs", "--tail", "40", "lab-vllm"], check=False).stderr[-3000:]
+        logs = run(["docker", "logs", "--tail", "400", "lab-vllm"], check=False)
+        lines = (logs.stdout + logs.stderr).splitlines()
+        # keep the root-cause lines (vLLM prints the real error long before the final RuntimeError)
+        errors = [ln for ln in lines if any(k in ln for k in ("Error", "error", "not supported", "Exception"))]
+        return "\n".join(errors[-25:] + ["--- last lines ---"] + lines[-15:])[-4000:]
     if entry["engine"] != "strata":
         path = LLM / "logs" / f"{entry['id']}.server.log"
         return path.read_text(errors="ignore")[-3000:] if path.exists() else ""
