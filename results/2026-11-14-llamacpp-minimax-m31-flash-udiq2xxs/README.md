@@ -26,16 +26,16 @@
 
 ```
 o API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
-0.00.289.403 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
-0.00.443.587 E llama_model_load: error loading model: done_getting_tensors: wrong number of tensors; expected 1188, got 1176
-0.00.443.599 E llama_model_load_from_file_impl: failed to load model
-0.00.443.717 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
-0.00.582.768 E llama_model_load: error loading model: done_getting_tensors: wrong number of tensors; expected 1188, got 1176
-0.00.582.773 E llama_model_load_from_file_impl: failed to load model
-0.00.582.780 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
-0.00.582.784 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
-0.00.582.786 I srv    operator(): operator(): cleaning up before exit...
-0.00.585.139 E srv  server_run_i: exiting due to model loading error
+0.00.299.476 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
+0.00.492.317 E llama_model_load: error loading model: done_getting_tensors: wrong number of tensors; expected 1188, got 1176
+0.00.492.330 E llama_model_load_from_file_impl: failed to load model
+0.00.492.423 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
+0.00.663.627 E llama_model_load: error loading model: done_getting_tensors: wrong number of tensors; expected 1188, got 1176
+0.00.663.634 E llama_model_load_from_file_impl: failed to load model
+0.00.663.641 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
+0.00.663.645 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--unsloth--MiniMax-M3.1-Flash-GGUF/snapshots/b17b7f5459c0b8f127ea12ee774409b282521d6a/UD-IQ2_XXS/MiniMax-M3.1-Flash-UD-IQ2_XXS-00001-of-00004.gguf'
+0.00.663.647 I srv    operator(): operator(): cleaning up before exit...
+0.00.665.667 E srv  server_run_i: exiting due to model loading error
 
 ```
 
