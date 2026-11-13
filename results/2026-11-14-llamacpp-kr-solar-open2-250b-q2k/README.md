@@ -26,17 +26,17 @@
 
 ```
 sity = 3 (adjust with the `-lv N` CLI arg)
-0.00.287.592 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
-0.00.289.740 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
-0.00.331.757 E llama_model_load: error loading model: unknown model architecture: 'solar-open2'
-0.00.331.766 E llama_model_load_from_file_impl: failed to load model
-0.00.331.797 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
-0.00.371.878 E llama_model_load: error loading model: unknown model architecture: 'solar-open2'
-0.00.371.895 E llama_model_load_from_file_impl: failed to load model
-0.00.371.901 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
-0.00.371.904 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
-0.00.371.906 I srv    operator(): operator(): cleaning up before exit...
-0.00.374.370 E srv  server_run_i: exiting due to model loading error
+0.00.288.180 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.290.272 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
+0.00.333.732 E llama_model_load: error loading model: unknown model architecture: 'solar-open2'
+0.00.333.740 E llama_model_load_from_file_impl: failed to load model
+0.00.333.769 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
+0.00.367.125 E llama_model_load: error loading model: unknown model architecture: 'solar-open2'
+0.00.367.142 E llama_model_load_from_file_impl: failed to load model
+0.00.367.146 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
+0.00.367.150 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--prometheusAIR--Solar-Open2-250B-GGUF/snapshots/9b867c45474d13b73d927cdcee412b0ff6459feb/Q2_K/Solar-Open2-250B-Q2_K-00001-of-00003.gguf'
+0.00.367.151 I srv    operator(): operator(): cleaning up before exit...
+0.00.370.287 E srv  server_run_i: exiting due to model loading error
 
 ```
 
