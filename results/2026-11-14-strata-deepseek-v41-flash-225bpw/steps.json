@@ -1,0 +1,17 @@
+{
+ "capacity-cap1": "ok",
+ "capacity-cap16": "ok",
+ "capacity-cap64": "ok",
+ "capacity-cap256": "ok",
+ "sanity-512": "ok",
+ "context-512": "ok",
+ "context-2k": "ok",
+ "context-8k": "ok",
+ "context-32k": "ok",
+ "context-60k": "ok",
+ "throughput-1": "ok",
+ "throughput-2": "ok",
+ "throughput-3": "ok",
+ "concurrency4": "ok",
+ "vision-check": "ok"
+}
