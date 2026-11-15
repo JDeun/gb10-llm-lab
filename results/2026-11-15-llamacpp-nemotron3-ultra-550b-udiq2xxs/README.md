@@ -25,10 +25,10 @@
 엔진 로그 끝부분:
 
 ```
-0.00.327.957 I srv  llama_server: initializing ...
-0.00.327.969 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
-0.00.329.718 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
-0.00.332.076 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF/snapshots/2fb7d5b3f4eae7aedb18b4839b6a6300111e46f6/UD-IQ2_XXS/NVIDIA-Nemotron-3-Ultra-550B-A55B-UD-IQ2_XXS-00001-of-00005.gguf'
+0.00.341.584 I srv  llama_server: initializing ...
+0.00.341.596 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.343.409 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.345.951 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF/snapshots/2fb7d5b3f4eae7aedb18b4839b6a6300111e46f6/UD-IQ2_XXS/NVIDIA-Nemotron-3-Ultra-550B-A55B-UD-IQ2_XXS-00001-of-00005.gguf'
 
 ```
 
