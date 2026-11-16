@@ -409,6 +409,39 @@ def pending_entries(queue: dict, state: dict) -> list[dict]:
     return [e for e in queue["entries"] if state.get(e["id"], {}).get("status") not in ("done", "failed", "skipped")]
 
 
+LEDGER = LLM / "download-ledger.json"  # [{"id", "bytes", "at"}] of downloads the runner started
+WEEK_S = 7 * 86400
+
+
+def needs_download(entry: dict) -> bool:
+    """True when the entry's weights are not already on disk (a kept/shared HF repo or Strata/InferSSD store)."""
+    if entry["engine"] == "strata" or (entry["engine"] == "inferssd" and not entry.get("hf_include")):
+        return not entry.get("cached", False)
+    repo_dir = HF_HUB / ("models--" + entry["repository"].replace("/", "--"))
+    have = sum(t.stat().st_size for t in link_targets(repo_dir) if t.exists())
+    return have < 0.95 * entry.get("size_bytes", 0)  # a partial download still needs (most of) its budget
+
+
+def download_allowed(entry: dict, budget: dict) -> bool:
+    """Weekly budget: at most one large download per 7 days, and a byte cap for the rest."""
+    if not needs_download(entry):
+        return True
+    now, size = time.time(), entry.get("size_bytes", 0)
+    recent = [d for d in load_json(LEDGER, {"downloads": []})["downloads"] if now - d["at"] < WEEK_S]
+    if size >= budget.get("large_bytes", 150e9):
+        return not any(d["bytes"] >= budget.get("large_bytes", 150e9) for d in recent)
+    small = sum(d["bytes"] for d in recent if d["bytes"] < budget.get("large_bytes", 150e9))
+    return small + size <= budget.get("weekly_small_bytes", 200e9)
+
+
+def record_download(entry: dict) -> None:
+    ledger = load_json(LEDGER, {"downloads": []})
+    ledger["downloads"].append({"id": entry["id"], "bytes": entry.get("size_bytes", 0), "at": time.time()})
+    tmp = LEDGER.with_suffix(".tmp")
+    tmp.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
+    tmp.replace(LEDGER)
+
+
 def main() -> None:
     (LLM / "serve-mode").write_text("none\n")
     while True:
@@ -418,12 +451,15 @@ def main() -> None:
         pending = pending_entries(queue, state)
         if not pending:
             break
-        entry = next((e for e in pending if engine_ready(e)), None)
+        budget = queue["defaults"].get("download_budget", {})
+        entry = next((e for e in pending if engine_ready(e) and download_allowed(e, budget)), None)
         if entry is None:
-            # only entries whose engine is not installed yet remain: wait instead of finishing
-            log(f"waiting for engines: {sorted({e['engine'] for e in pending})}")
-            time.sleep(3600)
+            # remaining entries wait for an engine or for the weekly download budget: sleep instead of finishing
+            log(f"waiting: engines/budget for {len(pending)} entries")
+            time.sleep(6 * 3600)
             continue
+        if needs_download(entry):
+            record_download(entry)
         log(f"=== {entry['id']} ({entry['engine']}) ===")
         run_entry(entry, queue["defaults"], state)
     finish_queue()

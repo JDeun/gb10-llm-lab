@@ -2,7 +2,12 @@
  "comment": "Experiment queue for ~/llm/tools/lab_runner.py. Order = run order. Each entry is measured, exported, committed locally, then its downloaded files are deleted (unless keep=true).",
  "defaults": {
   "step_timeout_s": 7200,
-  "start_timeout_s": 3600
+  "start_timeout_s": 3600,
+  "download_budget": {
+   "large_bytes": 150000000000.0,
+   "weekly_small_bytes": 200000000000.0,
+   "note": "Company network cap: one >=150 GB download per 7 days, other downloads <=200 GB per 7 days (2026-11-16)"
+  }
  },
  "entries": [
   {
