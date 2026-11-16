@@ -2,7 +2,12 @@
  "comment": "Experiment queue for ~/llm/tools/lab_runner.py. Order = run order. Each entry is measured, exported, committed locally, then its downloaded files are deleted (unless keep=true).",
  "defaults": {
   "step_timeout_s": 7200,
-  "start_timeout_s": 3600
+  "start_timeout_s": 3600,
+  "download_budget": {
+   "large_bytes": 150000000000.0,
+   "weekly_small_bytes": 200000000000.0,
+   "note": "Company network cap: one >=150 GB download per 7 days, other downloads <=200 GB per 7 days (2026-11-16)"
+  }
  },
  "entries": [
   {
@@ -616,6 +621,36 @@
    ],
    "notes": [
     "Retry of vllm-kr-gravity-30b-a5b: vLLM 0.32 has no native class for this architecture; try the Transformers backend."
+   ]
+  },
+  {
+   "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-64k",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": true,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Transformers backend loads the model; first try needed 36 GiB KV for 131072 tokens with 34 GiB available. 64K context, utilization 0.85."
    ]
   },
   {
@@ -1317,6 +1352,22 @@
   {
    "id": "Kimi K3 via Strata",
    "reason": "Strata issue #1954 closed not_planned; run via llama.cpp instead"
+  },
+  {
+   "id": "trillionlabs/Gravity-30B-A5B-Preview",
+   "reason": "vLLM 0.32 has no gravity_moe class and the Transformers backend rejects GravityMoEConfig (2026-11-13); no GGUF"
+  },
+  {
+   "id": "strata Qwen3.8-Flash-Next UD-Q4_K_XL / Q8_0",
+   "reason": "Strata on DGX Spark offers only Q2_0, IQ2_XS, IQ3_XXS, IQ3_S (2026-11-14)"
+  },
+  {
+   "id": "skt/A.X-K2-GGUF",
+   "reason": "llama.cpp v0.9.0: unknown model architecture 'axk2'"
+  },
+  {
+   "id": "prometheusAIR/Solar-Open2-250B-GGUF",
+   "reason": "llama.cpp v0.9.0: unknown model architecture 'solar-open2'"
   }
  ]
 }

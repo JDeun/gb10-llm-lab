@@ -1,0 +1,68 @@
+{
+  "request_count": 3,
+  "recorded_requests": 3,
+  "planned_requests": 3,
+  "attempted_requests": 3,
+  "unrecorded_attempts": 0,
+  "unattempted_requests": 0,
+  "request_coverage": 1.0,
+  "run_status": "completed",
+  "final_text_complete_requests": 3,
+  "planned_correctness_requests": 3,
+  "correctness_checked_attempts": 3,
+  "correctness_accuracy_on_completed_answers": 1.0,
+  "correctness_success_rate_on_attempted_requests": 1.0,
+  "correctness_success_rate_on_planned_requests": 1.0,
+  "correctness_evaluation_coverage_on_attempted_requests": 1.0,
+  "transport_failures": 0,
+  "truncated_outputs": 0,
+  "correctness_evaluated": 3,
+  "correctness_passed": 3,
+  "correctness_failed": 0,
+  "correctness_incomplete": 0,
+  "correctness_transport_errors": 0,
+  "correctness_not_evaluated": 0,
+  "metrics": {
+    "elapsed_s": {
+      "n": 3,
+      "median": 4.379565294017084,
+      "p95": 5.841629073896911,
+      "min": 3.191913414018927,
+      "max": 6.00408060499467
+    },
+    "ttft_semantic_s": {
+      "n": 3,
+      "median": 0.812034472997766,
+      "p95": 3.3686031433986496,
+      "min": 0.8120321740279905,
+      "max": 3.652666328998748
+    },
+    "ttft_visible_answer_s": {
+      "n": 3,
+      "median": 0.812034472997766,
+      "p95": 3.3686031433986496,
+      "min": 0.8120321740279905,
+      "max": 3.652666328998748
+    },
+    "end_to_end_completion_tokens_per_s": {
+      "n": 3,
+      "median": 2.19304194445122,
+      "p95": 2.2743026693610875,
+      "min": 1.165873754955396,
+      "max": 2.2833316387955174
+    },
+    "engine_reported_decode_tokens_per_s": {
+      "n": 0
+    }
+  },
+  "notes": [
+    "Descriptive summaries, not confidence intervals; a small-n p95 is unstable.",
+    "SSE events are not tokens. Token counts come only from server usage.",
+    "End-to-end throughput includes prefill and network time and is not decode speed.",
+    "Semantic TTFT may be reasoning; visible-answer TTFT is recorded separately.",
+    "Conditional accuracy divides passes by completed, evaluated answers only; always read coverage and success rates alongside it.",
+    "Attempted/planned success rates use ALL requests as their denominators, including incomplete, failed transport and unscored cases. Rates are null if no correctness checks are known.",
+    "Missing planned counts remain null; a detached results file does not establish a complete experiment.",
+    "Repeated identical prompts may reuse server prefix caches; cold cache is never implied."
+  ]
+}
