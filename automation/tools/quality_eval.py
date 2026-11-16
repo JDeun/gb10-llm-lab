@@ -50,6 +50,10 @@ def http_get(url: str) -> bytes:
             if exc.code not in (429, 500, 502, 503, 504) or attempt == 7:
                 raise
             time.sleep(min(300, 15 * 2 ** attempt))
+        except urllib.error.URLError:  # DNS or connection drop on a flaky network
+            if attempt == 7:
+                raise
+            time.sleep(min(300, 15 * 2 ** attempt))
     raise RuntimeError("unreachable")
 
 
@@ -224,13 +228,14 @@ def summarize(name: str, rows: list[dict], wall: float) -> dict:
 
 def cmd_prepare(args) -> None:
     LOCAL.mkdir(parents=True, exist_ok=True)
-    manifest = {"seed": SEED, "sets": {}}
+    out = Path(args.manifest_out)
+    manifest = json.loads(out.read_text()) if out.exists() else {"seed": SEED, "sets": {}}
     for name in args.sets:
         items = build_items(name)
         (LOCAL / f"{name}.jsonl").write_text("".join(json.dumps(i, ensure_ascii=False) + "\n" for i in items), encoding="utf-8")
         manifest["sets"][name] = {**BASE[SETS[name][0]], "n": len(items), "ids": [i["id"] for i in items]}
         print(name, len(items))
-    Path(args.manifest_out).write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+        out.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")  # save after every set
 
 
 def cmd_run(args) -> None:
@@ -238,6 +243,8 @@ def cmd_run(args) -> None:
     for name in args.sets:
         src = Path(args.items_dir) / f"{name}.jsonl"
         items = [json.loads(line) for line in src.read_text(encoding="utf-8").splitlines() if line.strip()]
+        if args.limit:  # slow models: the first N items of each set, reported as a separate "-firstN" label
+            items = items[:args.limit]
         max_tokens = args.max_tokens or MC_TOKENS
         start = time.time()
         with ThreadPoolExecutor(max_workers=args.workers) as pool:
@@ -246,6 +253,8 @@ def cmd_run(args) -> None:
         out.mkdir(parents=True, exist_ok=True)
         (out / "results.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
         summary = summarize(name, rows, time.time() - start)
+        if args.limit and args.limit < len(items) + 1:
+            summary["label"] += f"-first{len(items)}"
         (out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
         print(json.dumps({k: summary[k] for k in ("set", "correctness_passed", "planned_correctness_requests", "truncated_outputs", "wall_s")}))
 
@@ -265,6 +274,7 @@ def main() -> None:
     r.add_argument("--workers", type=int, default=4)
     r.add_argument("--max-tokens", type=int)
     r.add_argument("--extra-body")
+    r.add_argument("--limit", type=int, help="first N items per set (slow models)")
     args = parser.parse_args()
     {"prepare": cmd_prepare, "run": cmd_run}[args.cmd](args)
 

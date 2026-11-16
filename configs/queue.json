@@ -1247,6 +1247,544 @@
    "quality": true
   },
   {
+   "id": "quality-vllm-mistral-medium-3.5-128b-nvfp4",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+   "size_bytes": 95300000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "32768",
+    "--max-num-seqs",
+    "2",
+    "--gpu-memory-utilization",
+    "0.92"
+   ],
+   "notes": [
+    "Answer quality, first 30 items per set (2.5 tok/s dense 128B)."
+   ],
+   "quality": true,
+   "quality_limit": 30,
+   "quality_timeout_factor": 12
+  },
+  {
+   "id": "quality-ikllama-glm53-flash-udq2kxl",
+   "engine": "ikllama",
+   "profile": "quality",
+   "vision": false,
+   "repository": "unsloth/GLM-5.3-Flash-GGUF",
+   "hf_include": [
+    "UD-Q2_K_XL/*"
+   ],
+   "size_bytes": 108700000000,
+   "context": [],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "llama_args": [
+    "-c",
+    "32768",
+    "-ot",
+    "exps=CPU"
+   ],
+   "notes": [
+    "Answer quality on ik_llama.cpp (faster of the two engines), first 30 items per set."
+   ],
+   "quality": true,
+   "quality_limit": 30,
+   "quality_timeout_factor": 8
+  },
+  {
+   "id": "quality-llamacpp-kr-solar-open-100b-q4km-nothink",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "repository": "mradermacher/Solar-Open-100B-GGUF",
+   "hf_include": [
+    "Solar-Open-100B.Q4_K_M.gguf"
+   ],
+   "size_bytes": 62300000000,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "llama_args": [
+    "-c",
+    "32768",
+    "--reasoning-budget",
+    "0"
+   ],
+   "notes": [
+    "Re-run: first run wrote untagged reasoning into content (sanity 0/12). Thinking disabled per request and in the server."
+   ],
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
+  },
+  {
+   "id": "strata-qwen36-35b-udq4kxl",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/Qwen3.6-35B-A3B-GGUF (UD-Q4_K_XL via Strata)",
+   "size_bytes": 22400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "launch": [
+    "--family",
+    "qwen36",
+    "--model",
+    "ud-q4_k_xl",
+    "--context",
+    "64k",
+    "--vision",
+    "off",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "Engine matrix: completes the Qwen3.6-35B set (vLLM, llama.cpp, ik_llama.cpp, colibri, InferSSD, Strata)."
+   ]
+  },
+  {
+   "id": "llamacpp-qwen38fn-iq4xs",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "repository": "bartowski/Qwen3.8-Flash-Next-GGUF",
+   "hf_include": [
+    "Qwen3.8-Flash-Next-IQ4_XS/*"
+   ],
+   "size_bytes": 97700000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "ikllama",
+    "colibri",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "ikllama-qwen38fn-iq4xs",
+   "engine": "ikllama",
+   "profile": "standard",
+   "vision": false,
+   "repository": "bartowski/Qwen3.8-Flash-Next-GGUF",
+   "hf_include": [
+    "Qwen3.8-Flash-Next-IQ4_XS/*"
+   ],
+   "size_bytes": 97700000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "colibri",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "colibri-qwen38fn-iq4xs",
+   "engine": "colibri",
+   "profile": "standard",
+   "vision": false,
+   "repository": "bartowski/Qwen3.8-Flash-Next-GGUF",
+   "hf_include": [
+    "Qwen3.8-Flash-Next-IQ4_XS/*"
+   ],
+   "size_bytes": 97700000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "colibri_args": [
+    "--ctx",
+    "65536"
+   ],
+   "start_timeout_s": 21600,
+   "keep_for": [
+    "inferssd"
+   ]
+  },
+  {
+   "id": "vllm-qwen38fn-nvfp4-official",
+   "engine": "vllm",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+   "size_bytes": 132700000000,
+   "context": [
+    "512"
+   ],
+   "vllm_args": [
+    "--trust-remote-code",
+    "--quantization",
+    "modelopt",
+    "--max-model-len",
+    "16384",
+    "--gpu-memory-utilization",
+    "0.92",
+    "--max-num-seqs",
+    "1",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "notes": [
+    "Capacity attempt: 132.7 GB checkpoint vs 121.6 GiB unified memory; expected to fail (recorded either way). Container memory capped."
+   ]
+  },
+  {
+   "id": "vllm-qwen38fn-razor-65b-nvfp4",
+   "engine": "vllm",
+   "profile": "standard",
+   "vision": false,
+   "repository": "cleyesode/Qwen3.8-Flash-Next-RAZOR-65B-A6B-NVFP4",
+   "size_bytes": 98600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "vllm_args": [
+    "--trust-remote-code",
+    "--max-model-len",
+    "65536",
+    "--gpu-memory-utilization",
+    "0.9",
+    "--max-num-seqs",
+    "4",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "notes": [
+    "Community pruned variant (65B, experts removed): a different model from Qwen3.8-Flash-Next; compare with care."
+   ]
+  },
+  {
+   "id": "llamacpp-gpt-oss-120b-mxfp4",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "repository": "ggml-org/gpt-oss-120b-GGUF",
+   "hf_include": [
+    "gpt-oss-120b-MXFP4.gguf"
+   ],
+   "size_bytes": 63400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "ikllama",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "ikllama-gpt-oss-120b-mxfp4",
+   "engine": "ikllama",
+   "profile": "standard",
+   "vision": false,
+   "repository": "ggml-org/gpt-oss-120b-GGUF",
+   "hf_include": [
+    "gpt-oss-120b-MXFP4.gguf"
+   ],
+   "size_bytes": 63400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "inferssd"
+   ]
+  },
+  {
+   "id": "inferssd-gpt-oss-120b-mxfp4",
+   "engine": "inferssd",
+   "profile": "standard",
+   "vision": false,
+   "repository": "ggml-org/gpt-oss-120b-GGUF",
+   "hf_include": [
+    "gpt-oss-120b-MXFP4.gguf"
+   ],
+   "size_bytes": 63400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "inferssd_args": [
+    "--context",
+    "65536"
+   ]
+  },
+  {
+   "id": "llamacpp-gemma4-26b-udq4kxl",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/gemma-4-26B-A4B-it-GGUF",
+   "hf_include": [
+    "gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 16500000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "ikllama",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "ikllama-gemma4-26b-udq4kxl",
+   "engine": "ikllama",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/gemma-4-26B-A4B-it-GGUF",
+   "hf_include": [
+    "gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 16500000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "inferssd"
+   ]
+  },
+  {
+   "id": "inferssd-gemma4-26b-udq4kxl",
+   "engine": "inferssd",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/gemma-4-26B-A4B-it-GGUF",
+   "hf_include": [
+    "gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 16500000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd."
+   ],
+   "inferssd_args": [
+    "--context",
+    "65536"
+   ]
+  },
+  {
+   "id": "llamacpp-deepseek-v41-flash-q8",
+   "engine": "llamacpp",
+   "profile": "slow",
+   "vision": false,
+   "repository": "mrfakename/DeepSeek-V4.1-Flash-1017-GGUF",
+   "hf_include": [
+    "Q8_0/*"
+   ],
+   "size_bytes": 505000000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "32768",
+    "--cpu-moe"
+   ],
+   "keep_for": [
+    "ikllama",
+    "colibri",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "ikllama-deepseek-v41-flash-q8",
+   "engine": "ikllama",
+   "profile": "slow",
+   "vision": false,
+   "repository": "mrfakename/DeepSeek-V4.1-Flash-1017-GGUF",
+   "hf_include": [
+    "Q8_0/*"
+   ],
+   "size_bytes": 505000000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "llama_args": [
+    "-c",
+    "32768",
+    "-ot",
+    "exps=CPU"
+   ],
+   "keep_for": [
+    "colibri",
+    "inferssd"
+   ]
+  },
+  {
+   "id": "colibri-deepseek-v41-flash-q8",
+   "engine": "colibri",
+   "profile": "slow",
+   "vision": false,
+   "repository": "mrfakename/DeepSeek-V4.1-Flash-1017-GGUF",
+   "hf_include": [
+    "Q8_0/*"
+   ],
+   "size_bytes": 505000000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama, colibri, inferssd."
+   ],
+   "colibri_args": [
+    "--ctx",
+    "65536"
+   ],
+   "start_timeout_s": 21600,
+   "keep_for": [
+    "inferssd"
+   ]
+  },
+  {
    "id": "llamacpp-minimax-m31-flash-udiq2xxs",
    "engine": "llamacpp",
    "profile": "slow",
@@ -1572,6 +2110,34 @@
    ],
    "notes": [
     "Engine set C."
+   ],
+   "keep_for": [
+    "ikllama"
+   ]
+  },
+  {
+   "id": "ikllama-muse-spark-open-816b-udq4kxl",
+   "engine": "ikllama",
+   "profile": "slow",
+   "vision": false,
+   "repository": "unsloth/Muse-Spark-Open-816B-A42B-GGUF",
+   "hf_include": [
+    "UD-Q4_K_XL/*"
+   ],
+   "size_bytes": 505000000000,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "llama_args": [
+    "-c",
+    "16384",
+    "-ot",
+    "exps=CPU"
+   ],
+   "notes": [
+    "Engine matrix: adds ik_llama.cpp to set C."
    ]
   },
   {
@@ -1621,6 +2187,64 @@
    ]
   },
   {
+   "id": "llamacpp-mistral-large-4-1t-udiq1s",
+   "engine": "llamacpp",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 233000000000,
+   "context": [
+    "512"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama."
+   ],
+   "llama_args": [
+    "-c",
+    "8192",
+    "--cpu-moe"
+   ],
+   "keep_for": [
+    "ikllama",
+    "colibri"
+   ]
+  },
+  {
+   "id": "ikllama-mistral-large-4-1t-udiq1s",
+   "engine": "ikllama",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 233000000000,
+   "context": [
+    "512"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama."
+   ],
+   "llama_args": [
+    "-c",
+    "8192",
+    "-ot",
+    "exps=CPU"
+   ],
+   "keep_for": [
+    "colibri"
+   ]
+  },
+  {
    "id": "colibri-mistral-large-4-1t-udiq1s",
    "engine": "colibri",
    "profile": "capacity",
@@ -1643,6 +2267,64 @@
    "start_timeout_s": 21600,
    "notes": [
     "1T total / 52B active; colibri-only extreme candidate (not supported by Strata)."
+   ]
+  },
+  {
+   "id": "llamacpp-glm-5.3-744b-udiq1s",
+   "engine": "llamacpp",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/GLM-5.3-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 216700000000,
+   "context": [
+    "512"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama."
+   ],
+   "llama_args": [
+    "-c",
+    "8192",
+    "--cpu-moe"
+   ],
+   "keep_for": [
+    "ikllama",
+    "colibri"
+   ]
+  },
+  {
+   "id": "ikllama-glm-5.3-744b-udiq1s",
+   "engine": "ikllama",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/GLM-5.3-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 216700000000,
+   "context": [
+    "512"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Engine matrix: same GGUF on llamacpp, ikllama."
+   ],
+   "llama_args": [
+    "-c",
+    "8192",
+    "-ot",
+    "exps=CPU"
+   ],
+   "keep_for": [
+    "colibri"
    ]
   },
   {

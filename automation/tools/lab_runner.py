@@ -236,7 +236,8 @@ def wait_for_manual_strata() -> None:
 
 def start_vllm(entry: dict):
     run(["docker", "rm", "-f", "lab-vllm"], check=False)
-    run(["docker", "run", "-d", "--name", "lab-vllm", "--gpus", "all", "--ipc=host",
+    # same ceiling as the runner unit: an oversized model is OOM-killed inside the container, not the host
+    run(["docker", "run", "-d", "--name", "lab-vllm", "--gpus", "all", "--ipc=host", "--memory", "108g", "--memory-swap", "112g",
          "-v", f"{HOME}/.cache/huggingface:/root/.cache/huggingface",
          "-p", f"127.0.0.1:{PORTS['vllm']}:8000", VLLM_IMAGE, entry["repository"],
          "--served-model-name", entry["id"], "--host", "0.0.0.0", "--port", "8000", *entry.get("vllm_args", [])])

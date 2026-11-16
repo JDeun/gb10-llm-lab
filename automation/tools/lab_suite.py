@@ -168,8 +168,10 @@ def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: 
            "--sets", *sets, "--out-dir", str(base), "--workers", str(entry.get("quality_workers", 4))]
     if entry.get("extra_body"):
         cmd += ["--extra-body", str(base / "extra_body.json")]
+    if entry.get("quality_limit"):
+        cmd += ["--limit", str(entry["quality_limit"])]
     try:
-        subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * 4, check=False)
+        subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * entry.get("quality_timeout_factor", 4), check=False)
         return "ok"
     except subprocess.TimeoutExpired:
         return f"step_timeout_{step_timeout_s * 4}s"
