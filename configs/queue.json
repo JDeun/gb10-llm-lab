@@ -1351,6 +1351,18 @@
   {
    "id": "trillionlabs/Gravity-30B-A5B-Preview",
    "reason": "vLLM 0.32 has no gravity_moe class and the Transformers backend rejects GravityMoEConfig (2026-11-13); no GGUF"
+  },
+  {
+   "id": "strata Qwen3.8-Flash-Next UD-Q4_K_XL / Q8_0",
+   "reason": "Strata on DGX Spark offers only Q2_0, IQ2_XS, IQ3_XXS, IQ3_S (2026-11-14)"
+  },
+  {
+   "id": "skt/A.X-K2-GGUF",
+   "reason": "llama.cpp v0.9.0: unknown model architecture 'axk2'"
+  },
+  {
+   "id": "prometheusAIR/Solar-Open2-250B-GGUF",
+   "reason": "llama.cpp v0.9.0: unknown model architecture 'solar-open2'"
   }
  ]
 }

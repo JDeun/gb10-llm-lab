@@ -153,7 +153,8 @@ def remove_as_container_root(path: Path) -> None:
 def entry_files(entry: dict, new_dirs: set[Path]) -> set[Path]:
     """Everything this entry downloaded: HF repo dir + its shared blobs, explicit paths, new strata dirs."""
     paths = set(new_dirs) | {HOME / p for p in entry.get("delete_paths", [])}
-    if uses_hf(entry):
+    # InferSSD with -hf (and any non-Strata engine) also lands in the HF cache's shared blob store
+    if entry["engine"] != "strata":
         repo_dir = HF_HUB / ("models--" + entry["repository"].replace("/", "--"))
         paths |= link_targets(repo_dir) | {repo_dir}
     return paths

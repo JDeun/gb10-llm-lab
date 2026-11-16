@@ -8,6 +8,9 @@ WorkingDirectory=%h/llm/tools
 ExecStart=/usr/bin/python3 %h/llm/tools/lab_runner.py
 Restart=on-failure
 RestartSec=60
+# keep ~13 GB for the OS, sshd and tailscaled: an oversized model is OOM-killed inside this unit only
+MemoryMax=108G
+MemorySwapMax=4G
 StandardOutput=append:%h/llm/logs/lab-runner.log
 StandardError=append:%h/llm/logs/lab-runner.log
 

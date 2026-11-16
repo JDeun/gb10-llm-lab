@@ -99,4 +99,7 @@ GB10 한 대가 [실행 큐](../configs/queue.json)를 사람 개입 없이 순�
 ### 재측정 요청 방법
 
 GB10에서 `echo <항목 ID> >> ~/llm/queue-reset.txt`를 실행하면 실행기가 다음 순번에 그 항목의 기록을 지우고 다시 실행합니다. 설정을 바꿔 다시 재려면 큐에 새 ID로 항목을 추가하는 편이 이전 결과를 보존합니다.
+| InferSSD(`-hf`)가 받은 파일이 HF 공용 저장소에 남아 삭제되지 않음 (2026-11-16) | DeepSeek Q8 약 470 GB가 남아 뒤 항목 12개가 `storage_insufficient`로 연쇄 실패 | Strata를 뺀 모든 엔진은 HF 저장소 파일까지 삭제, 12개 재대기 |
+| Nemotron-3-Ultra 550B(llama.cpp `--cpu-moe`)가 시스템 메모리를 소진 (2026-11-15 18:19) | 커널 OOM, Tailscale 중계 통신 약 45분 끊김 (원격 접속 불가) | 실행기 서비스에 `MemoryMax=108G`, `MemorySwapMax=4G`: 큰 모델은 실행기 단위 안에서만 종료되고 OS·sshd·tailscaled는 유지 |
+| llama.cpp v0.9.0 미지원·불일치 GGUF | Ling-3.0-flash(`ssm_f_a` 텐서), MiniMax-M3.1-Flash(텐서 수), Solar-Open2(`solar-open2`), A.X-K2(`axk2`) 로드 실패 | 실패로 기록, 미지원 구조는 제외 목록에 추가 |
 
