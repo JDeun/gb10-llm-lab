@@ -20,6 +20,7 @@ PROFILES = {
     "standard": {"caps": [1, 16, 64, 256], "sanity": [("sanity", 512)], "throughput": 3, "conc": True},
     "slow": {"caps": [1, 16, 64], "sanity": [("sanity", 512)], "throughput": 1, "conc": False},
     "capacity": {"caps": [1, 16, 64], "sanity": [("sanity-mini", 512)], "throughput": 1, "conc": False},
+    "quality": {"caps": [], "sanity": [], "throughput": 0, "conc": False},  # answer-quality step only
 }
 CASE_FILES = {"sanity": LAB / "prompts/sanity.jsonl", "sanity-mini": LLM / "prompts/sanity-mini.jsonl"}
 THROUGHPUT = LAB / "prompts/throughput_ko.txt"
@@ -53,12 +54,26 @@ def server_up(port: int) -> bool:
         return False
 
 
+ENGINE_SOURCES = {"llamacpp": LLM / "src/llama.cpp", "ikllama": LLM / "src/ik_llama.cpp", "colibri": LLM / "src/colibri"}
+
+
+def engine_revision(engine: str) -> str:
+    """Static engine label plus the checked-out commit, so a rebuilt engine is recorded correctly."""
+    label = ENGINE_REVISIONS.get(engine, engine)
+    src = ENGINE_SOURCES.get(engine)
+    if src and (src / ".git").exists():
+        head = subprocess.run(["git", "-C", str(src), "log", "-1", "--format=%h %cs"],
+                              capture_output=True, text=True, check=False).stdout.strip()
+        label = f"{label.split(' (')[0]} @ {head}" if head else label
+    return label
+
+
 def manifest_path(eid: str) -> Path:
     return LLM / "manifests" / f"{eid}.json"
 
 
 def write_manifest(entry: dict, alias: str | None) -> Path:
-    engine_rev = ENGINE_REVISIONS.get(entry["engine"], entry["engine"])
+    engine_rev = engine_revision(entry["engine"])
     command = (entry.get("launch") or entry.get("vllm_args") or entry.get("llama_args")
                or entry.get("inferssd_args") or entry.get("colibri_args") or [])
     spec = {"experiment_id": f"{datetime.now():%Y-%m-%d}-{entry['id']}",
@@ -106,13 +121,14 @@ def plan_steps(entry: dict) -> list[tuple[str, list[str]]]:
     return steps
 
 
-def run_concurrency(port: int, alias: str, base: Path, timeout_s: int) -> str:
+def run_concurrency(port: int, alias: str, base: Path, timeout_s: int, clients: int = 4, extra: list | None = None) -> str:
     procs = []
-    for c in range(1, 5):
+    tag = f"concurrency{clients}"
+    for c in range(1, clients + 1):
         cmd = ["python3", str(LAB / "benchmarks/bench.py"), "run", "--base-url", f"http://127.0.0.1:{port}",
                "--model", alias, "--manifest", str(manifest_path(base.name)), "--prompt-file", str(THROUGHPUT),
-               "--max-tokens", "256", "--repeats", "2", "--case-label", f"concurrency4-client{c}",
-               "--output-dir", str(base / f"concurrency4-client{c}")]
+               "--max-tokens", "256", "--repeats", "2", "--case-label", f"{tag}-client{c}",
+               "--output-dir", str(base / f"{tag}-client{c}"), *(extra or [])]
         procs.append(subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
     deadline = time.time() + timeout_s
     for p in procs:
@@ -121,10 +137,32 @@ def run_concurrency(port: int, alias: str, base: Path, timeout_s: int) -> str:
         except subprocess.TimeoutExpired:
             p.kill()
             return f"step_timeout_{timeout_s}s"
-    dirs = [str(base / f"concurrency4-client{c}") for c in range(1, 5)]
-    subprocess.run(["python3", str(TOOLS / "concurrency.py"), "--out", str(base / "concurrency4-summary.json"), *dirs],
+    dirs = [str(base / f"{tag}-client{c}") for c in range(1, clients + 1)]
+    subprocess.run(["python3", str(TOOLS / "concurrency.py"), "--out", str(base / f"{tag}-summary.json"), *dirs],
                    capture_output=True, check=False)
     return "ok"
+
+
+QUALITY_DIR = LLM / "quality"
+QUALITY_SETS = ["gsm8k", "hrm8k-gsm8k", "mmlu-pro", "kmmlu", "open-ko"]
+
+
+def quality_wanted(entry: dict) -> bool:
+    return entry.get("quality", entry["profile"] in ("full", "standard", "quality")) and (QUALITY_DIR / "gsm8k.jsonl").exists()
+
+
+def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: int) -> str:
+    """Answer-quality subsets (zero-shot) + open Korean prompts; see quality_eval.py and docs/quality.md."""
+    sets = [s for s in entry.get("quality_sets", QUALITY_SETS) if (QUALITY_DIR / f"{s}.jsonl").exists()]
+    cmd = ["python3", str(TOOLS / "quality_eval.py"), "run", "--base-url", f"http://127.0.0.1:{port}", "--model", alias,
+           "--sets", *sets, "--out-dir", str(base), "--workers", str(entry.get("quality_workers", 4))]
+    if entry.get("extra_body"):
+        cmd += ["--extra-body", str(base / "extra_body.json")]
+    try:
+        subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * 4, check=False)
+        return "ok"
+    except subprocess.TimeoutExpired:
+        return f"step_timeout_{step_timeout_s * 4}s"
 
 
 def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
@@ -133,6 +171,10 @@ def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
         base.rename(base.with_name(f"{base.name}-partial-{datetime.now():%m%d%H%M}"))
     base.mkdir(parents=True)
     write_manifest(entry, alias)
+    extra = []
+    if entry.get("extra_body"):
+        (base / "extra_body.json").write_text(json.dumps(entry["extra_body"]), encoding="utf-8")
+        extra = ["--extra-body", str(base / "extra_body.json")]
     outcomes = {}
     try:
         for name, args in plan_steps(entry):
@@ -140,9 +182,14 @@ def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
                 outcomes[name] = "server_down_before_step"
                 raise EntryFailed("server_down", f"server stopped answering before step {name}")
             log(f"{entry['id']} step {name}")
-            outcomes[name] = bench(port, alias, base / name, args, step_timeout_s)
-        if PROFILES[entry["profile"]]["conc"] and server_up(port):
-            outcomes["concurrency4"] = run_concurrency(port, alias, base, step_timeout_s)
+            outcomes[name] = bench(port, alias, base / name, args + extra, step_timeout_s)
+        levels = entry.get("concurrency_levels", [4] if PROFILES[entry["profile"]]["conc"] else [])
+        for n in levels:
+            if server_up(port):
+                outcomes[f"concurrency{n}"] = run_concurrency(port, alias, base, step_timeout_s, n, extra)
+        if quality_wanted(entry) and server_up(port):
+            log(f"{entry['id']} step quality")
+            outcomes["quality"] = run_quality(entry, alias, port, base, step_timeout_s)
         if entry.get("vision") and server_up(port):
             subprocess.run(["python3", str(TOOLS / "vision_check.py"), "--base-url", f"http://127.0.0.1:{port}",
                             "--model", alias, "--out", str(base / "vision-check.json"),
@@ -160,7 +207,12 @@ def render_readme(entry: dict, alias: str | None, dst: Path, failure: dict | Non
     table = (dst / "TABLE.md").read_text(encoding="utf-8") if (dst / "TABLE.md").exists() else "(측정 결과 없음)\n"
     steps = (LAB / "local" / entry["id"] / "steps.json")
     extras = []
-    for name in ("concurrency4-summary.json", "vision-check.json"):
+    names = sorted(p.name for p in dst.glob("concurrency*-summary.json")) + ["vision-check.json"]
+    for q in sorted((dst / "runs").glob("quality-*/summary.json")) if (dst / "runs").exists() else []:
+        d = json.loads(q.read_text(encoding="utf-8"))
+        extras.append(f"- 품질 `{d['label']}`: 정답 {d['correctness_passed']}/{d['planned_correctness_requests']}, "
+                      f"잘림 {d['truncated_outputs']}, 평균 출력 {d['completion_tokens_mean']} 토큰")
+    for name in names:
         if (dst / name).exists():
             data = json.loads((dst / name).read_text(encoding="utf-8"))
             data.pop("rows", None)

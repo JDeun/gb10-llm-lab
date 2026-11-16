@@ -28,3 +28,24 @@
 ## 품질과 속도 비교
 
 정확성용 문제와 throughput용 입력은 목적이 다릅니다. 같은 모델의 runtime 개선을 검증할 때 동일 문제에서 답변 변화도 확인합니다. 양자화 손실을 측정하려면 같은 모델의 신뢰할 수 있는 reference가 필요하며, 현재 Qwen 기준은 업무상 비교점으로 사용합니다.
+
+## 구현한 답변 품질 평가 (2026-11-16)
+
+`automation/tools/quality_eval.py`가 OpenAI 호환 API로 생성만 사용하는 zero-shot 평가를 수행합니다. 점수 이름은 `<set>-subset-zeroshot`이며 **공식 벤치마크 점수와 비교하지 않습니다.**
+
+| 세트 | 데이터 (리비전, 라이선스) | 문항 | 형식 | 채점 |
+|---|---|---|---|---|
+| `mmlu-pro` | TIGER-Lab/MMLU-Pro `b189ec765a`, MIT | 140 (test, seed 고정 무작위) | 10지선다, 마지막 줄 `The answer is (X)` | 마지막 선택지 문자 일치 |
+| `kmmlu` | HAERAE-HUB/KMMLU `d61b3f19e5`, CC-BY-ND-4.0 | 100 (20개 과목 × 5, 특허 과목 포함) | 4지선다, 마지막 줄 `정답: (X)` | 문자 일치 |
+| `gsm8k` | openai/gsm8k `740312add8`, MIT | 100 (test) | 수학 서술, `The answer is <number>` | 숫자 일치 |
+| `hrm8k-gsm8k` | HAERAE-HUB/HRM8K `c360cabf8d`, MIT | 100 (GSM8K 한국어) | `정답: 숫자` | 숫자 일치 |
+| `open-ko` | 직접 작성 12문항 (`results/_shared/quality/open-ko.jsonl`) | 12 | 서술형 (업무 메일, 요약, 설명, 코드 리뷰, SQL, 특허 청구항 분해·대비, 뉘앙스, 불확실한 사실, 거절, 구조화) | 자동 채점 없음, 정성 비교용 응답 저장 |
+
+- 공통 조건: `temperature 0`, 출력 예산 4,096 토큰, 동시 4요청, 모델·엔진 기본 reasoning (조건 비교 항목은 `extra_body`로 변경).
+- 분모: 계획(N)·시도·완료(잘림 아님)·채점 가능·정답(K)을 모두 저장합니다. 잘림(`finish_reason=length`)은 오답과 구분해 `truncated_outputs`로 셉니다.
+- 문제 본문은 커밋하지 않습니다(KMMLU 라이선스). seed와 문제 ID 목록(`results/_shared/quality/manifest.json`)으로 같은 문제를 다시 받을 수 있습니다.
+- 모델이 만든 코드는 실행하지 않습니다. 코드 문항은 정성 비교만 합니다.
+
+### 정성 평가 계획
+
+`open-ko` 응답은 모델별 결과 폴더의 `runs/quality-open-ko/results.jsonl`에 저장됩니다. 같은 문항의 여러 모델 응답을 모델 이름을 가린 채 나란히 보고 점수를 매기는 비교 페이지를 별도로 만들 예정입니다(사람 평가). 자동 판정(LLM-as-judge)은 판정 모델·프롬프트를 고정한 뒤 별도 항목으로 추가합니다.

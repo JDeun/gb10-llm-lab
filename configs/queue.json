@@ -757,6 +757,484 @@
    ]
   },
   {
+   "id": "sweep-vllm-qwen36-mtp-conc16",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}"
+   ],
+   "profile": "standard",
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "quality": true,
+   "notes": [
+    "Reference config with MTP, 16 seqs: concurrency 1/4/8/16 + answer quality."
+   ]
+  },
+  {
+   "id": "sweep-vllm-qwen36-nomtp-conc16",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "profile": "standard",
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "quality": false,
+   "notes": [
+    "Only change vs reference: speculative decoding (MTP) off."
+   ]
+  },
+  {
+   "id": "sweep-vllm-qwen36-kvauto",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "auto",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}"
+   ],
+   "profile": "standard",
+   "quality": true,
+   "notes": [
+    "Only change: KV cache dtype auto (BF16) instead of fp8; quality compared with the reference."
+   ]
+  },
+  {
+   "id": "sweep-vllm-qwen36-nothink",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}"
+   ],
+   "profile": "standard",
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   },
+   "notes": [
+    "Only change: thinking off per request."
+   ]
+  },
+  {
+   "id": "sweep-strata-qwen38fn-iq3s-quality",
+   "engine": "strata",
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "vision": false,
+   "size_bytes": 84000000000,
+   "cached": true,
+   "keep": true,
+   "context": [],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--context",
+    "64k",
+    "--tune",
+    "skip",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp"
+   ],
+   "profile": "standard",
+   "quality": true,
+   "notes": [
+    "Reference Strata config; adds answer quality for Qwen3.8-Flash-Next IQ3_S."
+   ]
+  },
+  {
+   "id": "sweep-strata-qwen38fn-iq3s-parallel4",
+   "engine": "strata",
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "vision": false,
+   "size_bytes": 84000000000,
+   "cached": true,
+   "keep": true,
+   "context": [],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--context",
+    "64k",
+    "--tune",
+    "skip",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--parallel",
+    "4"
+   ],
+   "profile": "standard",
+   "concurrency_levels": [
+    1,
+    4,
+    8
+   ],
+   "quality": false,
+   "notes": [
+    "Only change: --parallel 4."
+   ]
+  },
+  {
+   "id": "sweep-strata-qwen38fn-iq3s-kvq4",
+   "engine": "strata",
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "vision": false,
+   "size_bytes": 84000000000,
+   "cached": true,
+   "keep": true,
+   "context": [],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--context",
+    "64k",
+    "--tune",
+    "skip",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--kv",
+    "q4_0"
+   ],
+   "profile": "standard",
+   "quality": true,
+   "notes": [
+    "Only change: KV q4_0 instead of int8."
+   ]
+  },
+  {
+   "id": "sweep-strata-qwen38fn-iq3s-dflash2",
+   "engine": "strata",
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "vision": false,
+   "size_bytes": 84000000000,
+   "cached": true,
+   "keep": true,
+   "context": [],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--context",
+    "64k",
+    "--tune",
+    "skip",
+    "--vision",
+    "off",
+    "--drafting",
+    "dflash2"
+   ],
+   "profile": "standard",
+   "quality": false,
+   "notes": [
+    "Only change: DFlash2 drafter instead of MTP."
+   ]
+  },
+  {
+   "id": "quality-vllm-gpt-oss-120b",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "openai/gpt-oss-120b",
+   "hf_exclude": [
+    "original/*",
+    "metal/*"
+   ],
+   "size_bytes": 65000000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--gpu-memory-utilization",
+    "0.7",
+    "--max-num-seqs",
+    "4"
+   ],
+   "quality": true,
+   "notes": [
+    "Answer-quality re-run of vllm-gpt-oss-120b (same engine args)."
+   ]
+  },
+  {
+   "id": "quality-vllm-gemma4-26b-a4b",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "google/gemma-4-26B-A4B-it",
+   "size_bytes": 51600000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.7"
+   ],
+   "quality": true,
+   "notes": [
+    "Answer-quality re-run of vllm-gemma4-26b-a4b (same engine args)."
+   ]
+  },
+  {
+   "id": "quality-vllm-ornith-1.0-35b-reasoning-parser",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "ornith-ai/Ornith-1.0-35B",
+   "size_bytes": 70200000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.8",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "notes": [
+    "Answer-quality re-run of vllm-ornith-1.0-35b-reasoning-parser (same engine args)."
+   ],
+   "quality": true
+  },
+  {
+   "id": "quality-vllm-nemotron3-super-120b-nvfp4-reasoning-parser",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+   "size_bytes": 80400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--max-num-seqs",
+    "4",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1"
+   ],
+   "notes": [
+    "Answer-quality re-run of vllm-nemotron3-super-120b-nvfp4-reasoning-parser (same engine args)."
+   ],
+   "quality": true
+  },
+  {
+   "id": "quality-vllm-qwen38-27b-fp8",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "Qwen/Qwen3.8-27B-FP8",
+   "size_bytes": 30900000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "4",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "quality": true,
+   "notes": [
+    "Answer-quality re-run of vllm-qwen38-27b-fp8 (same engine args)."
+   ]
+  },
+  {
+   "id": "quality-vllm-qwen36-27b-fp8",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "Qwen/Qwen3.6-27B-FP8",
+   "size_bytes": 30900000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "quality": true,
+   "notes": [
+    "Answer-quality re-run of vllm-qwen36-27b-fp8 (same engine args)."
+   ]
+  },
+  {
+   "id": "quality-vllm-kr-exaone-4.5-33b-awq",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+   "size_bytes": 22800000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1"
+   ],
+   "notes": [
+    "Answer-quality re-run of vllm-kr-exaone-4.5-33b-awq (same engine args)."
+   ],
+   "quality": true
+  },
+  {
+   "id": "quality-vllm-kr-hyperclovax-seed-think-32b-transformers-64k",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Answer-quality re-run of vllm-kr-hyperclovax-seed-think-32b-transformers-64k (same engine args)."
+   ],
+   "quality": true
+  },
+  {
    "id": "llamacpp-minimax-m31-flash-udiq2xxs",
    "engine": "llamacpp",
    "profile": "slow",
