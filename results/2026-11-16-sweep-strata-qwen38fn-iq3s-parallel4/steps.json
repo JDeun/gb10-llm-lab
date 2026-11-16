@@ -7,5 +7,7 @@
  "throughput-1": "ok",
  "throughput-2": "ok",
  "throughput-3": "ok",
- "concurrency4": "ok"
+ "concurrency1": "ok",
+ "concurrency4": "ok",
+ "concurrency8": "ok"
 }
