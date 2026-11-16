@@ -103,3 +103,11 @@ GB10에서 `echo <항목 ID> >> ~/llm/queue-reset.txt`를 실행하면 실행기
 | Nemotron-3-Ultra 550B(llama.cpp `--cpu-moe`)가 시스템 메모리를 소진 (2026-11-15 18:19) | 커널 OOM, Tailscale 중계 통신 약 45분 끊김 (원격 접속 불가) | 실행기 서비스에 `MemoryMax=108G`, `MemorySwapMax=4G`: 큰 모델은 실행기 단위 안에서만 종료되고 OS·sshd·tailscaled는 유지 |
 | llama.cpp v0.9.0 미지원·불일치 GGUF | Ling-3.0-flash(`ssm_f_a` 텐서), MiniMax-M3.1-Flash(텐서 수), Solar-Open2(`solar-open2`), A.X-K2(`axk2`) 로드 실패 | 실패로 기록, 미지원 구조는 제외 목록에 추가 |
 
+## 다운로드 예산 (2026-11-16, 회사 네트워크 사용량 제한)
+
+- 첫 4일간 약 3.3 TB를 받아 회사 네트워크 사용량 제한에 걸린 뒤 도입했습니다.
+- **주당 500 GB 단일 예산**(초대형 모델 약 1개 분량, `configs/queue.json`의 `defaults.download_budget.weekly_bytes`). 기록은 GB10의 `~/llm/download-ledger.json`.
+- 실행 가능한 항목 중 **필요한 다운로드가 가장 작은 것부터** 실행합니다. 이미 받은 파일을 쓰는 항목은 0으로 계산되어 먼저 실행되므로, 같은 GGUF를 쓰는 엔진 묶음이 이어서 진행됩니다.
+- 500 GB보다 큰 항목은 그 주에 다른 다운로드가 없을 때만 시작합니다. 받을 수 있는 항목이 없으면 6시간마다 다시 확인합니다.
+- 일부만 받은 파일(예상 크기의 95% 미만)은 받아 둔 것으로 보지 않습니다.
+

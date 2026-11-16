@@ -236,7 +236,8 @@ def wait_for_manual_strata() -> None:
 
 def start_vllm(entry: dict):
     run(["docker", "rm", "-f", "lab-vllm"], check=False)
-    run(["docker", "run", "-d", "--name", "lab-vllm", "--gpus", "all", "--ipc=host",
+    # same ceiling as the runner unit: an oversized model is OOM-killed inside the container, not the host
+    run(["docker", "run", "-d", "--name", "lab-vllm", "--gpus", "all", "--ipc=host", "--memory", "108g", "--memory-swap", "112g",
          "-v", f"{HOME}/.cache/huggingface:/root/.cache/huggingface",
          "-p", f"127.0.0.1:{PORTS['vllm']}:8000", VLLM_IMAGE, entry["repository"],
          "--served-model-name", entry["id"], "--host", "0.0.0.0", "--port", "8000", *entry.get("vllm_args", [])])
@@ -422,16 +423,20 @@ def needs_download(entry: dict) -> bool:
     return have < 0.95 * entry.get("size_bytes", 0)  # a partial download still needs (most of) its budget
 
 
+def download_bytes(entry: dict) -> int:
+    return entry.get("size_bytes", 0) if needs_download(entry) else 0
+
+
 def download_allowed(entry: dict, budget: dict) -> bool:
-    """Weekly budget: at most one large download per 7 days, and a byte cap for the rest."""
-    if not needs_download(entry):
+    """One weekly byte pool (about one extreme model): anything fits while the pool has room; an item larger
+    than the whole pool may start only in a week with no other download."""
+    need = download_bytes(entry)
+    if not need:
         return True
-    now, size = time.time(), entry.get("size_bytes", 0)
-    recent = [d for d in load_json(LEDGER, {"downloads": []})["downloads"] if now - d["at"] < WEEK_S]
-    if size >= budget.get("large_bytes", 150e9):
-        return not any(d["bytes"] >= budget.get("large_bytes", 150e9) for d in recent)
-    small = sum(d["bytes"] for d in recent if d["bytes"] < budget.get("large_bytes", 150e9))
-    return small + size <= budget.get("weekly_small_bytes", 200e9)
+    now = time.time()
+    used = sum(d["bytes"] for d in load_json(LEDGER, {"downloads": []})["downloads"] if now - d["at"] < WEEK_S)
+    weekly = budget.get("weekly_bytes", 500e9)
+    return used + need <= weekly or (used == 0 and need > weekly)
 
 
 def record_download(entry: dict) -> None:
@@ -452,7 +457,9 @@ def main() -> None:
         if not pending:
             break
         budget = queue["defaults"].get("download_budget", {})
-        entry = next((e for e in pending if engine_ready(e) and download_allowed(e, budget)), None)
+        ready = [e for e in pending if engine_ready(e) and download_allowed(e, budget)]
+        # smallest download first; already-downloaded (shared) files cost 0, so engine chains stay together
+        entry = min(ready, key=lambda e: (download_bytes(e), pending.index(e))) if ready else None
         if entry is None:
             # remaining entries wait for an engine or for the weekly download budget: sleep instead of finishing
             log(f"waiting: engines/budget for {len(pending)} entries")
