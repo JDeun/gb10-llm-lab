@@ -33,6 +33,8 @@ DELETE_ROOTS = (HF_HUB, STRATA_MODELS, INFERSSD_MODELS, COLI_MODELS)
 HF_ENGINES = ("vllm", "llamacpp", "ikllama", "colibri")  # engines whose weights the runner downloads into the HF cache
 TRANSIENT = {"timeout", "command_failed", "server_down", "server_exited", "start_timeout"}
 MAX_ATTEMPTS = 2
+DOWNLOAD_TIMEOUT_S = 14 * 86400  # ~1 MB/s company network: a 500 GB model needs about 6 days
+MAX_DOWNLOAD_ATTEMPTS = 6
 KEEP_DIRS = {HF_HUB / "models--nvidia--Qwen3.6-35B-A3B-NVFP4"}
 EVICTABLE = {"strata-qwen38fn-iq3s": [STRATA_MODELS / "IQ3_S"]}
 RESERVE_BYTES = 64 * 2**30
@@ -179,7 +181,10 @@ def hf_download(entry: dict) -> None:
     for pat in entry.get("hf_exclude", []):
         cmd += ["--exclude", pat]
     log(f"download {entry['repository']}")
-    run(cmd, timeout=48 * 3600)
+    try:
+        run(cmd, timeout=DOWNLOAD_TIMEOUT_S)
+    except EntryFailed as exc:  # slow/flaky network: resumable, retried separately from engine failures
+        raise EntryFailed("download_failed", exc.detail) from exc
 
 
 def hf_snapshot(repo: str) -> Path:
@@ -376,8 +381,12 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
         digest_text = ""
     stop_servers()
     lab_suite.export_and_commit(entry, alias, result_dir, failure, digest_text, evicted)
-    attempts = record.get("attempts", 0) + 1
-    retry = bool(failure) and failure["kind"] in TRANSIENT and attempts < MAX_ATTEMPTS
+    download_failure = bool(failure) and failure["kind"] == "download_failed"
+    attempts = record.get("attempts", 0) + (0 if download_failure else 1)
+    dl_attempts = record.get("download_attempts", 0) + (1 if download_failure else 0)
+    record["download_attempts"] = dl_attempts
+    retry = bool(failure) and ((failure["kind"] in TRANSIENT and attempts < MAX_ATTEMPTS)
+                               or (download_failure and dl_attempts < MAX_DOWNLOAD_ATTEMPTS))
     # keep files for a retry, or for a following entry that reuses them on another engine (if installed)
     keep_for = entry.get("keep_for") or []
     keep_for = [keep_for] if isinstance(keep_for, str) else keep_for
@@ -431,17 +440,22 @@ def download_allowed(entry: dict, budget: dict) -> bool:
     """One weekly byte pool (about one extreme model): anything fits while the pool has room; an item larger
     than the whole pool may start only in a week with no other download."""
     need = download_bytes(entry)
-    if not need:
-        return True
     now = time.time()
-    used = sum(d["bytes"] for d in load_json(LEDGER, {"downloads": []})["downloads"] if now - d["at"] < WEEK_S)
+    recent = [d for d in load_json(LEDGER, {"downloads": []})["downloads"] if now - d["at"] < WEEK_S]
+    if not need or any(d.get("repo") == entry["repository"] for d in recent):
+        return True  # nothing to fetch, or this repository is already charged this week (resume/retry)
+    used = sum(d["bytes"] for d in recent)
     weekly = budget.get("weekly_bytes", 500e9)
     return used + need <= weekly or (used == 0 and need > weekly)
 
 
 def record_download(entry: dict) -> None:
+    """Count a repository once per week, so a resumed or retried download is not charged twice."""
     ledger = load_json(LEDGER, {"downloads": []})
-    ledger["downloads"].append({"id": entry["id"], "bytes": entry.get("size_bytes", 0), "at": time.time()})
+    now = time.time()
+    if any(d.get("repo") == entry["repository"] and now - d["at"] < WEEK_S for d in ledger["downloads"]):
+        return
+    ledger["downloads"].append({"id": entry["id"], "repo": entry["repository"], "bytes": entry.get("size_bytes", 0), "at": now})
     tmp = LEDGER.with_suffix(".tmp")
     tmp.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
     tmp.replace(LEDGER)
