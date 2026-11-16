@@ -21,26 +21,41 @@
  "throughput-1": "ok",
  "throughput-2": "ok",
  "throughput-3": "ok",
- "concurrency4": "ok"
+ "concurrency4": "ok",
+ "quality": "ok"
 }`
 
 ## 결과
 
 | part | attempted/planned | complete | correct/graded | truncated | prompt tok (med) | TTFT s (med) | TTFT cold s (max, no cache reuse) | prefill tok/s (engine) | decode tok/s (engine) | e2e tok/s | errors |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| capacity-cap1 | 1/1 | 0 | - | 1 | 210 | 1.49 | 1.49 | 180.1 | 33.4 | 0.67 | - |
-| capacity-cap16 | 1/1 | 0 | - | 1 | 210 | 0.1 | None | 93.8 | 51.8 | 41.41 | - |
-| capacity-cap256 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 79.4 | 50.8 | 49.94 | - |
-| capacity-cap64 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 76.9 | 59.0 | 54.78 | - |
-| concurrency4-client1 | 2/2 | 0 | - | 2 | 210 | 0.13 | None | 75.1 | 19.9 | 19.75 | - |
-| concurrency4-client2 | 2/2 | 0 | - | 2 | 210 | 0.48 | None | 57.7 | 20.35 | 19.67 | - |
-| concurrency4-client3 | 2/2 | 0 | - | 2 | 210 | 0.37 | None | 75.3 | 20.2 | 19.68 | - |
-| concurrency4-client4 | 2/2 | 0 | - | 2 | 210 | 0.22 | None | 73.6 | 20.0 | 19.7 | - |
-| sanity-512 | 12/12 | 12 | 12/12 | 0 | 86 | 0.64 | 0.82 | 149.3 | 72.15 | 43.67 | - |
-| throughput-1 | 1/1 | 0 | - | 1 | 210 | 0.75 | 0.75 | 299.8 | 51.2 | 44.74 | - |
-| throughput-2 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 75.5 | 52.0 | 51.08 | - |
-| throughput-3 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 76.1 | 52.4 | 51.5 | - |
+| capacity-cap1 | 1/1 | 0 | - | 1 | 210 | 2.04 | 2.04 | 123.9 | 23.3 | 0.49 | - |
+| capacity-cap16 | 1/1 | 0 | - | 1 | 210 | 0.1 | None | 90.7 | 71.5 | 53.43 | - |
+| capacity-cap256 | 1/1 | 0 | - | 1 | 210 | 0.12 | None | 75.1 | 50.4 | 49.45 | - |
+| capacity-cap64 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 74.9 | 57.5 | 53.4 | - |
+| concurrency4-client1 | 2/2 | 0 | - | 2 | 210 | 0.44 | None | 71.5 | 20.0 | 19.37 | - |
+| concurrency4-client2 | 2/2 | 0 | - | 2 | 210 | 0.13 | None | 73.1 | 19.6 | 19.46 | - |
+| concurrency4-client3 | 2/2 | 0 | - | 2 | 210 | 0.45 | None | 72.0 | 20.0 | 19.34 | - |
+| concurrency4-client4 | 2/2 | 0 | - | 2 | 210 | 0.22 | None | 76.5 | 19.7 | 19.39 | - |
+| quality-gsm8k | 100/100 | 100 | 96/100 | 0 | 124 | None | None | None | None | None | - |
+| quality-hrm8k-gsm8k | 100/100 | 100 | 97/100 | 0 | 140 | None | None | None | None | None | - |
+| quality-humaneval | 164/164 | 162 | 158/162 | 2 | 194 | None | None | None | None | None | - |
+| quality-kmmlu | 100/100 | 100 | 74/100 | 0 | 177 | None | None | None | None | None | - |
+| quality-mmlu-pro | 140/140 | 140 | 125/140 | 0 | 227 | None | None | None | None | None | - |
+| quality-open-ko | 12/12 | 11 | - | 1 | 94 | None | None | None | None | None | - |
+| quality-tools-ko | 12/12 | 12 | 12/12 | 0 | 740 | None | None | None | None | None | - |
+| sanity-512 | 12/12 | 12 | 12/12 | 0 | 86 | 0.64 | 0.89 | 149.3 | 69.7 | 41.97 | - |
+| throughput-1 | 1/1 | 0 | - | 1 | 210 | 0.75 | 0.75 | 298.6 | 49.3 | 43.3 | - |
+| throughput-2 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 76.2 | 49.9 | 49.13 | - |
+| throughput-3 | 1/1 | 0 | - | 1 | 210 | 0.11 | None | 77.4 | 50.5 | 49.71 | - |
 
-- `concurrency4-summary.json`: `{"clients": 4, "requests": 8, "errors": 0, "wall_s": 26.1, "completion_tokens_total": 2048, "aggregate_completion_tokens_per_s": 78.48, "per_request_e2e_tokens_per_s_median": 20.091756286788307, "note": "Aggregate = all completion tokens / wall time from first start to last end; includes prefill."}`
+- 품질 `gsm8k-subset-zeroshot`: 정답 96/100, 잘림 0, 평균 출력 272.8 토큰
+- 품질 `hrm8k-gsm8k-subset-zeroshot`: 정답 97/100, 잘림 0, 평균 출력 395.5 토큰
+- 품질 `humaneval-subset-zeroshot`: 정답 158/164, 잘림 2, 평균 출력 835.2 토큰
+- 품질 `kmmlu-subset-zeroshot`: 정답 74/100, 잘림 0, 평균 출력 2034.8 토큰
+- 품질 `mmlu-pro-subset-zeroshot`: 정답 125/140, 잘림 0, 평균 출력 1259.7 토큰
+- 품질 `open-ko-subset-zeroshot`: 정답 0/0, 잘림 1, 평균 출력 1178.4 토큰
+- 품질 `tools-ko-subset-zeroshot`: 정답 12/12, 잘림 0, 평균 출력 80.2 토큰
+- `concurrency4-summary.json`: `{"clients": 4, "requests": 8, "errors": 0, "wall_s": 26.49, "completion_tokens_total": 2048, "aggregate_completion_tokens_per_s": 77.32, "per_request_e2e_tokens_per_s_median": 19.386605037351327, "note": "Aggregate = all completion tokens / wall time from first start to last end; includes prefill."}`
 
 측정이 끝난 모델 파일은 결과 커밋 후 디스크 확보를 위해 삭제합니다.
