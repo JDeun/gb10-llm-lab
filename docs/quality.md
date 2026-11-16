@@ -49,3 +49,13 @@
 ### 정성 평가 계획
 
 `open-ko` 응답은 모델별 결과 폴더의 `runs/quality-open-ko/results.jsonl`에 저장됩니다. 같은 문항의 여러 모델 응답을 모델 이름을 가린 채 나란히 보고 점수를 매기는 비교 페이지를 별도로 만들 예정입니다(사람 평가). 자동 판정(LLM-as-judge)은 판정 모델·프롬프트를 고정한 뒤 별도 항목으로 추가합니다.
+
+### 자동 판정 (LLM-as-judge, 2026-11-16)
+
+`automation/tools/judge_codex.py`가 Mac의 Codex CLI(`codex exec`, 판정 모델 `gpt-6.1-sol`, 읽기 전용·기록 없음 모드, JSON 스키마 출력)로 `open-ko` 응답을 판정합니다.
+
+- 방식: 기준 모델 대비 쌍대 비교. 모델 이름은 가리고 A/B 위치를 바꿔 문항마다 2회 판정, 승·무·패와 1~10점, 위치 일관성(두 판정이 같은 결과인 문항 수)을 기록합니다.
+- 판정 프롬프트 sha: 결과 JSON의 `judge.template_sha`. 판정 모델이나 프롬프트가 바뀐 결과끼리는 비교하지 않습니다.
+- 실행: GB10의 결과를 가져온 Mac 저장소에서 `python3 automation/tools/judge_codex.py --candidate results/<후보> --reference results/<기준>`. 결과는 `results/_shared/judgments/`에 저장합니다.
+- 외부 전송: 직접 작성한 비민감 문항과 공개 모델의 응답만 판정 서비스로 보냅니다. 회사 데이터가 들어간 문항은 이 경로로 판정하지 않습니다.
+- 한계: 판정 모델의 선호(길이, 문체, 자사 모델 계열)가 섞일 수 있습니다. 사람 평가와 함께 봅니다.
