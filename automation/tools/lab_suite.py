@@ -21,6 +21,8 @@ PROFILES = {
     "slow": {"caps": [1, 16, 64], "sanity": [("sanity", 512)], "throughput": 1, "conc": False},
     "capacity": {"caps": [1, 16, 64], "sanity": [("sanity-mini", 512)], "throughput": 1, "conc": False},
     "quality": {"caps": [], "sanity": [], "throughput": 0, "conc": False},  # answer-quality step only
+    # final candidates: 3x larger quality subsets, 5 speed repeats, concurrency (protocol confirmation stage)
+    "confirm": {"caps": [], "sanity": [("sanity", 2048)], "throughput": 5, "conc": True},
 }
 CASE_FILES = {"sanity": LAB / "prompts/sanity.jsonl", "sanity-mini": LLM / "prompts/sanity-mini.jsonl"}
 THROUGHPUT = LAB / "prompts/throughput_ko.txt"
@@ -144,16 +146,24 @@ def run_concurrency(port: int, alias: str, base: Path, timeout_s: int, clients: 
 
 
 QUALITY_DIR = LLM / "quality"
-QUALITY_SETS = ["gsm8k", "hrm8k-gsm8k", "mmlu-pro", "kmmlu", "open-ko"]
+QUALITY_SETS = ["gsm8k", "hrm8k-gsm8k", "mmlu-pro", "kmmlu", "humaneval", "tools-ko", "open-ko"]
+CONFIRM_SETS = ["gsm8k-l", "hrm8k-gsm8k-l", "mmlu-pro-l", "kmmlu-l", "humaneval", "tools-ko", "open-ko"]
+
+
+def tools_supported(entry: dict) -> bool:
+    """vLLM only returns tool_calls when a tool parser is enabled; other engines handle tools via their templates."""
+    return entry["engine"] != "vllm" or "--enable-auto-tool-choice" in entry.get("vllm_args", [])
 
 
 def quality_wanted(entry: dict) -> bool:
-    return entry.get("quality", entry["profile"] in ("full", "standard", "quality")) and (QUALITY_DIR / "gsm8k.jsonl").exists()
+    return entry.get("quality", entry["profile"] in ("full", "standard", "quality", "confirm")) and (QUALITY_DIR / "gsm8k.jsonl").exists()
 
 
 def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: int) -> str:
     """Answer-quality subsets (zero-shot) + open Korean prompts; see quality_eval.py and docs/quality.md."""
-    sets = [s for s in entry.get("quality_sets", QUALITY_SETS) if (QUALITY_DIR / f"{s}.jsonl").exists()]
+    default = CONFIRM_SETS if entry["profile"] == "confirm" else QUALITY_SETS
+    sets = [s for s in entry.get("quality_sets", default) if (QUALITY_DIR / f"{s}.jsonl").exists()
+            and (s != "tools-ko" or tools_supported(entry))]
     cmd = ["python3", str(TOOLS / "quality_eval.py"), "run", "--base-url", f"http://127.0.0.1:{port}", "--model", alias,
            "--sets", *sets, "--out-dir", str(base), "--workers", str(entry.get("quality_workers", 4))]
     if entry.get("extra_body"):

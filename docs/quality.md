@@ -59,3 +59,15 @@
 - 실행: GB10의 결과를 가져온 Mac 저장소에서 `python3 automation/tools/judge_codex.py --candidate results/<후보> --reference results/<기준>`. 결과는 `results/_shared/judgments/`에 저장합니다.
 - 외부 전송: 직접 작성한 비민감 문항과 공개 모델의 응답만 판정 서비스로 보냅니다. 회사 데이터가 들어간 문항은 이 경로로 판정하지 않습니다.
 - 한계: 판정 모델의 선호(길이, 문체, 자사 모델 계열)가 섞일 수 있습니다. 사람 평가와 함께 봅니다.
+
+## 실전 과제와 최종 확인 (2026-11-16 추가)
+
+| 세트 | 내용 | 채점 |
+|---|---|---|
+| `humaneval` | openai/openai_humaneval 164문항 전체 (MIT) | 응답의 마지막 ```python 블록 + 공식 테스트를 **격리 컨테이너**에서 실행해 통과 여부 (pass@1, temperature 0) |
+| `tools-ko` | 직접 작성 12문항 (`results/_shared/quality/tools-ko.jsonl`): 날씨·특허 검색·일정·환율·메신저·주가 6개 도구 | 첫 tool call의 함수 이름과 필수 인자 일치(대소문자·공백·문장부호 무시, 같은 뜻 표기 허용) |
+
+- 격리 컨테이너: `python:3.12-slim`, 네트워크 없음, 읽기 전용 루트, `/tmp` 16 MB, 메모리 512 MB, CPU 1, 프로세스 64개, 15초, 권한 없는 사용자(65534). 네트워크 차단을 실제로 확인했습니다.
+- vLLM은 tool parser(`--enable-auto-tool-choice`)를 켠 항목에서만 `tools-ko`를 실행합니다.
+- **confirm 프로필**(최종 후보 확인): `-l` 세트(MMLU-Pro 420, KMMLU 300, GSM8K 300, HRM8K 300) + humaneval + tools-ko + open-ko, sanity 2048, 속도 5회 반복, 동시성. 상위 후보를 고른 뒤 큐에 추가합니다.
+- **용도별 추천**: `automation/tools/recommend.py`가 `results/RECOMMENDATION.md`를 만듭니다(대화·배치·코딩·긴 문서·최대 품질, 파레토 최적 표시). 결과를 가져올 때마다 다시 생성합니다.
