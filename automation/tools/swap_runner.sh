@@ -4,7 +4,7 @@
 set -u
 STATE=~/llm/queue-state.json
 LOG=~/llm/logs/lab-runner.log
-current=$(python3 -c "import json;s=json.load(open('$STATE'));print(next((k for k,v in s.items() if v.get('status')=='running'),''))")
+current=$(python3 -c "import json;s=json.load(open('$STATE'));r=[(v.get('started',''),k) for k,v in s.items() if v.get('status')=='running'];print(max(r)[1] if r else '')")
 if [ -n "$current" ]; then
   while [ "$(python3 -c "import json;print(json.load(open('$STATE'))['$current'].get('status'))")" = running ]; do sleep 30; done
 fi
