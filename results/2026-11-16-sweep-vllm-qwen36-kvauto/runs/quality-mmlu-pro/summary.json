@@ -1,0 +1,17 @@
+{
+ "set": "mmlu-pro",
+ "label": "mmlu-pro-subset-zeroshot",
+ "planned_requests": 140,
+ "attempted_requests": 140,
+ "final_text_complete_requests": 82,
+ "truncated_outputs": 58,
+ "transport_failures": 0,
+ "planned_correctness_requests": 140,
+ "correctness_evaluated": 82,
+ "correctness_passed": 74,
+ "accuracy_on_attempted": 0.5286,
+ "accuracy_on_completed": 0.9024,
+ "completion_tokens_mean": 3096.3,
+ "wall_s": 1591.0,
+ "metrics": {}
+}
