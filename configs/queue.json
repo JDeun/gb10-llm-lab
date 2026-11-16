@@ -4,9 +4,8 @@
   "step_timeout_s": 7200,
   "start_timeout_s": 3600,
   "download_budget": {
-   "large_bytes": 150000000000.0,
-   "weekly_small_bytes": 200000000000.0,
-   "note": "Company network cap: one >=150 GB download per 7 days, other downloads <=200 GB per 7 days (2026-11-16)"
+   "weekly_bytes": 500000000000.0,
+   "note": "One weekly pool of about one extreme model (500 GB, company network cap); smallest download first (2026-11-16)"
   }
  },
  "entries": [
