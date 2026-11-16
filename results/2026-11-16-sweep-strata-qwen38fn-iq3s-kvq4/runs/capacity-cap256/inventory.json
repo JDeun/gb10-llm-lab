@@ -1,5 +1,5 @@
 {
-  "captured_utc": "2026-11-16T05:38:54.181189+00:00",
+  "captured_utc": "2026-11-16T12:59:36.927903+00:00",
   "scope": "benchmark_client_host",
   "inference_server_is_this_host": null,
   "platform": {
@@ -10,31 +10,31 @@
     "logical_cpus": 20
   },
   "memory": {
-    "timestamp_utc": "2026-11-16T05:38:54.181410+00:00",
-    "monotonic_s": 349856.265488729,
+    "timestamp_utc": "2026-11-16T12:59:36.928133+00:00",
+    "monotonic_s": 376299.012211695,
     "scope": "whole_system_not_model_process",
     "host_scope": "benchmark_client_host",
     "meminfo_kib": {
       "MemTotal": 127533208,
-      "MemAvailable": 27979660,
-      "Cached": 58644992,
+      "MemAvailable": 28592336,
+      "Cached": 58700280,
       "SwapTotal": 16777212,
-      "SwapFree": 16195316,
-      "Dirty": 288,
+      "SwapFree": 16171320,
+      "Dirty": 428,
       "Writeback": 0
     },
     "vmstat_counters": {
-      "pswpin": 7190975,
-      "pswpout": 11375226,
-      "pgmajfault": 8596514,
+      "pswpin": 7300639,
+      "pswpout": 11573003,
+      "pgmajfault": 8793991,
       "oom_kill": 28
     },
-    "io_pressure": "some avg10=12.23 avg60=6.01 avg300=5.62 total=2904960946\nfull avg10=12.23 avg60=6.01 avg300=5.62 total=1663527799",
+    "io_pressure": "some avg10=0.51 avg60=0.49 avg300=0.44 total=2965000017\nfull avg10=0.51 avg60=0.49 avg300=0.44 total=1723067098",
     "disk_counters": {
       "nvme0n1": {
-        "read_bytes": 8532260338688,
-        "write_bytes": 3496191312896,
-        "io_ms": 15580323
+        "read_bytes": 8808211573760,
+        "write_bytes": 3555110831104,
+        "io_ms": 15861831
       },
       "nvme0n1p1": {
         "read_bytes": 11516928,
@@ -47,9 +47,9 @@
         "io_ms": 13
       },
       "nvme0n1p3": {
-        "read_bytes": 8532240879616,
-        "write_bytes": 3496191311872,
-        "io_ms": 76305151
+        "read_bytes": 8808192114688,
+        "write_bytes": 3555110830080,
+        "io_ms": 76628180
       }
     }
   },
@@ -65,7 +65,7 @@
   "disk": {
     "checked_path": "<user-home>/llm/tools",
     "total_bytes": 992716673024,
-    "free_bytes": 638421389312
+    "free_bytes": 585041682432
   },
   "versions": {
     "cuda_compiler": {
@@ -85,7 +85,7 @@
   "gpu": {
     "available": true,
     "returncode": 0,
-    "output": "NVIDIA GB10, 580.178.04, 31.94, 51"
+    "output": "NVIDIA GB10, 580.178.04, 33.08, 51"
   },
   "notes": [
     "This inventory and telemetry describe the client host; the inference server may be elsewhere.",
