@@ -7,49 +7,49 @@
   "unattempted_requests": 0,
   "request_coverage": 1.0,
   "run_status": "completed",
-  "final_text_complete_requests": 10,
+  "final_text_complete_requests": 11,
   "planned_correctness_requests": 12,
   "correctness_checked_attempts": 12,
   "correctness_accuracy_on_completed_answers": 1.0,
-  "correctness_success_rate_on_attempted_requests": 0.8333333333333334,
-  "correctness_success_rate_on_planned_requests": 0.8333333333333334,
-  "correctness_evaluation_coverage_on_attempted_requests": 0.8333333333333334,
+  "correctness_success_rate_on_attempted_requests": 0.9166666666666666,
+  "correctness_success_rate_on_planned_requests": 0.9166666666666666,
+  "correctness_evaluation_coverage_on_attempted_requests": 0.9166666666666666,
   "transport_failures": 0,
-  "truncated_outputs": 2,
-  "correctness_evaluated": 10,
-  "correctness_passed": 10,
+  "truncated_outputs": 1,
+  "correctness_evaluated": 11,
+  "correctness_passed": 11,
   "correctness_failed": 0,
-  "correctness_incomplete": 2,
+  "correctness_incomplete": 1,
   "correctness_transport_errors": 0,
   "correctness_not_evaluated": 0,
   "metrics": {
     "elapsed_s": {
       "n": 12,
-      "median": 2.2362668609712273,
-      "p95": 3.851228037738474,
-      "min": 0.916830211004708,
-      "max": 3.9048896649619564
+      "median": 2.2161235785169993,
+      "p95": 3.7674172403494595,
+      "min": 0.9209392530028708,
+      "max": 3.8289545419975184
     },
     "ttft_semantic_s": {
       "n": 12,
-      "median": 0.07837274548364803,
-      "p95": 0.08881063066946808,
-      "min": 0.06367033900460228,
-      "max": 0.09372013801475987
+      "median": 0.07283700100379065,
+      "p95": 0.07993836792593356,
+      "min": 0.06384751602308825,
+      "max": 0.08079194097081199
     },
     "ttft_visible_answer_s": {
-      "n": 10,
-      "median": 2.1510741605015937,
-      "p95": 2.6264449391834197,
-      "min": 0.8398209559964016,
-      "max": 2.9245348409749568
+      "n": 11,
+      "median": 2.1062811060110107,
+      "p95": 3.1523358739796095,
+      "min": 0.8193644359707832,
+      "max": 3.716745665995404
     },
     "end_to_end_completion_tokens_per_s": {
       "n": 12,
-      "median": 137.2851207316197,
-      "p95": 139.66437061890582,
-      "min": 118.88787988405443,
-      "max": 140.12042494985698
+      "median": 134.2756669536032,
+      "p95": 143.6307523115653,
+      "min": 119.44327450624705,
+      "max": 143.7493198708283
     },
     "engine_reported_decode_tokens_per_s": {
       "n": 0

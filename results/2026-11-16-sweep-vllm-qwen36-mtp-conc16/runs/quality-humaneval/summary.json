@@ -1,0 +1,17 @@
+{
+ "set": "humaneval",
+ "label": "humaneval-subset-zeroshot",
+ "planned_requests": 164,
+ "attempted_requests": 164,
+ "final_text_complete_requests": 142,
+ "truncated_outputs": 22,
+ "transport_failures": 0,
+ "planned_correctness_requests": 164,
+ "correctness_evaluated": 142,
+ "correctness_passed": 136,
+ "accuracy_on_attempted": 0.8293,
+ "accuracy_on_completed": 0.9577,
+ "completion_tokens_mean": 2441.8,
+ "wall_s": 1400.5,
+ "metrics": {}
+}
