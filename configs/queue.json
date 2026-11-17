@@ -802,6 +802,56 @@
    ]
   },
   {
+   "id": "sweep-vllm-qwen36-think-budget16k",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}",
+    "--enable-auto-tool-choice",
+    "--tool-call-parser",
+    "qwen3_xml"
+   ],
+   "profile": "quality",
+   "concurrency_levels": [],
+   "quality": true,
+   "notes": [
+    "Reasoning on with a 16384-token answer budget: at 4096 tokens 62/140 MMLU-Pro answers were cut off."
+   ],
+   "quality_max_tokens": 16384,
+   "quality_sets": [
+    "gsm8k",
+    "hrm8k-gsm8k",
+    "mmlu-pro",
+    "kmmlu",
+    "humaneval"
+   ],
+   "quality_workers": 8
+  },
+  {
    "id": "sweep-vllm-qwen36-nomtp-conc16",
    "engine": "vllm",
    "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",

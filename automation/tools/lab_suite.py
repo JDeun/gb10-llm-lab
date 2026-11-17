@@ -170,6 +170,8 @@ def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: 
         cmd += ["--extra-body", str(base / "extra_body.json")]
     if entry.get("quality_limit"):
         cmd += ["--limit", str(entry["quality_limit"])]
+    if entry.get("quality_max_tokens"):  # reasoning models: a larger answer budget (default 4096)
+        cmd += ["--max-tokens", str(entry["quality_max_tokens"])]
     try:
         subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * entry.get("quality_timeout_factor", 4), check=False)
         return "ok"

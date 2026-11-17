@@ -2,19 +2,43 @@
 
 `automation/tools/recommend.py`가 결과 폴더에서 계산합니다. 품질은 객관식·수학·코드·툴 호출 부분집합의 평균 정답률(zero-shot 부분집합, 공식 점수 아님)이고, 문항 수가 100~140개라 약 ±5~9%p 차이는 같은 수준으로 봅니다. 파레토 최적은 두 축 모두에서 더 나은 대안이 없는 조합입니다. 최종 추천은 confirm 프로필(3배 문항, 5회 반복)로 확인한 뒤 확정합니다.
 
-품질 데이터가 있는 결과: 0개 / 전체 29개
+품질 데이터가 있는 결과: 7개 / 전체 40개
 
 ## 대화·API 상시 서빙 (품질 × 단일 요청 속도)
 
-(데이터 없음)
+| 결과 | 품질 | 단일 tok/s | 파레토 최적 |
+|---|---|---|---|
+| `sweep-strata-qwen38fn-iq3s-kvq4` | 0.926 | 53.8 | **예** |
+| `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | 49.9 |  |
+| `sweep-vllm-qwen36-nothink` | 0.889 | 95.9 | **예** |
+| `sweep-vllm-qwen36-mtp-conc16` | 0.802 | 114.2 | **예** |
+| `sweep-vllm-qwen36-kvauto` | 0.797 | 109.4 |  |
+| `ikllama-gemma4-26b-udq4kxl` | 0.693 | 54.4 |  |
+| `llamacpp-gemma4-26b-udq4kxl` | 0.689 | 54.4 |  |
 
 ## 여러 사용자·배치 (품질 × 동시 처리 합계)
 
-(데이터 없음)
+| 결과 | 품질 | 동시 합계 tok/s | 파레토 최적 |
+|---|---|---|---|
+| `sweep-strata-qwen38fn-iq3s-kvq4` | 0.926 | 79.3 | **예** |
+| `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | 77.3 |  |
+| `sweep-vllm-qwen36-nothink` | 0.889 | 239.2 | **예** |
+| `sweep-vllm-qwen36-mtp-conc16` | 0.802 | 544.6 | **예** |
+| `sweep-vllm-qwen36-kvauto` | 0.797 | 272.8 |  |
+| `ikllama-gemma4-26b-udq4kxl` | 0.693 | 54.2 |  |
+| `llamacpp-gemma4-26b-udq4kxl` | 0.689 | 129.2 |  |
 
 ## 코딩·에이전트 (코드+툴 정답률 × 단일 요청 속도)
 
-(데이터 없음)
+| 결과 | 코드·툴 정답률 | 단일 tok/s | 파레토 최적 |
+|---|---|---|---|
+| `sweep-strata-qwen38fn-iq3s-quality` | 0.982 | 49.9 | **예** |
+| `sweep-strata-qwen38fn-iq3s-kvq4` | 0.979 | 53.8 | **예** |
+| `sweep-vllm-qwen36-nothink` | 0.976 | 95.9 | **예** |
+| `sweep-vllm-qwen36-kvauto` | 0.918 | 109.4 | **예** |
+| `sweep-vllm-qwen36-mtp-conc16` | 0.915 | 114.2 | **예** |
+| `ikllama-gemma4-26b-udq4kxl` | 0.909 | 54.4 |  |
+| `llamacpp-gemma4-26b-udq4kxl` | 0.887 | 54.4 |  |
 
 ## 긴 문서 (정답 낸 최대 입력 × 단일 요청 속도, 품질 무관)
 
@@ -28,6 +52,8 @@
 | `vllm-qwen36-27b-fp8` | 82,029 | 8.0 |  |
 | `strata-deepseek-v41-flash-200bpw` | 67,104 | 15.3 |  |
 | `strata-deepseek-v41-flash-225bpw` | 67,104 | 10.7 |  |
+| `ikllama-gemma4-26b-udq4kxl` | 45,253 | 54.4 |  |
+| `llamacpp-gemma4-26b-udq4kxl` | 45,253 | 54.4 |  |
 | `strata-qwen38fn-iq3s-64k` | 44,945 | 53.4 |  |
 | `colibri-qwen36-35b-udq4kxl` | 44,905 | 29.1 |  |
 | `ikllama-qwen36-35b-udq4kxl` | 44,903 | 66.7 |  |
@@ -48,3 +74,10 @@
 
 | 순위 | 결과 | 품질 | 세트별 정답률 |
 |---|---|---|---|
+| 1 | `sweep-strata-qwen38fn-iq3s-kvq4` | 0.926 | gsm8k 0.96, hrm8k-gsm8k 0.97, humaneval 0.96, kmmlu 0.76, mmlu-pro 0.91, tools-ko 1.00 |
+| 2 | `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | gsm8k 0.96, hrm8k-gsm8k 0.97, humaneval 0.96, kmmlu 0.74, mmlu-pro 0.89, tools-ko 1.00 |
+| 3 | `sweep-vllm-qwen36-nothink` | 0.889 | gsm8k 0.95, hrm8k-gsm8k 0.94, humaneval 0.95, kmmlu 0.68, mmlu-pro 0.81, tools-ko 1.00 |
+| 4 | `sweep-vllm-qwen36-mtp-conc16` | 0.802 | gsm8k 0.95, hrm8k-gsm8k 0.90, humaneval 0.83, kmmlu 0.61, mmlu-pro 0.52, tools-ko 1.00 |
+| 5 | `sweep-vllm-qwen36-kvauto` | 0.797 | gsm8k 0.95, hrm8k-gsm8k 0.86, humaneval 0.84, kmmlu 0.61, mmlu-pro 0.53, tools-ko 1.00 |
+| 6 | `ikllama-gemma4-26b-udq4kxl` | 0.693 | gsm8k 0.54, hrm8k-gsm8k 0.92, humaneval 0.82, kmmlu 0.64, mmlu-pro 0.24, tools-ko 1.00 |
+| 7 | `llamacpp-gemma4-26b-udq4kxl` | 0.689 | gsm8k 0.52, hrm8k-gsm8k 0.93, humaneval 0.77, kmmlu 0.61, mmlu-pro 0.30, tools-ko 1.00 |
