@@ -8,6 +8,7 @@ current=$(python3 -c "import json;s=json.load(open('$STATE'));r=[(v.get('started
 if [ -n "$current" ]; then
   while [ "$(python3 -c "import json;print(json.load(open('$STATE'))['$current'].get('status'))")" = running ]; do sleep 30; done
 fi
+[ -f ~/llm/tools/lab_runner.next.py ] || exit 0  # another waiter already installed it
 python3 -m py_compile ~/llm/tools/lab_runner.next.py || { echo "[swap] next runner does not compile; kept old" >> "$LOG"; exit 1; }
 mv ~/llm/tools/lab_runner.next.py ~/llm/tools/lab_runner.py
 systemctl --user restart lab-runner

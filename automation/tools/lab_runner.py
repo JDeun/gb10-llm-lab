@@ -472,8 +472,11 @@ def main() -> None:
             break
         budget = queue["defaults"].get("download_budget", {})
         ready = [e for e in pending if engine_ready(e) and download_allowed(e, budget)]
+        # "deferred" follow-ups run only when no regular entry can run now (e.g. all wait for the weekly budget)
+        regular = [e for e in ready if not e.get("deferred")]
+        pool = regular or ready
         # smallest download first; already-downloaded (shared) files cost 0, so engine chains stay together
-        entry = min(ready, key=lambda e: (download_bytes(e), pending.index(e))) if ready else None
+        entry = min(pool, key=lambda e: (download_bytes(e), pending.index(e))) if pool else None
         if entry is None:
             # remaining entries wait for an engine or for the weekly download budget: sleep instead of finishing
             log(f"waiting: engines/budget for {len(pending)} entries")

@@ -2551,6 +2551,188 @@
    "notes": [
     "Same GGUF files as the llama.cpp / ik_llama.cpp Kimi entries (reused when kept)."
    ]
+  },
+  {
+   "id": "issue14-strata-qwen38fn-iq3s-tune-quick",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "deferred": true,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "size_bytes": 84000000000.0,
+   "cached": true,
+   "keep": true,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "64k",
+    "--tune",
+    "quick"
+   ],
+   "notes": [
+    "Strata auto-tuning (quick); all earlier runs used --tune skip.",
+    "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
+   ]
+  },
+  {
+   "id": "issue14-strata-qwen38fn-iq3s-tune-thorough",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "deferred": true,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "size_bytes": 84000000000.0,
+   "cached": true,
+   "keep": true,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "64k",
+    "--tune",
+    "thorough"
+   ],
+   "notes": [
+    "Strata auto-tuning (thorough).",
+    "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
+   ]
+  },
+  {
+   "id": "issue14-strata-qwen38fn-iq3s-ctx32k-kvq4",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "deferred": true,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "size_bytes": 84000000000.0,
+   "cached": true,
+   "keep": true,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "32k",
+    "--kv",
+    "q4_0",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "32K context + KV q4_0 for short-context serving.",
+    "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
+   ]
+  },
+  {
+   "id": "issue14-strata-qwen38fn-iq3xxs",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "deferred": true,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_XXS)",
+   "size_bytes": 80000000000.0,
+   "cached": false,
+   "keep": false,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_xxs",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "64k",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "Lighter quant IQ3_XXS: speed vs quality loss.",
+    "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
+   ]
+  },
+  {
+   "id": "issue14-strata-qwen38fn-iq2xs",
+   "engine": "strata",
+   "profile": "standard",
+   "vision": false,
+   "deferred": true,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ2_XS)",
+   "size_bytes": 70000000000.0,
+   "cached": false,
+   "keep": false,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq2_xs",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "64k",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "Lighter quant IQ2_XS: speed vs quality loss.",
+    "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
+   ]
   }
  ],
  "excluded": [
