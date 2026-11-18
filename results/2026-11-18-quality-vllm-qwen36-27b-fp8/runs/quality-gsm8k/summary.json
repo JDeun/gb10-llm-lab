@@ -1,0 +1,17 @@
+{
+ "set": "gsm8k",
+ "label": "gsm8k-subset-zeroshot",
+ "planned_requests": 100,
+ "attempted_requests": 100,
+ "final_text_complete_requests": 93,
+ "truncated_outputs": 7,
+ "transport_failures": 0,
+ "planned_correctness_requests": 100,
+ "correctness_evaluated": 93,
+ "correctness_passed": 91,
+ "accuracy_on_attempted": 0.91,
+ "accuracy_on_completed": 0.9785,
+ "completion_tokens_mean": 1527.4,
+ "wall_s": 5101.9,
+ "metrics": {}
+}
