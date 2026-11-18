@@ -215,5 +215,7 @@ colibri 전용 극한 후보: Mistral-Large-4 1T (233 GB), GLM-5.3 744B (217 GB)
 | mistral-large-4-1t | · | · | ⏳ | ⏳ | · | ⏳ |
 | muse-spark-open-816b | · | · | ⏳ | ⏳ | ⏳ | ⏳ |
 | kimi-k3-2.8t | · | · | ⏳ | ⏳ | · | ⏳ |
-| qwen3.8-2.4t | · | · | ⏳ | ⏳ | · | · |
+| qwen3.8-2.4t | · | · | ⏳ | ⏳ | · | ⏳ |
 | nemotron-3-super | ✅✅ | · | · | · | · | · |
+
+- 2026-11-18: Qwen3.8-2.4T-A95B는 `qwen3_5_moe_text`(Qwen3.5/3.6 MoE 계열) 구조라 colibri(qwen36 엔진, GGUF `qwen35moe`)로도 측정하도록 추가. 라이선스 `qwen3.8-max`.

@@ -2210,7 +2210,10 @@
    "may_evict": [
     "strata-qwen38fn-iq3s"
    ],
-   "keep_for": "ikllama"
+   "keep_for": [
+    "ikllama",
+    "colibri"
+   ]
   },
   {
    "id": "ikllama-qwen38-24t-udiq1s",
@@ -2233,6 +2236,35 @@
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."
+   ],
+   "keep_for": [
+    "colibri"
+   ]
+  },
+  {
+   "id": "colibri-qwen38-24t-udiq1s",
+   "engine": "colibri",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/Qwen3.8-2.4T-A95B-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 508400000000,
+   "context": [
+    "512"
+   ],
+   "colibri_args": [
+    "--ctx",
+    "8192"
+   ],
+   "start_timeout_s": 21600,
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Qwen3.8-2.4T is the qwen3_5_moe_text architecture (same family as Qwen3.5/3.6), which colibri's qwen36 engine reads as qwen35moe.",
+    "License: qwen3.8-max. Same GGUF as the llama.cpp / ik_llama.cpp entries before it."
    ]
   },
   {
