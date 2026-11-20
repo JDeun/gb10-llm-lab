@@ -2767,6 +2767,60 @@
    ]
   },
   {
+   "engine": "llamacpp",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-Q2_0.gguf"
+   ],
+   "size_bytes": 7630000000,
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "id": "llamacpp-bonsai2-27b-ternary-q2_0",
+   "profile": "standard",
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "keep_for": [
+    "llamacpp"
+   ],
+   "notes": [
+    "Ternary (1.58-bit, g128, Hadamard-rotated) Qwen3.8-27B from Prism ML, stock-llama.cpp Q2_0 packing (7.63 GB).",
+    "Compare with Qwen3.8-27B FP8 on vLLM (27 GB, ~8 tok/s). Model card: think budget >=16K tokens."
+   ]
+  },
+  {
+   "engine": "llamacpp",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-Q2_0.gguf"
+   ],
+   "size_bytes": 7630000000,
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "id": "llamacpp-bonsai2-27b-ternary-q2_0-effort-medium",
+   "profile": "quality",
+   "context": [],
+   "extra_body": {
+    "reasoning_effort": "medium"
+   },
+   "notes": [
+    "Same file; reasoning_effort=medium (model card: shorter reasoning, fewer cut-offs)."
+   ]
+  },
+  {
    "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
    "engine": "strata",
    "profile": "confirm",
