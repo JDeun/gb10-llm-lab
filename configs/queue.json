@@ -2821,11 +2821,65 @@
    ]
   },
   {
+   "id": "prism-bonsai2-27b-ternary-ptq1_0",
+   "engine": "prism",
+   "profile": "standard",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PTQ1_0.gguf"
+   ],
+   "size_bytes": 5950000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Dense trit packing, 1.75 bits/weight (5.95 GB).",
+    "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
+   ]
+  },
+  {
+   "id": "prism-bonsai2-27b-ternary-pq2_0",
+   "engine": "prism",
+   "profile": "standard",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+   ],
+   "size_bytes": 7210000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Trit in a 2-bit slot, 2.13 bits/weight (7.21 GB).",
+    "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
+   ]
+  },
+  {
    "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
    "engine": "strata",
    "profile": "confirm",
    "vision": false,
-   "deferred": false,
+   "deferred": true,
    "issue": 14,
    "quality": true,
    "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
@@ -2916,7 +2970,8 @@
     4,
     8,
     16
-   ]
+   ],
+   "deferred": true
   }
  ],
  "excluded": [

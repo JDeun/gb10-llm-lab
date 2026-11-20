@@ -71,6 +71,7 @@ GB10 한 대가 [실행 큐](../configs/queue.json)를 사람 개입 없이 순�
 | llama.cpp v0.9.0 | 8002 | `llama-server -m <첫 shard> -ngl 999 -fa on --jinja <llama_args>` (sm_121 CUDA 빌드) |
 | ik_llama.cpp | 8003 | 같은 명령, ARM 빌드 옵션 `-DGGML_NATIVE=OFF -DGGML_ARCH_FLAGS=-march=armv8.6-a+dotprod+i8mm+bf16` (이슈 #2651; GB10의 gcc 13은 `-mcpu=native`로 dotprod를 켜지 않음) |
 | InferSSD 0.1.4 | 8080 | `inferssd serve -m <HF 캐시의 첫 shard>` 또는 `-hf <repo>` |
+| Prism ML llama.cpp 포크 (prism 브랜치) | 8006 | 3진 Bonsai용 `PTQ1_0`·`PQ2_0` 커널, `-DLLAMA_BUILD_HTML=OFF`로 빌드(웹 UI 자산 버전 불일치로 기본 빌드 실패) |
 | colibri | 8005 | `coli import <첫 shard>` → `coli build --gpu auto` → `coli serve --auto-tier <colibri_args>` |
 
 모든 서버는 `127.0.0.1`에만 바인딩합니다. 항목 사이에는 모든 엔진과 상시 서빙 컨테이너를 멈춥니다.
