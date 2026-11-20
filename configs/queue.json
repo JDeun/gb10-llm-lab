@@ -2765,6 +2765,104 @@
     "Lighter quant IQ2_XS: speed vs quality loss.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
    ]
+  },
+  {
+   "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
+   "engine": "strata",
+   "profile": "confirm",
+   "vision": false,
+   "deferred": false,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "size_bytes": 84000000000.0,
+   "cached": true,
+   "keep": true,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "32k",
+    "--kv",
+    "q4_0",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "Final-candidate confirmation: 3x quality subsets, 5 speed repeats, concurrency 1/4/8. Best Qwen3.8 config from issue #14."
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "confirm-vllm-qwen36-nothink",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}",
+    "--enable-auto-tool-choice",
+    "--tool-call-parser",
+    "qwen3_xml"
+   ],
+   "profile": "confirm",
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   },
+   "notes": [
+    "Final-candidate confirmation: 3x quality subsets, 5 speed repeats, concurrency 1/4/8/16. Best speed/quality balance so far."
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ]
   }
  ],
  "excluded": [
@@ -2803,6 +2901,10 @@
   {
    "id": "prometheusAIR/Solar-Open2-250B-GGUF",
    "reason": "llama.cpp v0.9.0: unknown model architecture 'solar-open2'"
+  },
+  {
+   "id": "AtomicChat/Ling-3.0-flash-GGUF",
+   "reason": "llama.cpp master (9fba51d, 2026-11-16) still rejects tensor blk.0.ssm_f_a; needs the publisher's fork"
   }
  ]
 }
