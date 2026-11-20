@@ -2210,7 +2210,10 @@
    "may_evict": [
     "strata-qwen38fn-iq3s"
    ],
-   "keep_for": "ikllama"
+   "keep_for": [
+    "ikllama",
+    "colibri"
+   ]
   },
   {
    "id": "ikllama-qwen38-24t-udiq1s",
@@ -2233,6 +2236,35 @@
    ],
    "notes": [
     "Same GGUF files as the llama.cpp entry before it (kept when ik_llama.cpp is installed)."
+   ],
+   "keep_for": [
+    "colibri"
+   ]
+  },
+  {
+   "id": "colibri-qwen38-24t-udiq1s",
+   "engine": "colibri",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "unsloth/Qwen3.8-2.4T-A95B-GGUF",
+   "hf_include": [
+    "UD-IQ1_S/*"
+   ],
+   "size_bytes": 508400000000,
+   "context": [
+    "512"
+   ],
+   "colibri_args": [
+    "--ctx",
+    "8192"
+   ],
+   "start_timeout_s": 21600,
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Qwen3.8-2.4T is the qwen3_5_moe_text architecture (same family as Qwen3.5/3.6), which colibri's qwen36 engine reads as qwen35moe.",
+    "License: qwen3.8-max. Same GGUF as the llama.cpp / ik_llama.cpp entries before it."
    ]
   },
   {
@@ -2733,6 +2765,158 @@
     "Lighter quant IQ2_XS: speed vs quality loss.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
    ]
+  },
+  {
+   "engine": "llamacpp",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-Q2_0.gguf"
+   ],
+   "size_bytes": 7630000000,
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "id": "llamacpp-bonsai2-27b-ternary-q2_0",
+   "profile": "standard",
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "keep_for": [
+    "llamacpp"
+   ],
+   "notes": [
+    "Ternary (1.58-bit, g128, Hadamard-rotated) Qwen3.8-27B from Prism ML, stock-llama.cpp Q2_0 packing (7.63 GB).",
+    "Compare with Qwen3.8-27B FP8 on vLLM (27 GB, ~8 tok/s). Model card: think budget >=16K tokens."
+   ]
+  },
+  {
+   "engine": "llamacpp",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-Q2_0.gguf"
+   ],
+   "size_bytes": 7630000000,
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "id": "llamacpp-bonsai2-27b-ternary-q2_0-effort-medium",
+   "profile": "quality",
+   "context": [],
+   "extra_body": {
+    "reasoning_effort": "medium"
+   },
+   "notes": [
+    "Same file; reasoning_effort=medium (model card: shorter reasoning, fewer cut-offs)."
+   ]
+  },
+  {
+   "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
+   "engine": "strata",
+   "profile": "confirm",
+   "vision": false,
+   "deferred": false,
+   "issue": 14,
+   "quality": true,
+   "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+   "size_bytes": 84000000000.0,
+   "cached": true,
+   "keep": true,
+   "context": [
+    "512",
+    "2k",
+    "8k"
+   ],
+   "launch": [
+    "--family",
+    "qwen",
+    "--model",
+    "iq3_s",
+    "--vision",
+    "off",
+    "--drafting",
+    "mtp",
+    "--context",
+    "32k",
+    "--kv",
+    "q4_0",
+    "--tune",
+    "skip"
+   ],
+   "notes": [
+    "Final-candidate confirmation: 3x quality subsets, 5 speed repeats, concurrency 1/4/8. Best Qwen3.8 config from issue #14."
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "confirm-vllm-qwen36-nothink",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "vision": false,
+   "size_bytes": 23400000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--kv-cache-dtype",
+    "fp8",
+    "--attention-backend",
+    "flashinfer",
+    "--moe-backend",
+    "marlin",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3,\"moe_backend\":\"triton\"}",
+    "--enable-auto-tool-choice",
+    "--tool-call-parser",
+    "qwen3_xml"
+   ],
+   "profile": "confirm",
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   },
+   "notes": [
+    "Final-candidate confirmation: 3x quality subsets, 5 speed repeats, concurrency 1/4/8/16. Best speed/quality balance so far."
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ]
   }
  ],
  "excluded": [
@@ -2771,6 +2955,10 @@
   {
    "id": "prometheusAIR/Solar-Open2-250B-GGUF",
    "reason": "llama.cpp v0.9.0: unknown model architecture 'solar-open2'"
+  },
+  {
+   "id": "AtomicChat/Ling-3.0-flash-GGUF",
+   "reason": "llama.cpp master (9fba51d, 2026-11-16) still rejects tensor blk.0.ssm_f_a; needs the publisher's fork"
   }
  ]
 }

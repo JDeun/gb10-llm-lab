@@ -215,5 +215,9 @@ colibri 전용 극한 후보: Mistral-Large-4 1T (233 GB), GLM-5.3 744B (217 GB)
 | mistral-large-4-1t | · | · | ⏳ | ⏳ | · | ⏳ |
 | muse-spark-open-816b | · | · | ⏳ | ⏳ | ⏳ | ⏳ |
 | kimi-k3-2.8t | · | · | ⏳ | ⏳ | · | ⏳ |
-| qwen3.8-2.4t | · | · | ⏳ | ⏳ | · | · |
+| qwen3.8-2.4t | · | · | ⏳ | ⏳ | · | ⏳ |
 | nemotron-3-super | ✅✅ | · | · | · | · | · |
+
+- 2026-11-18: Qwen3.8-2.4T-A95B는 `qwen3_5_moe_text`(Qwen3.5/3.6 MoE 계열) 구조라 colibri(qwen36 엔진, GGUF `qwen35moe`)로도 측정하도록 추가. 라이선스 `qwen3.8-max`.
+
+- 2026-11-20: **Ternary-Bonsai-2-27B** (prism-ml, Apache 2.0) 추가. Qwen3.8-27B를 3진 가중치(1.58비트, g128, Hadamard 회전)로 압축한 모델로, 일반 llama.cpp용 `Q2_0`(7.63 GB)을 출력 한도 16K로 측정하고 `reasoning_effort: medium` 변형도 함께 잽니다. 비교 기준은 Qwen3.8-27B FP8(vLLM, 27 GB, 약 8 tok/s). 더 작은 `PTQ1_0`(5.95 GB)·`PQ2_0`(7.21 GB)은 Prism ML의 llama.cpp 포크가 필요합니다.
