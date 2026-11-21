@@ -413,6 +413,9 @@ ENGINE_BINARIES = {"strata": STRATA, "llamacpp": LLAMA_SERVER, "ikllama": IK_SER
 
 
 def engine_ready(entry: dict) -> bool:
+    """False while the entry is on "hold" (e.g. waiting for an engine update that adds the architecture)."""
+    if entry.get("hold"):
+        return False
     binary = ENGINE_BINARIES.get(entry["engine"])
     return binary is None or binary.exists()
 
