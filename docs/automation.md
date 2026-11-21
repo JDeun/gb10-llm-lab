@@ -71,6 +71,7 @@ GB10 한 대가 [실행 큐](../configs/queue.json)를 사람 개입 없이 순�
 | llama.cpp v0.9.0 | 8002 | `llama-server -m <첫 shard> -ngl 999 -fa on --jinja <llama_args>` (sm_121 CUDA 빌드) |
 | ik_llama.cpp | 8003 | 같은 명령, ARM 빌드 옵션 `-DGGML_NATIVE=OFF -DGGML_ARCH_FLAGS=-march=armv8.6-a+dotprod+i8mm+bf16` (이슈 #2651; GB10의 gcc 13은 `-mcpu=native`로 dotprod를 켜지 않음) |
 | InferSSD 0.1.4 | 8080 | `inferssd serve -m <HF 캐시의 첫 shard>` 또는 `-hf <repo>` |
+| Prism ML llama.cpp 포크 (prism 브랜치) | 8006 | 3진 Bonsai용 `PTQ1_0`·`PQ2_0` 커널, `-DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF`로 빌드(기본 빌드는 내려받은 웹 UI 자산이 기대 버전과 달라 실패, `LLAMA_BUILD_HTML=OFF`로는 해결되지 않음) |
 | colibri | 8005 | `coli import <첫 shard>` → `coli build --gpu auto` → `coli serve --auto-tier <colibri_args>` |
 
 모든 서버는 `127.0.0.1`에만 바인딩합니다. 항목 사이에는 모든 엔진과 상시 서빙 컨테이너를 멈춥니다.
@@ -124,3 +125,4 @@ GB10에서 `echo <항목 ID> >> ~/llm/queue-reset.txt`를 실행하면 실행기
 
 큐 항목에 `"deferred": true`를 붙이면 일반 항목이 모두 끝났거나, 남은 일반 항목이 다운로드 예산·엔진 미설치로 지금 실행할 수 없을 때만 실행합니다. GB10이 예산 대기로 쉬는 시간을 후속 실험에 씁니다. 관련 GitHub 이슈 번호는 항목의 `issue` 필드에 적습니다 (예: #14 Qwen3.8-Flash-Next 속도 개선).
 
+- 2026-11-21: 큐 항목에 `"hold": "이유"`를 넣으면 runner가 그 항목을 고르지 않습니다(엔진 업데이트 대기 등). 필드를 지우면 다음 선택부터 실행 대상이 됩니다.

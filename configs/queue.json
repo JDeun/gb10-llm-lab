@@ -2821,11 +2821,65 @@
    ]
   },
   {
+   "id": "prism-bonsai2-27b-ternary-ptq1_0",
+   "engine": "prism",
+   "profile": "standard",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PTQ1_0.gguf"
+   ],
+   "size_bytes": 5950000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Dense trit packing, 1.75 bits/weight (5.95 GB).",
+    "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
+   ]
+  },
+  {
+   "id": "prism-bonsai2-27b-ternary-pq2_0",
+   "engine": "prism",
+   "profile": "standard",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+   ],
+   "size_bytes": 7210000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k"
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Trit in a 2-bit slot, 2.13 bits/weight (7.21 GB).",
+    "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
+   ]
+  },
+  {
    "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
    "engine": "strata",
    "profile": "confirm",
    "vision": false,
-   "deferred": false,
+   "deferred": true,
    "issue": 14,
    "quality": true,
    "repository": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
@@ -2916,6 +2970,130 @@
     4,
     8,
     16
+   ],
+   "deferred": true
+  },
+  {
+   "id": "llamacpp-inkling2mini-udq4kxl",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/Inkling-2-Mini-GGUF",
+   "hf_include": [
+    "Inkling-2-Mini-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 17600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Inkling 2 Mini (Thinking Machines, 2026-11-20, Apache 2.0): MoE 26.4B total / 3.4B active, looped layers (24 stored, 48 passes).",
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd. Vision (mmproj) not measured in this chain."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "ikllama",
+    "inferssd"
+   ],
+   "hold": "llama.cpp build after 2026-11-21 (PRs #32694/#32704 add inkling2_loop); current build 9fba51d (11-16)"
+  },
+  {
+   "id": "ikllama-inkling2mini-udq4kxl",
+   "engine": "ikllama",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/Inkling-2-Mini-GGUF",
+   "hf_include": [
+    "Inkling-2-Mini-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 17600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Inkling 2 Mini (Thinking Machines, 2026-11-20, Apache 2.0): MoE 26.4B total / 3.4B active, looped layers (24 stored, 48 passes).",
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd. Vision (mmproj) not measured in this chain."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "inferssd"
+   ],
+   "hold": "ik_llama.cpp support for inkling2_loop unconfirmed; run after llamacpp entry"
+  },
+  {
+   "id": "inferssd-inkling2mini-udq4kxl",
+   "engine": "inferssd",
+   "profile": "standard",
+   "vision": false,
+   "repository": "unsloth/Inkling-2-Mini-GGUF",
+   "hf_include": [
+    "Inkling-2-Mini-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 17600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Inkling 2 Mini (Thinking Machines, 2026-11-20, Apache 2.0): MoE 26.4B total / 3.4B active, looped layers (24 stored, 48 passes).",
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd. Vision (mmproj) not measured in this chain."
+   ],
+   "inferssd_args": [
+    "--context",
+    "65536"
+   ],
+   "hold": "InferSSD support for inkling2_loop unconfirmed; run after llamacpp entry"
+  },
+  {
+   "id": "vllm-inkling2mini-nvfp4",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": true,
+   "repository": "thinkingmachines/Inkling-2-Mini",
+   "size_bytes": 20200000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.7"
+   ],
+   "hold": "vLLM PR #69028 (Add Inkling 2 Mini) not merged; current vLLM v0.32.0",
+   "notes": [
+    "Native checkpoint: NVFP4 weights, MXFP8 in the last 4 layers (20.2 GB)."
    ]
   }
  ],

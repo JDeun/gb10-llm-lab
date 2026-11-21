@@ -33,6 +33,7 @@ ENGINE_REVISIONS = {
     "ikllama": "ik_llama.cpp main (2a0832d), CUDA sm_121, -march=armv8.6-a+dotprod+i8mm+bf16+fp16",
     "inferssd": "InferSSD 0.1.4 (261109.216.02ed6a8)",
     "colibri": "colibri main (0a5504a), coli build --gpu auto",
+    "prism": "PrismML-Eng/llama.cpp prism branch, CUDA sm_121",
 }
 
 
@@ -56,7 +57,8 @@ def server_up(port: int) -> bool:
         return False
 
 
-ENGINE_SOURCES = {"llamacpp": LLM / "src/llama.cpp", "ikllama": LLM / "src/ik_llama.cpp", "colibri": LLM / "src/colibri"}
+ENGINE_SOURCES = {"llamacpp": LLM / "src/llama.cpp", "ikllama": LLM / "src/ik_llama.cpp", "colibri": LLM / "src/colibri",
+                  "prism": LLM / "src/prism-llama.cpp"}
 
 
 def engine_revision(engine: str) -> str:
