@@ -39,7 +39,7 @@ llama_model_loader: - type nvfp4_ks:   40 tensors
 llama_model_load: error loading model: error loading model architecture: unknown model architecture: 'inkling2'
 llama_model_load_from_file: failed to load model
 llama_init_from_gpt_params: error: failed to load model '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
- ERR [              load_model] unable to load model | tid="270821054003392" timestamp=1795398174 model="<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf"
+ ERR [              load_model] unable to load model | tid="270878604441792" timestamp=1795398210 model="<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf"
 
 ```
 
