@@ -940,6 +940,35 @@
         "MoE, looped layers (24 stored, 48 passes), native NVFP4 + MXFP8 last 4 layers.",
         "All entries on hold until engines add inkling2_loop (llama.cpp >= 2026-11-21, vLLM PR #69028)."
       ]
+    },
+    {
+      "id": "inkling-2-small",
+      "name": "thinkingmachines/Inkling-2-Small",
+      "role": "queued_candidate",
+      "total_parameters_billion_approx": 594,
+      "active_parameters_billion_approx": 17,
+      "checkpoint_bytes_estimate": 393500000000,
+      "additional_preparation_bytes_estimate": 127500000000,
+      "checkpoint_revision": null,
+      "engine_revision": null,
+      "planned_engines": [
+        "llamacpp",
+        "colibri"
+      ],
+      "queue_entries": [
+        "llamacpp-inkling2small-iq1s",
+        "colibri-inkling2small-iq1s"
+      ],
+      "excluded_from_current_scope": false,
+      "added_on": "2026-11-23",
+      "sources": [
+        "https://huggingface.co/thinkingmachines/Inkling-2-Small",
+        "https://huggingface.co/bartowski/Inkling-2-Small-GGUF"
+      ],
+      "notes": [
+        "Native NVFP4 (393.5 GB) needs >=500 GB VRAM; vLLM excluded on one GB10.",
+        "Capacity test with IQ1_S GGUF (127.5 GB), experts on CPU/SSD."
+      ]
     }
   ],
   "excluded": [
