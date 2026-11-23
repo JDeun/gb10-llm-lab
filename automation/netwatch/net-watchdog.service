@@ -1,0 +1,6 @@
+[Unit]
+Description=Reconnect Wi-Fi/Tailscale when the network stays down
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/net-watchdog.sh

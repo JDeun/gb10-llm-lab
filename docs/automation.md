@@ -126,3 +126,5 @@ GB10에서 `echo <항목 ID> >> ~/llm/queue-reset.txt`를 실행하면 실행기
 큐 항목에 `"deferred": true`를 붙이면 일반 항목이 모두 끝났거나, 남은 일반 항목이 다운로드 예산·엔진 미설치로 지금 실행할 수 없을 때만 실행합니다. GB10이 예산 대기로 쉬는 시간을 후속 실험에 씁니다. 관련 GitHub 이슈 번호는 항목의 `issue` 필드에 적습니다 (예: #14 Qwen3.8-Flash-Next 속도 개선).
 
 - 2026-11-21: 큐 항목에 `"hold": "이유"`를 넣으면 runner가 그 항목을 고르지 않습니다(엔진 업데이트 대기 등). 필드를 지우면 다음 선택부터 실행 대상이 됩니다.
+
+- 2026-11-23: Wi-Fi가 14시간 끊긴 채 다시 붙지 않은 사건(11-22~23, 재부팅은 없음). 절전 꺼짐과 자동 재연결 무제한 설정은 이미 돼 있었습니다. 그래서 `automation/netwatch/` watchdog을 root timer로 추가했습니다. 1분마다 게이트웨이나 1.1.1.1로 ping하고, 끊긴 상태가 이어지면 3분에 프로필 재연결, 6분에 Wi-Fi 끄고 켜기, 9분에 NetworkManager 재시작 순서로 단계를 올립니다. LAN은 되는데 Tailscale이 꺼져 있으면 tailscaled를 재시작합니다. 설치: `sudo bash ~/llm/netwatch/install.sh`, 로그: `journalctl -t net-watchdog`.
