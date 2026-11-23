@@ -1,0 +1,17 @@
+{
+ "set": "hrm8k-gsm8k-l",
+ "label": "hrm8k-gsm8k-l-subset-zeroshot",
+ "planned_requests": 300,
+ "attempted_requests": 300,
+ "final_text_complete_requests": 300,
+ "truncated_outputs": 0,
+ "transport_failures": 0,
+ "planned_correctness_requests": 300,
+ "correctness_evaluated": 300,
+ "correctness_passed": 286,
+ "accuracy_on_attempted": 0.9533,
+ "accuracy_on_completed": 0.9533,
+ "completion_tokens_mean": 496.9,
+ "wall_s": 2165.5,
+ "metrics": {}
+}

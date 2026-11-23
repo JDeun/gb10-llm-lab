@@ -2,7 +2,7 @@
 
 `automation/tools/recommend.py`가 결과 폴더에서 계산합니다. 품질은 객관식·수학·코드·툴 호출 부분집합의 평균 정답률(zero-shot 부분집합, 공식 점수 아님)이고, 문항 수가 100~140개라 약 ±5~9%p 차이는 같은 수준으로 봅니다. 파레토 최적은 두 축 모두에서 더 나은 대안이 없는 조합입니다. 최종 추천은 confirm 프로필(3배 문항, 5회 반복)로 확인한 뒤 확정합니다.
 
-품질 데이터가 있는 결과: 24개 / 전체 57개
+품질 데이터가 있는 결과: 26개 / 전체 59개
 
 ## 대화·API 상시 서빙 (품질 × 단일 요청 속도)
 
@@ -13,7 +13,9 @@
 | `issue14-strata-qwen38fn-iq3s-tune-quick` | 0.921 | 50.8 |  |
 | `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | 49.9 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-thorough` | 0.921 | 47.6 |  |
+| `confirm-strata-qwen38fn-iq3s-ctx32k-kvq4` | 0.919 | 54.3 | **예** |
 | `sweep-vllm-qwen36-nothink` | 0.889 | 95.9 | **예** |
+| `confirm-vllm-qwen36-nothink` | 0.889 | 95.2 |  |
 | `strata-qwen36-35b-udq4kxl` | 0.874 | 65.5 |  |
 | `ikllama-gpt-oss-120b-mxfp4` | 0.873 | 56.2 |  |
 | `llamacpp-gpt-oss-120b-mxfp4` | 0.864 | 55.2 |  |
@@ -35,7 +37,9 @@
 | `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | 77.3 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-quick` | 0.921 | 77.1 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-thorough` | 0.921 | 67.9 |  |
+| `confirm-strata-qwen38fn-iq3s-ctx32k-kvq4` | 0.919 | 82.6 | **예** |
 | `sweep-vllm-qwen36-nothink` | 0.889 | 239.2 | **예** |
+| `confirm-vllm-qwen36-nothink` | 0.889 | 483.6 | **예** |
 | `strata-qwen36-35b-udq4kxl` | 0.874 | 151.8 |  |
 | `ikllama-gpt-oss-120b-mxfp4` | 0.873 | 55.8 |  |
 | `llamacpp-gpt-oss-120b-mxfp4` | 0.864 | 106.4 |  |
@@ -57,6 +61,8 @@
 | `issue14-strata-qwen38fn-iq3s-tune-quick` | 0.982 | 50.8 |  |
 | `sweep-strata-qwen38fn-iq3s-quality` | 0.982 | 49.9 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-thorough` | 0.982 | 47.6 |  |
+| `confirm-vllm-qwen36-nothink` | 0.979 | 95.2 | **예** |
+| `confirm-strata-qwen38fn-iq3s-ctx32k-kvq4` | 0.979 | 54.3 |  |
 | `issue14-strata-qwen38fn-iq3s-ctx32k-kvq4` | 0.979 | 54.0 |  |
 | `sweep-strata-qwen38fn-iq3s-kvq4` | 0.979 | 53.8 |  |
 | `sweep-vllm-qwen36-nothink` | 0.976 | 95.9 | **예** |
@@ -86,11 +92,13 @@
 | `prism-bonsai2-27b-ternary-ptq1_0` | 44,945 | 32.8 |  |
 | `prism-bonsai2-27b-ternary-pq2_0` | 44,945 | 27.3 |  |
 | `llamacpp-bonsai2-27b-ternary-q2_0` | 44,945 | 26.6 |  |
+| `confirm-vllm-qwen36-nothink` | 44,905 | 95.2 |  |
 | `colibri-qwen36-35b-udq4kxl` | 44,905 | 29.1 |  |
 | `ikllama-qwen36-35b-udq4kxl` | 44,903 | 66.7 |  |
 | `llamacpp-qwen36-35b-udq4kxl-ctx64k` | 44,903 | 65.9 |  |
 | `strata-qwen36-35b-udq4kxl` | 44,903 | 65.5 |  |
 | `vllm-kr-exaone-4.5-33b-awq` | 43,551 | 12.5 |  |
+| `confirm-strata-qwen38fn-iq3s-ctx32k-kvq4` | 11,311 | 54.3 |  |
 | `issue14-strata-qwen38fn-iq3s-ctx32k-kvq4` | 11,311 | 54.0 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-quick` | 11,311 | 50.8 |  |
 | `issue14-strata-qwen38fn-iq3s-tune-thorough` | 11,311 | 47.6 |  |
@@ -116,22 +124,24 @@
 | 3 | `sweep-strata-qwen38fn-iq3s-quality` | 0.921 | gsm8k 0.96, hrm8k-gsm8k 0.97, humaneval 0.96, kmmlu 0.74, mmlu-pro 0.89, tools-ko 1.00 |
 | 4 | `issue14-strata-qwen38fn-iq3s-tune-quick` | 0.921 | gsm8k 0.96, hrm8k-gsm8k 0.97, humaneval 0.96, kmmlu 0.74, mmlu-pro 0.89, tools-ko 1.00 |
 | 5 | `issue14-strata-qwen38fn-iq3s-tune-thorough` | 0.921 | gsm8k 0.96, hrm8k-gsm8k 0.97, humaneval 0.96, kmmlu 0.74, mmlu-pro 0.89, tools-ko 1.00 |
-| 6 | `quality-vllm-gemma4-26b-a4b` | 0.890 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.97, kmmlu 0.75, mmlu-pro 0.83 |
-| 7 | `sweep-vllm-qwen36-nothink` | 0.889 | gsm8k 0.95, hrm8k-gsm8k 0.94, humaneval 0.95, kmmlu 0.68, mmlu-pro 0.81, tools-ko 1.00 |
-| 8 | `llamacpp-bonsai2-27b-ternary-q2_0-effort-medium` | 0.881 | gsm8k 0.96, hrm8k-gsm8k 0.95, humaneval 0.98, kmmlu 0.60, mmlu-pro 0.80, tools-ko 1.00 |
-| 9 | `strata-qwen36-35b-udq4kxl` | 0.874 | gsm8k 0.95, hrm8k-gsm8k 0.92, humaneval 0.99, kmmlu 0.66, mmlu-pro 0.81, tools-ko 0.92 |
-| 10 | `ikllama-gpt-oss-120b-mxfp4` | 0.873 | gsm8k 0.96, hrm8k-gsm8k 0.93, humaneval 0.96, kmmlu 0.63, mmlu-pro 0.76, tools-ko 1.00 |
-| 11 | `llamacpp-gpt-oss-120b-mxfp4` | 0.864 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.97, kmmlu 0.57, mmlu-pro 0.74, tools-ko 1.00 |
-| 12 | `quality-vllm-gpt-oss-120b` | 0.853 | gsm8k 0.96, hrm8k-gsm8k 0.93, humaneval 0.96, kmmlu 0.62, mmlu-pro 0.79 |
-| 13 | `sweep-vllm-qwen36-think-budget16k` | 0.852 | gsm8k 0.94, hrm8k-gsm8k 0.93, humaneval 0.95, kmmlu 0.73, mmlu-pro 0.71 |
-| 14 | `prism-bonsai2-27b-ternary-ptq1_0` | 0.820 | gsm8k 0.93, hrm8k-gsm8k 0.95, humaneval 0.88, kmmlu 0.42, mmlu-pro 0.74, tools-ko 1.00 |
-| 15 | `sweep-vllm-qwen36-mtp-conc16` | 0.802 | gsm8k 0.95, hrm8k-gsm8k 0.90, humaneval 0.83, kmmlu 0.61, mmlu-pro 0.52, tools-ko 1.00 |
-| 16 | `sweep-vllm-qwen36-kvauto` | 0.797 | gsm8k 0.95, hrm8k-gsm8k 0.86, humaneval 0.84, kmmlu 0.61, mmlu-pro 0.53, tools-ko 1.00 |
-| 17 | `quality-vllm-qwen38-27b-fp8` | 0.787 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.84, kmmlu 0.48, mmlu-pro 0.71 |
-| 18 | `quality-vllm-qwen36-27b-fp8` | 0.778 | gsm8k 0.91, hrm8k-gsm8k 0.88, mmlu-pro 0.54 |
-| 19 | `prism-bonsai2-27b-ternary-pq2_0` | 0.757 | gsm8k 0.94, hrm8k-gsm8k 0.95, kmmlu 0.38, mmlu-pro 0.76 |
-| 20 | `llamacpp-bonsai2-27b-ternary-q2_0` | 0.755 | gsm8k 0.94, hrm8k-gsm8k 0.95, kmmlu 0.38, mmlu-pro 0.75 |
-| 21 | `quality-vllm-kr-exaone-4.5-33b-awq` | 0.744 | gsm8k 0.95, hrm8k-gsm8k 0.91, humaneval 0.74, kmmlu 0.56, mmlu-pro 0.56 |
-| 22 | `ikllama-gemma4-26b-udq4kxl` | 0.693 | gsm8k 0.54, hrm8k-gsm8k 0.92, humaneval 0.82, kmmlu 0.64, mmlu-pro 0.24, tools-ko 1.00 |
-| 23 | `llamacpp-gemma4-26b-udq4kxl` | 0.689 | gsm8k 0.52, hrm8k-gsm8k 0.93, humaneval 0.77, kmmlu 0.61, mmlu-pro 0.30, tools-ko 1.00 |
-| 24 | `quality-llamacpp-kr-solar-open-100b-q4km-nothink` | 0.614 | gsm8k 0.94, hrm8k-gsm8k 0.94, humaneval 0.54, kmmlu 0.50, mmlu-pro 0.76, tools-ko 0.00 |
+| 6 | `confirm-strata-qwen38fn-iq3s-ctx32k-kvq4` | 0.919 | gsm8k 0.98, hrm8k-gsm8k 0.95, humaneval 0.96, kmmlu 0.78, mmlu-pro 0.85, tools-ko 1.00 |
+| 7 | `quality-vllm-gemma4-26b-a4b` | 0.890 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.97, kmmlu 0.75, mmlu-pro 0.83 |
+| 8 | `sweep-vllm-qwen36-nothink` | 0.889 | gsm8k 0.95, hrm8k-gsm8k 0.94, humaneval 0.95, kmmlu 0.68, mmlu-pro 0.81, tools-ko 1.00 |
+| 9 | `confirm-vllm-qwen36-nothink` | 0.889 | gsm8k 0.97, hrm8k-gsm8k 0.92, humaneval 0.96, kmmlu 0.71, mmlu-pro 0.78, tools-ko 1.00 |
+| 10 | `llamacpp-bonsai2-27b-ternary-q2_0-effort-medium` | 0.881 | gsm8k 0.96, hrm8k-gsm8k 0.95, humaneval 0.98, kmmlu 0.60, mmlu-pro 0.80, tools-ko 1.00 |
+| 11 | `strata-qwen36-35b-udq4kxl` | 0.874 | gsm8k 0.95, hrm8k-gsm8k 0.92, humaneval 0.99, kmmlu 0.66, mmlu-pro 0.81, tools-ko 0.92 |
+| 12 | `ikllama-gpt-oss-120b-mxfp4` | 0.873 | gsm8k 0.96, hrm8k-gsm8k 0.93, humaneval 0.96, kmmlu 0.63, mmlu-pro 0.76, tools-ko 1.00 |
+| 13 | `llamacpp-gpt-oss-120b-mxfp4` | 0.864 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.97, kmmlu 0.57, mmlu-pro 0.74, tools-ko 1.00 |
+| 14 | `quality-vllm-gpt-oss-120b` | 0.853 | gsm8k 0.96, hrm8k-gsm8k 0.93, humaneval 0.96, kmmlu 0.62, mmlu-pro 0.79 |
+| 15 | `sweep-vllm-qwen36-think-budget16k` | 0.852 | gsm8k 0.94, hrm8k-gsm8k 0.93, humaneval 0.95, kmmlu 0.73, mmlu-pro 0.71 |
+| 16 | `prism-bonsai2-27b-ternary-ptq1_0` | 0.820 | gsm8k 0.93, hrm8k-gsm8k 0.95, humaneval 0.88, kmmlu 0.42, mmlu-pro 0.74, tools-ko 1.00 |
+| 17 | `sweep-vllm-qwen36-mtp-conc16` | 0.802 | gsm8k 0.95, hrm8k-gsm8k 0.90, humaneval 0.83, kmmlu 0.61, mmlu-pro 0.52, tools-ko 1.00 |
+| 18 | `sweep-vllm-qwen36-kvauto` | 0.797 | gsm8k 0.95, hrm8k-gsm8k 0.86, humaneval 0.84, kmmlu 0.61, mmlu-pro 0.53, tools-ko 1.00 |
+| 19 | `quality-vllm-qwen38-27b-fp8` | 0.787 | gsm8k 0.96, hrm8k-gsm8k 0.94, humaneval 0.84, kmmlu 0.48, mmlu-pro 0.71 |
+| 20 | `quality-vllm-qwen36-27b-fp8` | 0.778 | gsm8k 0.91, hrm8k-gsm8k 0.88, mmlu-pro 0.54 |
+| 21 | `prism-bonsai2-27b-ternary-pq2_0` | 0.757 | gsm8k 0.94, hrm8k-gsm8k 0.95, kmmlu 0.38, mmlu-pro 0.76 |
+| 22 | `llamacpp-bonsai2-27b-ternary-q2_0` | 0.755 | gsm8k 0.94, hrm8k-gsm8k 0.95, kmmlu 0.38, mmlu-pro 0.75 |
+| 23 | `quality-vllm-kr-exaone-4.5-33b-awq` | 0.744 | gsm8k 0.95, hrm8k-gsm8k 0.91, humaneval 0.74, kmmlu 0.56, mmlu-pro 0.56 |
+| 24 | `ikllama-gemma4-26b-udq4kxl` | 0.693 | gsm8k 0.54, hrm8k-gsm8k 0.92, humaneval 0.82, kmmlu 0.64, mmlu-pro 0.24, tools-ko 1.00 |
+| 25 | `llamacpp-gemma4-26b-udq4kxl` | 0.689 | gsm8k 0.52, hrm8k-gsm8k 0.93, humaneval 0.77, kmmlu 0.61, mmlu-pro 0.30, tools-ko 1.00 |
+| 26 | `quality-llamacpp-kr-solar-open-100b-q4km-nothink` | 0.614 | gsm8k 0.94, hrm8k-gsm8k 0.94, humaneval 0.54, kmmlu 0.50, mmlu-pro 0.76, tools-ko 0.00 |

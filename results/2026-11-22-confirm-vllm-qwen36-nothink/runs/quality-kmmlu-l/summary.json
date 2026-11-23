@@ -1,0 +1,17 @@
+{
+ "set": "kmmlu-l",
+ "label": "kmmlu-l-subset-zeroshot",
+ "planned_requests": 300,
+ "attempted_requests": 300,
+ "final_text_complete_requests": 294,
+ "truncated_outputs": 6,
+ "transport_failures": 0,
+ "planned_correctness_requests": 300,
+ "correctness_evaluated": 294,
+ "correctness_passed": 213,
+ "accuracy_on_attempted": 0.71,
+ "accuracy_on_completed": 0.7245,
+ "completion_tokens_mean": 711.1,
+ "wall_s": 831.8,
+ "metrics": {}
+}

@@ -3003,8 +3003,7 @@
    "keep_for": [
     "ikllama",
     "inferssd"
-   ],
-   "hold": "llama.cpp build after 2026-11-21 (PRs #32694/#32704 add inkling2_loop); current build 9fba51d (11-16)"
+   ]
   },
   {
    "id": "ikllama-inkling2mini-udq4kxl",
@@ -3035,8 +3034,7 @@
    ],
    "keep_for": [
     "inferssd"
-   ],
-   "hold": "ik_llama.cpp support for inkling2_loop unconfirmed; run after llamacpp entry"
+   ]
   },
   {
    "id": "inferssd-inkling2mini-udq4kxl",
@@ -3064,8 +3062,7 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ],
-   "hold": "InferSSD support for inkling2_loop unconfirmed; run after llamacpp entry"
+   ]
   },
   {
    "id": "vllm-inkling2mini-nvfp4",
@@ -3095,6 +3092,66 @@
    "notes": [
     "Native checkpoint: NVFP4 weights, MXFP8 in the last 4 layers (20.2 GB)."
    ]
+  },
+  {
+   "id": "llamacpp-inkling2small-iq1s",
+   "engine": "llamacpp",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "bartowski/Inkling-2-Small-GGUF",
+   "hf_include": [
+    "Inkling-2-Small-IQ1_S/*"
+   ],
+   "size_bytes": 127500000000,
+   "context": [
+    "512",
+    "2k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Inkling 2 Small (Thinking Machines, Apache 2.0): MoE 594B total / 17B active, 8 of 384 experts, 1M context.",
+    "Smallest GGUF (IQ1_S, 127.5 GB) is larger than the 108 GB runner limit: experts stream from SSD (capacity test, not a serving candidate).",
+    "Needs llama.cpp with #32217 + #32657 (inkling2, per-expert scales)."
+   ],
+   "llama_args": [
+    "-c",
+    "8192",
+    "--cpu-moe"
+   ],
+   "keep_for": [
+    "colibri"
+   ]
+  },
+  {
+   "id": "colibri-inkling2small-iq1s",
+   "engine": "colibri",
+   "profile": "capacity",
+   "vision": false,
+   "repository": "bartowski/Inkling-2-Small-GGUF",
+   "hf_include": [
+    "Inkling-2-Small-IQ1_S/*"
+   ],
+   "size_bytes": 127500000000,
+   "context": [
+    "512",
+    "2k"
+   ],
+   "may_evict": [
+    "strata-qwen38fn-iq3s"
+   ],
+   "notes": [
+    "Inkling 2 Small (Thinking Machines, Apache 2.0): MoE 594B total / 17B active, 8 of 384 experts, 1M context.",
+    "Smallest GGUF (IQ1_S, 127.5 GB) is larger than the 108 GB runner limit: experts stream from SSD (capacity test, not a serving candidate).",
+    "Needs llama.cpp with #32217 + #32657 (inkling2, per-expert scales).",
+    "colibri support for inkling2 unconfirmed; same GGUF files as the llama.cpp entry."
+   ],
+   "colibri_args": [
+    "--ctx",
+    "8192"
+   ],
+   "start_timeout_s": 21600
   }
  ],
  "excluded": [
