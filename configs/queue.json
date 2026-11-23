@@ -3003,8 +3003,7 @@
    "keep_for": [
     "ikllama",
     "inferssd"
-   ],
-   "hold": "llama.cpp build after 2026-11-21 (PRs #32694/#32704 add inkling2_loop); current build 9fba51d (11-16)"
+   ]
   },
   {
    "id": "ikllama-inkling2mini-udq4kxl",
@@ -3035,8 +3034,7 @@
    ],
    "keep_for": [
     "inferssd"
-   ],
-   "hold": "ik_llama.cpp support for inkling2_loop unconfirmed; run after llamacpp entry"
+   ]
   },
   {
    "id": "inferssd-inkling2mini-udq4kxl",
@@ -3064,8 +3062,7 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ],
-   "hold": "InferSSD support for inkling2_loop unconfirmed; run after llamacpp entry"
+   ]
   },
   {
    "id": "vllm-inkling2mini-nvfp4",
