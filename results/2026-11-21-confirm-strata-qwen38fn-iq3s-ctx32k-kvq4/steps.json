@@ -1,0 +1,15 @@
+{
+ "sanity-2048": "ok",
+ "context-512": "ok",
+ "context-2k": "ok",
+ "context-8k": "ok",
+ "throughput-1": "ok",
+ "throughput-2": "ok",
+ "throughput-3": "ok",
+ "throughput-4": "ok",
+ "throughput-5": "ok",
+ "concurrency1": "ok",
+ "concurrency4": "ok",
+ "concurrency8": "ok",
+ "quality": "ok"
+}
