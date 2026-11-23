@@ -26,17 +26,17 @@
 
 ```
 erver_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
-0.00.320.440 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
-0.00.576.501 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.24.attn_q.weight' not found
-0.00.576.514 E llama_model_load_from_file_impl: failed to load model
-0.00.577.416 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
-0.00.737.675 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
-0.00.807.934 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.24.attn_q.weight' not found
-0.00.807.942 E llama_model_load_from_file_impl: failed to load model
-0.00.807.950 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
-0.00.807.954 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
-0.00.807.956 I srv    operator(): operator(): cleaning up before exit...
-0.00.809.980 E srv  server_run_i: exiting due to model loading error
+0.00.308.329 I srv    load_model: loading model '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
+0.00.563.508 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.24.attn_q.weight' not found
+0.00.563.520 E llama_model_load_from_file_impl: failed to load model
+0.00.563.551 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model
+0.00.725.466 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.00.796.311 E llama_model_load: error loading model: check_tensor_dims: tensor 'blk.24.attn_q.weight' not found
+0.00.796.317 E llama_model_load_from_file_impl: failed to load model
+0.00.796.324 E cmn  common_init_: failed to load model '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
+0.00.796.328 E srv    load_model: failed to load model, '<user-home>/.cache/huggingface/hub/models--unsloth--Inkling-2-Mini-GGUF/snapshots/45fd08764f2b0bf16b03a5483a80e5c7aaec8772/Inkling-2-Mini-UD-Q4_K_XL.gguf'
+0.00.796.330 I srv    operator(): operator(): cleaning up before exit...
+0.00.799.551 E srv  server_run_i: exiting due to model loading error
 
 ```
 
