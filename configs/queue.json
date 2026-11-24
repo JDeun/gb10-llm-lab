@@ -3249,6 +3249,36 @@
    ]
   },
   {
+   "id": "quality-llamacpp-inkling2mini-effort00",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "repository": "ggml-org/Inkling-2-Mini-GGUF",
+   "hf_include": [
+    "Inkling-2-Mini-IQ4_NL.gguf"
+   ],
+   "size_bytes": 17600000000,
+   "context": [],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Inkling 2 Mini (Thinking Machines, 2026-11-20, Apache 2.0): MoE 26.4B total / 3.4B active, looped layers (24 stored, 48 passes).",
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd. Vision (mmproj) not measured in this chain.",
+    "2026-11-23: unsloth root GGUF targets Unsloth Desktop (blk.24.attn_q.weight not found on mainline); switched to ggml-org IQ4_NL (17.6 GB). Entry id kept.",
+    "2026-11-24: thinking effectively off (template effort_map none=0.0; no hard switch). All quality sets."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality_timeout_factor": 4,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "reasoning_effort": 0.0
+    }
+   }
+  },
+  {
    "id": "quality-llamacpp-inkling2mini-rest",
    "engine": "llamacpp",
    "profile": "quality",
