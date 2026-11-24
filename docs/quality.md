@@ -71,3 +71,20 @@
 - vLLM은 tool parser(`--enable-auto-tool-choice`)를 켠 항목에서만 `tools-ko`를 실행합니다.
 - **confirm 프로필**(최종 후보 확인): `-l` 세트(MMLU-Pro 420, KMMLU 300, GSM8K 300, HRM8K 300) + humaneval + tools-ko + open-ko, sanity 2048, 속도 5회 반복, 동시성. 상위 후보를 고른 뒤 큐에 추가합니다.
 - **용도별 추천**: `automation/tools/recommend.py`가 `results/RECOMMENDATION.md`를 만듭니다(대화·배치·코딩·긴 문서·최대 품질, 파레토 최적 표시). 결과를 가져올 때마다 다시 생성합니다.
+
+## 생각(추론) 조절 변형 (2026-11-24)
+
+- **언제 추가하나:** 품질 측정에서 답이 출력 한도에 걸려 잘린 비율이 5%를 넘으면, 그 모델의 생각 조절 변형을 같은 엔진 설정으로 추가합니다.
+  - 잘린 답은 오답과 따로 셉니다(`truncated_outputs`).
+- **어떤 키로 끄나:** 모델 템플릿마다 키가 다르므로 채팅 템플릿을 먼저 확인합니다.
+
+  | 모델 | 끄는 방법 |
+  |---|---|
+  | Qwen·EXAONE·Gemma | `chat_template_kwargs.enable_thinking: false` |
+  | Solar Open | `reasoning_effort: "minimal"`(`enable_thinking` 무시) |
+  | HyperCLOVAX-SEED-Think | `skip_reasoning: true` |
+  | Inkling 2 | `reasoning_effort` 0.0~0.99(기본 0.9, "none"=0.0) |
+  | gpt-oss·Bonsai | `reasoning_effort` low/medium |
+
+- **엔진 기본값 주의:** llama.cpp는 템플릿 기본값과 달리 생각을 켜는 경우가 있습니다. 예를 들어 Gemma 4는 vLLM에서 잘림 0%였지만 llama.cpp에서는 35%였습니다.
+- **판정:** 같은 모델의 생각 끔·중간·기본을 나란히 두고, 용도(대화 서비스 vs 추론·수학)별로 고릅니다.
