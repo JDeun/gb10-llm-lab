@@ -34,6 +34,7 @@ ENGINE_REVISIONS = {
     "inferssd": "InferSSD 0.1.4 (261109.216.02ed6a8)",
     "colibri": "colibri main (0a5504a), coli build --gpu auto",
     "prism": "PrismML-Eng/llama.cpp prism branch, CUDA sm_121",
+    "nariq": "nari-labs/nari-llama.cpp b12431-nariv0, CUDA sm_121 (built from source: no arm64 release)",
 }
 
 
@@ -58,7 +59,7 @@ def server_up(port: int) -> bool:
 
 
 ENGINE_SOURCES = {"llamacpp": LLM / "src/llama.cpp", "ikllama": LLM / "src/ik_llama.cpp", "colibri": LLM / "src/colibri",
-                  "prism": LLM / "src/prism-llama.cpp"}
+                  "prism": LLM / "src/prism-llama.cpp", "nariq": LLM / "src/nari-llama.cpp"}
 
 
 def engine_revision(engine: str) -> str:

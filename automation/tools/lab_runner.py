@@ -30,7 +30,7 @@ STRATA_MODELS = HOME / ".local/share/strata/Strata-data/models"
 INFERSSD_MODELS = HOME / ".local/share/inferssd/models"
 COLI_MODELS = HOME / "llm/colibri-models"  # small per-entry model dirs made by `coli import` (point at the GGUF)
 DELETE_ROOTS = (HF_HUB, STRATA_MODELS, INFERSSD_MODELS, COLI_MODELS)
-HF_ENGINES = ("vllm", "llamacpp", "ikllama", "colibri", "prism")  # engines whose weights the runner downloads into the HF cache
+HF_ENGINES = ("vllm", "llamacpp", "ikllama", "colibri", "prism", "nariq")  # engines whose weights the runner downloads into the HF cache
 TRANSIENT = {"timeout", "command_failed", "server_down", "server_exited", "start_timeout"}
 MAX_ATTEMPTS = 2
 DOWNLOAD_TIMEOUT_S = 14 * 86400  # ~1 MB/s company network: a 500 GB model needs about 6 days
@@ -38,12 +38,14 @@ MAX_DOWNLOAD_ATTEMPTS = 6
 KEEP_DIRS = {HF_HUB / "models--nvidia--Qwen3.6-35B-A3B-NVFP4"}
 EVICTABLE = {"strata-qwen38fn-iq3s": [STRATA_MODELS / "IQ3_S"]}
 RESERVE_BYTES = 64 * 2**30
-PORTS = {"vllm": 8001, "strata": 8080, "llamacpp": 8002, "ikllama": 8003, "inferssd": 8080, "colibri": 8005, "prism": 8006}
+PORTS = {"vllm": 8001, "strata": 8080, "llamacpp": 8002, "ikllama": 8003, "inferssd": 8080, "colibri": 8005, "prism": 8006,
+         "nariq": 8007}
 VLLM_IMAGE = "vllm/vllm-openai:v0.32.0"
 LLAMA_SERVER = LLM / "src/llama.cpp/build/bin/llama-server"
 STRATA = HOME / ".local/bin/strata"
 IK_SERVER = LLM / "src/ik_llama.cpp/build/bin/llama-server"
 PRISM_SERVER = LLM / "src/prism-llama.cpp/build/bin/llama-server"  # Prism ML fork (ternary PTQ1_0/PQ2_0 kernels)
+NARI_SERVER = LLM / "src/nari-llama.cpp/build/bin/llama-server"  # Nari Labs fork (NariQ trellis-coded tensor types)
 INFERSSD = HOME / ".local/bin/inferssd"
 COLI = LLM / "src/colibri/c/coli"
 CUDA_ENV = {**os.environ, "PATH": f"/usr/local/cuda/bin:{os.environ.get('PATH', '/usr/bin:/bin')}"}
@@ -319,6 +321,7 @@ STARTERS = {
     "llamacpp": lambda e: start_gguf_server(e, LLAMA_SERVER, PORTS["llamacpp"]),
     "ikllama": lambda e: start_gguf_server(e, IK_SERVER, PORTS["ikllama"]),
     "prism": lambda e: start_gguf_server(e, PRISM_SERVER, PORTS["prism"]),
+    "nariq": lambda e: start_gguf_server(e, NARI_SERVER, PORTS["nariq"]),
     "inferssd": start_inferssd,
     "colibri": start_colibri,
 }
@@ -409,7 +412,7 @@ def finish_queue() -> None:
 
 
 ENGINE_BINARIES = {"strata": STRATA, "llamacpp": LLAMA_SERVER, "ikllama": IK_SERVER, "prism": PRISM_SERVER, "inferssd": INFERSSD,
-                   "colibri": COLI}
+                   "colibri": COLI, "nariq": NARI_SERVER}
 
 
 def engine_ready(entry: dict) -> bool:

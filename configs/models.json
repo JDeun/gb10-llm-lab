@@ -969,6 +969,37 @@
         "Native NVFP4 (393.5 GB) needs >=500 GB VRAM; vLLM excluded on one GB10.",
         "Capacity test with IQ1_S GGUF (127.5 GB), experts on CPU/SSD."
       ]
+    },
+    {
+      "id": "qwen38-27b-nariq",
+      "name": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+      "role": "queued_candidate",
+      "total_parameters_billion_approx": 27,
+      "active_parameters_billion_approx": 27,
+      "checkpoint_bytes_estimate": 11050000000,
+      "additional_preparation_bytes_estimate": 15190000000,
+      "checkpoint_revision": null,
+      "engine_revision": "b12431-nariv0",
+      "planned_engines": [
+        "nariq"
+      ],
+      "queue_entries": [
+        "nariq-qwen38-27b-3.0bpw",
+        "nariq-qwen38-27b-2.5bpw",
+        "nariq-qwen38-27b-2.0bpw"
+      ],
+      "excluded_from_current_scope": false,
+      "added_on": "2026-11-24",
+      "sources": [
+        "https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF",
+        "https://github.com/nari-labs/nari-llama.cpp",
+        "https://arxiv.org/abs/2611.26157"
+      ],
+      "notes": [
+        "Trellis-coded PTQ of Qwen3.8-27B at 3.0/2.5/2.0 bpw (10.1/8.4/6.8 GB), calibrated on coding-agent traces.",
+        "Needs the nari-llama.cpp fork; no arm64 release binaries, so GB10 must build from source (vendor: untested on DGX Spark).",
+        "All entries on hold until that build succeeds."
+      ]
     }
   ],
   "excluded": [
