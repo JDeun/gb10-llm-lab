@@ -3373,6 +3373,230 @@
      "reasoning_effort": 0.5
     }
    }
+  },
+  {
+   "id": "quality-llamacpp-gemma4-26b-nothink",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "repository": "unsloth/gemma-4-26B-A4B-it-GGUF",
+   "hf_include": [
+    "gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf"
+   ],
+   "size_bytes": 16500000000,
+   "context": [],
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "llama.cpp enables thinking by default (35% truncated); vLLM run (template default off) had 0%."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
+  },
+  {
+   "id": "quality-llamacpp-kr-solar-open-100b-effort-minimal",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "repository": "mradermacher/Solar-Open-100B-GGUF",
+   "hf_include": [
+    "Solar-Open-100B.Q4_K_M.gguf"
+   ],
+   "size_bytes": 62300000000,
+   "context": [],
+   "llama_args": [
+    "-c",
+    "32768",
+    "--reasoning-budget",
+    "0"
+   ],
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "Template control is reasoning_effort (low/minimal); the earlier enable_thinking=false run used the wrong key (23% truncated)."
+   ],
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "reasoning_effort": "minimal"
+    }
+   }
+  },
+  {
+   "id": "quality-vllm-kr-exaone-4.5-33b-awq-nothink",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+   "size_bytes": 22800000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1"
+   ],
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "21% truncated with thinking on."
+   ],
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
+  },
+  {
+   "id": "quality-vllm-qwen36-27b-fp8-nothink",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "Qwen/Qwen3.6-27B-FP8",
+   "size_bytes": 30900000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--reasoning-parser",
+    "qwen3"
+   ],
+   "quality": true,
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "20% truncated with thinking on."
+   ],
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
+  },
+  {
+   "id": "quality-vllm-kr-hyperclovax-seed-think-32b-noreason",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "Template control is skip_reasoning; thinking run hit the 8 h step limit."
+   ],
+   "quality": true,
+   "extra_body": {
+    "chat_template_kwargs": {
+     "skip_reasoning": true
+    }
+   }
+  },
+  {
+   "engine": "llamacpp",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-Q2_0.gguf"
+   ],
+   "size_bytes": 7630000000,
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "id": "quality-llamacpp-bonsai2-27b-ternary-q2_0-nothink",
+   "profile": "quality",
+   "context": [],
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "Qwen3.8-27B base; effort-medium already measured (0.881)."
+   ],
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
+  },
+  {
+   "id": "quality-prism-bonsai2-27b-ternary-ptq1_0-effort-medium",
+   "engine": "prism",
+   "profile": "quality",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PTQ1_0.gguf"
+   ],
+   "size_bytes": 5950000000,
+   "context": [],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "Fastest Bonsai build (32.8 tok/s), 12% truncated at default effort."
+   ],
+   "extra_body": {
+    "reasoning_effort": "medium"
+   }
+  },
+  {
+   "id": "quality-prism-bonsai2-27b-ternary-ptq1_0-nothink",
+   "engine": "prism",
+   "profile": "quality",
+   "vision": false,
+   "repository": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+   "hf_include": [
+    "Ternary-Bonsai-2-27B-PTQ1_0.gguf"
+   ],
+   "size_bytes": 5950000000,
+   "context": [],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "2026-11-24 thinking-control sweep: source had long reasoning / truncated answers; same engine settings, quality sets only.",
+    "Fastest Bonsai build, thinking off."
+   ],
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   }
   }
  ],
  "excluded": [
