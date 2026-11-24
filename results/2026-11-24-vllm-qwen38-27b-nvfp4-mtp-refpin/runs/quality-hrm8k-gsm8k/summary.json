@@ -11,7 +11,7 @@
  "correctness_passed": 96,
  "accuracy_on_attempted": 0.96,
  "accuracy_on_completed": 0.96,
- "completion_tokens_mean": 484.3,
- "wall_s": 731.7,
+ "completion_tokens_mean": 458.7,
+ "wall_s": 624.5,
  "metrics": {}
 }
