@@ -395,7 +395,8 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
     # keep files for a retry, or for a following entry that reuses them on another engine (if installed)
     keep_for = entry.get("keep_for") or []
     keep_for = [keep_for] if isinstance(keep_for, str) else keep_for
-    reuse = any(ENGINE_BINARIES[name].exists() for name in keep_for)
+    # an engine with no binary path (vLLM runs in docker) is always available, so its files are always reused
+    reuse = any(name not in ENGINE_BINARIES or ENGINE_BINARIES[name].exists() for name in keep_for)
     removed = [] if entry.get("keep") or retry or reuse else delete_paths(entry_files(entry, new_dirs))
     status = "retry" if retry else ("failed" if failure else "done")
     record.update(status=status, attempts=attempts, failure=failure, removed=removed, evicted=evicted,
