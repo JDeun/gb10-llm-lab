@@ -3247,6 +3247,72 @@
    "notes": [
     "Same engine settings and thinking off as sweep/confirm-vllm-qwen36-nothink, for a like-for-like 27B vs 35B-A3B comparison."
    ]
+  },
+  {
+   "id": "quality-llamacpp-inkling2mini-rest",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "repository": "ggml-org/Inkling-2-Mini-GGUF",
+   "hf_include": [
+    "Inkling-2-Mini-IQ4_NL.gguf"
+   ],
+   "size_bytes": 17600000000,
+   "context": [],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "notes": [
+    "Inkling 2 Mini (Thinking Machines, 2026-11-20, Apache 2.0): MoE 26.4B total / 3.4B active, looped layers (24 stored, 48 passes).",
+    "Engine matrix: same GGUF on llamacpp, ikllama, inferssd. Vision (mmproj) not measured in this chain.",
+    "2026-11-23: unsloth root GGUF targets Unsloth Desktop (blk.24.attn_q.weight not found on mainline); switched to ggml-org IQ4_NL (17.6 GB). Entry id kept.",
+    "2026-11-24: llamacpp-inkling2mini-udq4kxl quality hit the 8 h step limit after gsm8k/hrm8k/mmlu-pro; this re-runs the missing sets with a 16 h limit."
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "quality_sets": [
+    "kmmlu",
+    "humaneval",
+    "tools-ko",
+    "open-ko"
+   ],
+   "quality_timeout_factor": 8
+  },
+  {
+   "id": "quality-vllm-kr-hyperclovax-seed-think-32b-rest",
+   "engine": "vllm",
+   "profile": "quality",
+   "vision": false,
+   "repository": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+   "size_bytes": 66600000000,
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--max-num-seqs",
+    "4",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--trust-remote-code",
+    "--reasoning-parser",
+    "deepseek_r1",
+    "--model-impl",
+    "transformers"
+   ],
+   "notes": [
+    "Answer-quality re-run of vllm-kr-hyperclovax-seed-think-32b-transformers-64k (same engine args).",
+    "2026-11-24: quality-vllm-kr-hyperclovax-seed-think-32b-transformers-64k quality hit the 8 h step limit after gsm8k/hrm8k/mmlu-pro; this re-runs the missing sets with a 16 h limit."
+   ],
+   "quality": true,
+   "quality_sets": [
+    "kmmlu",
+    "humaneval",
+    "tools-ko",
+    "open-ko"
+   ],
+   "quality_timeout_factor": 8,
+   "quality_max_tokens": 16384
   }
  ],
  "excluded": [

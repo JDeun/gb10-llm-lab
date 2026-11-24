@@ -174,11 +174,12 @@ def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: 
         cmd += ["--limit", str(entry["quality_limit"])]
     if entry.get("quality_max_tokens"):  # reasoning models: a larger answer budget (default 4096)
         cmd += ["--max-tokens", str(entry["quality_max_tokens"])]
+    limit_s = step_timeout_s * entry.get("quality_timeout_factor", 4)
     try:
-        subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * entry.get("quality_timeout_factor", 4), check=False)
+        subprocess.run(cmd, capture_output=True, timeout=limit_s, check=False)
         return "ok"
     except subprocess.TimeoutExpired:
-        return f"step_timeout_{step_timeout_s * 4}s"
+        return f"step_timeout_{limit_s}s"
 
 
 def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:
