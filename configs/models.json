@@ -1000,6 +1000,35 @@
         "Needs the nari-llama.cpp fork; no arm64 release binaries, so GB10 must build from source (vendor: untested on DGX Spark).",
         "All entries on hold until that build succeeds."
       ]
+    },
+    {
+      "id": "qwen38-27b-nvfp4-qad",
+      "name": "nvidia/Qwen3.8-27B-NVFP4-QAD",
+      "role": "queued_candidate",
+      "total_parameters_billion_approx": 27,
+      "active_parameters_billion_approx": 27,
+      "checkpoint_bytes_estimate": 19900000000,
+      "additional_preparation_bytes_estimate": null,
+      "checkpoint_revision": null,
+      "engine_revision": null,
+      "planned_engines": [
+        "vllm"
+      ],
+      "queue_entries": [
+        "vllm-qwen38-27b-qad-mtp-refpin",
+        "vllm-qwen38-27b-qad-mtp-nothink-matched"
+      ],
+      "excluded_from_current_scope": false,
+      "added_on": "2026-11-25",
+      "sources": [
+        "https://huggingface.co/nvidia/Qwen3.8-27B-NVFP4-QAD"
+      ],
+      "notes": [
+        "Quantization-aware distillation (ModelOpt v0.48.0); vendor reports BF16-level scores on 6 benchmarks.",
+        "19.9 GB vs 24.7 GB for the RedHatAI NVFP4 pin used in delivery.",
+        "License is the NVIDIA Open Model Agreement, not the base Apache-2.0: check before delivery.",
+        "Vendor tested on vLLM nightly; our vLLM v0.32.0 may not accept it."
+      ]
     }
   ],
   "excluded": [

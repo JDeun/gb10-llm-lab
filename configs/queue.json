@@ -3758,6 +3758,109 @@
     "open-ko"
    ],
    "quality_timeout_factor": 8
+  },
+  {
+   "id": "vllm-qwen38-27b-qad-mtp-refpin",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.8-27B-NVFP4-QAD",
+   "vision": false,
+   "size_bytes": 19900000000,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "profile": "standard",
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "131072",
+    "--gpu-memory-utilization",
+    "0.45",
+    "--max-num-seqs",
+    "8",
+    "--enable-prefix-caching",
+    "--tool-call-parser",
+    "qwen3_xml",
+    "--enable-auto-tool-choice",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3}",
+    "--quantization",
+    "modelopt"
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8
+   ],
+   "notes": [
+    "NVIDIA Qwen3.8-27B NVFP4-QAD (2026-11-04, NVIDIA Open Model Agreement — not the base Apache-2.0).",
+    "Quantization-aware distillation: the BF16 teacher supplies token targets while the NVFP4 weights train, so the vendor reports BF16-level scores (GPQA 87.9 vs 88.2, Terminal-Bench 76.7 vs 77.3).",
+    "19.9 GB vs 24.7 GB for RedHatAI/Qwen3.8-27B-NVFP4 (the delivery pin). Needs --quantization modelopt.",
+    "Vendor tested on vLLM nightly; our vLLM is v0.32.0, so the entry may fail on this engine version.",
+    "Same engine settings as the delivery pin (util 0.45, 8 seqs, 128K, thinking on), for a direct QAD vs RedHatAI comparison."
+   ],
+   "keep_for": [
+    "vllm"
+   ]
+  },
+  {
+   "id": "vllm-qwen38-27b-qad-mtp-nothink-matched",
+   "engine": "vllm",
+   "repository": "nvidia/Qwen3.8-27B-NVFP4-QAD",
+   "vision": false,
+   "size_bytes": 19900000000,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "profile": "standard",
+   "context": [],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--kv-cache-dtype",
+    "fp8",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16",
+    "--max-num-batched-tokens",
+    "8192",
+    "--enable-chunked-prefill",
+    "--async-scheduling",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":3}",
+    "--enable-auto-tool-choice",
+    "--tool-call-parser",
+    "qwen3_xml",
+    "--quantization",
+    "modelopt"
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "extra_body": {
+    "chat_template_kwargs": {
+     "enable_thinking": false
+    }
+   },
+   "notes": [
+    "NVIDIA Qwen3.8-27B NVFP4-QAD (2026-11-04, NVIDIA Open Model Agreement — not the base Apache-2.0).",
+    "Quantization-aware distillation: the BF16 teacher supplies token targets while the NVFP4 weights train, so the vendor reports BF16-level scores (GPQA 87.9 vs 88.2, Terminal-Bench 76.7 vs 77.3).",
+    "19.9 GB vs 24.7 GB for RedHatAI/Qwen3.8-27B-NVFP4 (the delivery pin). Needs --quantization modelopt.",
+    "Vendor tested on vLLM nightly; our vLLM is v0.32.0, so the entry may fail on this engine version.",
+    "Same settings as the Qwen3.6 confirm run with thinking off (the best setting found for this model family)."
+   ]
   }
  ],
  "excluded": [
