@@ -1,0 +1,630 @@
+[
+ {
+  "repo": "AesSedai/MiMo-V2.6-Pro-MOPD-GGUF",
+  "engines": "colibri",
+  "license": null,
+  "license_name": null,
+  "license_link": null,
+  "base": "XiaomiMiMo/MiMo-V2.6-Pro-MOPD",
+  "gated": false,
+  "modified": "2026-09-30"
+ },
+ {
+  "repo": "AtomicChat/Ling-3.0-flash-GGUF",
+  "engines": "llamacpp",
+  "license": "mit",
+  "license_name": null,
+  "license_link": null,
+  "base": "inclusionAI/Ling-3.0-flash",
+  "gated": false,
+  "modified": "2026-10-28"
+ },
+ {
+  "repo": "DeepSeek V4 Pro IQ1_S",
+  "engines": "",
+  "error": "InvalidURL",
+  "resolved": null
+ },
+ {
+  "repo": "DeepSeek V4.1 Flash 2.25bpw full six experts",
+  "engines": "",
+  "error": "InvalidURL",
+  "resolved": null
+ },
+ {
+  "repo": "GLM-5.3-Flash UD-Q2_K_XL",
+  "engines": "",
+  "resolved": "zai-org/GLM-5.3-Flash",
+  "license": "mit",
+  "license_name": null,
+  "base": null,
+  "gated": false,
+  "modified": "2026-10-15"
+ },
+ {
+  "repo": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF (IST-DAS 2.00bpw)",
+  "engines": "strata",
+  "resolved": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
+  "license": "mit",
+  "license_name": null,
+  "base": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "gated": false,
+  "modified": "2026-10-28"
+ },
+ {
+  "repo": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF (IST-DAS 2.25bpw)",
+  "engines": "strata",
+  "resolved": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
+  "license": "mit",
+  "license_name": null,
+  "base": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "gated": false,
+  "modified": "2026-10-28"
+ },
+ {
+  "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ2_XS)",
+  "engines": "strata",
+  "resolved": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-09-29"
+ },
+ {
+  "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_S)",
+  "engines": "strata",
+  "resolved": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-09-29"
+ },
+ {
+  "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF (IQ3_XXS)",
+  "engines": "strata",
+  "resolved": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-09-29"
+ },
+ {
+  "repo": "Kimi K3 IQ1_S-XS (all 896 experts)",
+  "engines": "",
+  "resolved": "qtum/Kimi-K3-GGUF",
+  "license": "other",
+  "license_name": "kimi-k3",
+  "base": "moonshotai/Kimi-K3",
+  "gated": false,
+  "modified": "2026-08-17"
+ },
+ {
+  "repo": "Kimi K3 NVFP4/FP8 FTW",
+  "engines": "",
+  "resolved": "oakmindai/Kimi-K3-NVFP4-FTW",
+  "license": "other",
+  "license_name": "nvidia-open-model-license",
+  "base": "nvidia/Kimi-K3-NVFP4",
+  "gated": false,
+  "modified": "2026-08-29"
+ },
+ {
+  "repo": "Kimi K3 Unsloth UD-IQ1_S",
+  "engines": "",
+  "resolved": "unsloth/Kimi-K3-GGUF",
+  "license": "other",
+  "license_name": "kimi-k3",
+  "base": "moonshotai/Kimi-K3",
+  "gated": false,
+  "modified": "2026-08-07"
+ },
+ {
+  "repo": "LGAI-EXAONE/EXAONE-4.5-33B-AWQ",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "exaone",
+  "license_link": "LICENSE",
+  "base": "LGAI-EXAONE/EXAONE-4.5-33B",
+  "gated": false,
+  "modified": "2026-07-06"
+ },
+ {
+  "repo": "MiniMax-M3.1-Flash UD-IQ2_XXS",
+  "engines": "",
+  "resolved": "MiniMaxAI/MiniMax-M3.1-Flash",
+  "license": "other",
+  "license_name": "minimax-community",
+  "base": null,
+  "gated": false,
+  "modified": "2026-11-05"
+ },
+ {
+  "repo": "NVIDIA Nemotron-3-Super-120B-A12B NVFP4",
+  "engines": "",
+  "resolved": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+  "license": "other",
+  "license_name": "nvidia-nemotron-open-model-license",
+  "base": null,
+  "gated": false,
+  "modified": "2026-08-24"
+ },
+ {
+  "repo": "Qwen/Qwen3.6-27B-FP8",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://huggingface.co/Qwen/Qwen3.6-27B-FP8/blob/main/LICENSE",
+  "base": "Qwen/Qwen3.6-27B",
+  "gated": false,
+  "modified": "2026-11-07"
+ },
+ {
+  "repo": "Qwen/Qwen3.8-27B-FP8",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-07"
+ },
+ {
+  "repo": "Qwen3.6-35B-A3B-NVFP4",
+  "engines": "",
+  "error": "HTTPError",
+  "resolved": null
+ },
+ {
+  "repo": "Qwen3.8-2.4T-A95B UD-IQ1_S",
+  "engines": "",
+  "resolved": "Qwen/Qwen3.8-2.4T-A95B",
+  "license": "other",
+  "license_name": "qwen3.8-max",
+  "base": null,
+  "gated": false,
+  "modified": "2026-11-07"
+ },
+ {
+  "repo": "Qwen3.8-27B FP8 (dense)",
+  "engines": "",
+  "resolved": "Qwen/Qwen3.8-27B-FP8",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-07"
+ },
+ {
+  "repo": "Qwen3.8-Flash-Next IQ3_S (ISTA-DASLab GSQ-RCO)",
+  "engines": "",
+  "resolved": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-09-29"
+ },
+ {
+  "repo": "Qwen3.8-Flash-Next Q8_0",
+  "engines": "",
+  "resolved": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-11-13"
+ },
+ {
+  "repo": "Qwen3.8-Flash-Next UD-Q4_K_XL",
+  "engines": "",
+  "resolved": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-11-13"
+ },
+ {
+  "repo": "RedHatAI/Qwen3.8-27B-NVFP4",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://choosealicense.com/licenses/apache-2.0/",
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-19"
+ },
+ {
+  "repo": "bartowski/Inkling-2-Small-GGUF",
+  "engines": "colibri,llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://www.apache.org/licenses/LICENSE-2.0",
+  "base": "thinkingmachines/Inkling-2-Small",
+  "gated": false,
+  "modified": "2026-11-18"
+ },
+ {
+  "repo": "bartowski/Qwen3.8-Flash-Next-GGUF",
+  "engines": "colibri,ikllama,inferssd,llamacpp",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "license_link": "LICENSE",
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-10-13"
+ },
+ {
+  "repo": "cleyesode/Qwen3.8-Flash-Next-RAZOR-65B-A6B-NVFP4",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "license_link": null,
+  "base": "Nickyang/Qwen3.8-Flash-Next-RAZOR-65B-A6B-E256of512",
+  "gated": false,
+  "modified": "2026-10-06"
+ },
+ {
+  "repo": "ggml-org/Inkling-2-Mini-GGUF",
+  "engines": "ikllama,inferssd,llamacpp",
+  "license": null,
+  "license_name": null,
+  "license_link": null,
+  "base": "thinkingmachines/Inkling-2-Mini",
+  "gated": false,
+  "modified": "2026-11-21"
+ },
+ {
+  "repo": "ggml-org/MiMo-V2.6-Flash-RL-GGUF",
+  "engines": "colibri",
+  "license": "mit",
+  "license_name": null,
+  "license_link": null,
+  "base": "XiaomiMiMo/MiMo-V2.6-Flash-RL",
+  "gated": false,
+  "modified": "2026-11-01"
+ },
+ {
+  "repo": "ggml-org/gpt-oss-120b-GGUF",
+  "engines": "ikllama,inferssd,llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "openai/gpt-oss-120b",
+  "gated": false,
+  "modified": "2026-11-12"
+ },
+ {
+  "repo": "google/gemma-4-26B-A4B-it",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://ai.google.dev/gemma/docs/gemma_4_license",
+  "base": "google/gemma-4-26B-A4B",
+  "gated": false,
+  "modified": "2026-07-20"
+ },
+ {
+  "repo": "gpt-oss-120b MXFP4",
+  "engines": "",
+  "resolved": "openai/gpt-oss-120b",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": null,
+  "gated": false,
+  "modified": "2025-08-26"
+ },
+ {
+  "repo": "mradermacher/Solar-Open-100B-GGUF",
+  "engines": "llamacpp",
+  "license": "other",
+  "license_name": "upstage-solar-license",
+  "license_link": null,
+  "base": "upstage/Solar-Open-100B",
+  "gated": false,
+  "modified": "2026-10-22"
+ },
+ {
+  "repo": "mrfakename/DeepSeek-V4.1-Flash-1017-GGUF",
+  "engines": "colibri,ikllama,inferssd,llamacpp",
+  "license": "mit",
+  "license_name": null,
+  "license_link": null,
+  "base": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "gated": false,
+  "modified": "2026-10-18"
+ },
+ {
+  "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+  "engines": "nariq",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-25"
+ },
+ {
+  "repo": "naver-hyperclovax/HyperCLOVAX-SEED-Think-32B",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "hyperclovax",
+  "license_link": "LICENSE",
+  "base": null,
+  "gated": false,
+  "modified": "2026-09-10"
+ },
+ {
+  "repo": "nvidia/Mistral-Medium-3.5-128B-NVFP4",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "nvidia-open-model-license",
+  "license_link": null,
+  "base": "mistralai/Mistral-Medium-3.5-128B",
+  "gated": false,
+  "modified": "2026-07-01"
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "nvidia-nemotron-open-model-license",
+  "license_link": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+  "base": null,
+  "gated": false,
+  "modified": "2026-08-24"
+ },
+ {
+  "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "Qwen/Qwen3.6-35B-A3B",
+  "gated": false,
+  "modified": "2026-08-29"
+ },
+ {
+  "repo": "nvidia/Qwen3.8-27B-NVFP4-QAD",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "nvidia-open-model-license",
+  "license_link": null,
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-20"
+ },
+ {
+  "repo": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+  "engines": "vllm",
+  "license": "other",
+  "license_name": "nvidia-open-model-license",
+  "license_link": null,
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-09-05"
+ },
+ {
+  "repo": "openai/gpt-oss-120b",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": null,
+  "gated": false,
+  "modified": "2025-08-26"
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.0-35B",
+  "engines": "vllm",
+  "license": "mit",
+  "license_name": null,
+  "license_link": "https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B/blob/main/LICENSE",
+  "base": null,
+  "gated": false,
+  "modified": "2026-06-25"
+ },
+ {
+  "repo": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+  "engines": "llamacpp,prism",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "Qwen/Qwen3.8-27B",
+  "gated": false,
+  "modified": "2026-11-04"
+ },
+ {
+  "repo": "prometheusAIR/Solar-Open2-250B-GGUF",
+  "engines": "llamacpp",
+  "license": "other",
+  "license_name": "upstage-solar-license",
+  "license_link": "LICENSE",
+  "base": "upstage/Solar-Open2-250B",
+  "gated": false,
+  "modified": "2026-08-05"
+ },
+ {
+  "repo": "qtum/Kimi-K3-GGUF",
+  "engines": "colibri,ikllama,llamacpp",
+  "license": "other",
+  "license_name": "kimi-k3",
+  "license_link": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
+  "base": "moonshotai/Kimi-K3",
+  "gated": false,
+  "modified": "2026-08-17"
+ },
+ {
+  "repo": "skt/A.X-K2-GGUF",
+  "engines": "llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "skt/A.X-K2",
+  "gated": false,
+  "modified": "2026-08-19"
+ },
+ {
+  "repo": "thinkingmachines/Inkling-2-Mini",
+  "engines": "ikllama,inferssd,llamacpp,vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://www.apache.org/licenses/LICENSE-2.0",
+  "base": null,
+  "gated": false,
+  "modified": "2026-11-24"
+ },
+ {
+  "repo": "thinkingmachines/Inkling-2-Small",
+  "engines": "colibri,llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://www.apache.org/licenses/LICENSE-2.0",
+  "base": null,
+  "gated": false,
+  "modified": "2026-11-20"
+ },
+ {
+  "repo": "trillionlabs/Gravity-30B-A5B-Preview",
+  "engines": "vllm",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": null,
+  "base": "trillionlabs/Gravity-30B-A5B-Base",
+  "gated": false,
+  "modified": "2026-09-09"
+ },
+ {
+  "repo": "unsloth/GLM-5.3-Flash-GGUF",
+  "engines": "colibri,ikllama,llamacpp",
+  "license": "mit",
+  "license_name": null,
+  "license_link": null,
+  "base": "zai-org/GLM-5.3-Flash",
+  "gated": false,
+  "modified": "2026-10-05"
+ },
+ {
+  "repo": "unsloth/GLM-5.3-GGUF",
+  "engines": "colibri,ikllama,llamacpp",
+  "license": "other",
+  "license_name": "glm-5.3",
+  "license_link": null,
+  "base": "zai-org/GLM-5.3",
+  "gated": false,
+  "modified": "2026-08-29"
+ },
+ {
+  "repo": "unsloth/MiniMax-M3.1-Flash-GGUF",
+  "engines": "llamacpp",
+  "license": "other",
+  "license_name": "minimax-community",
+  "license_link": "LICENSE",
+  "base": "MiniMaxAI/MiniMax-M3.1-Flash",
+  "gated": false,
+  "modified": "2026-10-26"
+ },
+ {
+  "repo": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+  "engines": "colibri,ikllama,llamacpp",
+  "license": "other",
+  "license_name": "mistral-ecosystem-open-weight",
+  "license_link": "https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B/blob/main/LICENSE",
+  "base": "mistralai/Mistral-Large-4-1T-A52B",
+  "gated": false,
+  "modified": "2026-10-29"
+ },
+ {
+  "repo": "unsloth/Muse-Spark-Open-816B-A42B-GGUF",
+  "engines": "colibri,ikllama,inferssd,llamacpp",
+  "license": "other",
+  "license_name": "muse-model-license",
+  "license_link": "LICENSE.md",
+  "base": "meta-models/Muse-Spark-Open-816B-A42B",
+  "gated": false,
+  "modified": "2026-10-15"
+ },
+ {
+  "repo": "unsloth/NVIDIA-Nemotron-3-Ultra-550B-A55B-GGUF",
+  "engines": "llamacpp",
+  "license": "other",
+  "license_name": "openmdw-1.1",
+  "license_link": "https://openmdw.ai/license/1-1/",
+  "base": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+  "gated": false,
+  "modified": "2026-06-04"
+ },
+ {
+  "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+  "engines": "colibri,ikllama,inferssd,llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/main/LICENSE",
+  "base": "Qwen/Qwen3.6-35B-A3B",
+  "gated": false,
+  "modified": "2026-04-20"
+ },
+ {
+  "repo": "unsloth/Qwen3.6-35B-A3B-GGUF (UD-Q4_K_XL via Strata)",
+  "engines": "strata",
+  "resolved": "unsloth/Qwen3.6-35B-A3B-GGUF",
+  "license": "apache-2.0",
+  "license_name": null,
+  "base": "Qwen/Qwen3.6-35B-A3B",
+  "gated": false,
+  "modified": "2026-04-20"
+ },
+ {
+  "repo": "unsloth/Qwen3.8-2.4T-A95B-GGUF",
+  "engines": "colibri,ikllama,llamacpp",
+  "license": "other",
+  "license_name": "qwen3.8-max",
+  "license_link": "LICENSE",
+  "base": "Qwen/Qwen3.8-2.4T-A95B",
+  "gated": false,
+  "modified": "2026-08-13"
+ },
+ {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF (Q8_0)",
+  "engines": "strata",
+  "resolved": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-11-13"
+ },
+ {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF (UD-Q4_K_XL)",
+  "engines": "strata",
+  "resolved": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "license": "other",
+  "license_name": "qwen-community-1.0",
+  "base": "Qwen/Qwen3.8-Flash-Next",
+  "gated": false,
+  "modified": "2026-11-13"
+ },
+ {
+  "repo": "unsloth/gemma-4-26B-A4B-it-GGUF",
+  "engines": "ikllama,inferssd,llamacpp",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://ai.google.dev/gemma/docs/gemma_4_license",
+  "base": "google/gemma-4-26B-A4B-it",
+  "gated": false,
+  "modified": "2026-07-17"
+ },
+ {
+  "repo": "unsloth/inkling-GGUF",
+  "engines": "colibri",
+  "license": "apache-2.0",
+  "license_name": null,
+  "license_link": "https://www.apache.org/licenses/LICENSE-2.0",
+  "base": "thinkingmachines/Inkling",
+  "gated": false,
+  "modified": "2026-07-16"
+ }
+]

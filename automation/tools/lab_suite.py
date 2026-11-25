@@ -34,6 +34,7 @@ ENGINE_REVISIONS = {
     "inferssd": "InferSSD 0.1.4 (261109.216.02ed6a8)",
     "colibri": "colibri main (0a5504a), coli build --gpu auto",
     "prism": "PrismML-Eng/llama.cpp prism branch, CUDA sm_121",
+    "nariq": "nari-labs/nari-llama.cpp b12431-nariv0, CUDA sm_121 (built from source: no arm64 release)",
 }
 
 
@@ -58,7 +59,7 @@ def server_up(port: int) -> bool:
 
 
 ENGINE_SOURCES = {"llamacpp": LLM / "src/llama.cpp", "ikllama": LLM / "src/ik_llama.cpp", "colibri": LLM / "src/colibri",
-                  "prism": LLM / "src/prism-llama.cpp"}
+                  "prism": LLM / "src/prism-llama.cpp", "nariq": LLM / "src/nari-llama.cpp"}
 
 
 def engine_revision(engine: str) -> str:
@@ -174,11 +175,12 @@ def run_quality(entry: dict, alias: str, port: int, base: Path, step_timeout_s: 
         cmd += ["--limit", str(entry["quality_limit"])]
     if entry.get("quality_max_tokens"):  # reasoning models: a larger answer budget (default 4096)
         cmd += ["--max-tokens", str(entry["quality_max_tokens"])]
+    limit_s = step_timeout_s * entry.get("quality_timeout_factor", 4)
     try:
-        subprocess.run(cmd, capture_output=True, timeout=step_timeout_s * entry.get("quality_timeout_factor", 4), check=False)
+        subprocess.run(cmd, capture_output=True, timeout=limit_s, check=False)
         return "ok"
     except subprocess.TimeoutExpired:
-        return f"step_timeout_{step_timeout_s * 4}s"
+        return f"step_timeout_{limit_s}s"
 
 
 def run_suite(entry: dict, alias: str, port: int, step_timeout_s: int) -> None:

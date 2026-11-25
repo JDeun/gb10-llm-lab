@@ -30,7 +30,7 @@ STRATA_MODELS = HOME / ".local/share/strata/Strata-data/models"
 INFERSSD_MODELS = HOME / ".local/share/inferssd/models"
 COLI_MODELS = HOME / "llm/colibri-models"  # small per-entry model dirs made by `coli import` (point at the GGUF)
 DELETE_ROOTS = (HF_HUB, STRATA_MODELS, INFERSSD_MODELS, COLI_MODELS)
-HF_ENGINES = ("vllm", "llamacpp", "ikllama", "colibri", "prism")  # engines whose weights the runner downloads into the HF cache
+HF_ENGINES = ("vllm", "llamacpp", "ikllama", "colibri", "prism", "nariq")  # engines whose weights the runner downloads into the HF cache
 TRANSIENT = {"timeout", "command_failed", "server_down", "server_exited", "start_timeout"}
 MAX_ATTEMPTS = 2
 DOWNLOAD_TIMEOUT_S = 14 * 86400  # ~1 MB/s company network: a 500 GB model needs about 6 days
@@ -38,12 +38,14 @@ MAX_DOWNLOAD_ATTEMPTS = 6
 KEEP_DIRS = {HF_HUB / "models--nvidia--Qwen3.6-35B-A3B-NVFP4"}
 EVICTABLE = {"strata-qwen38fn-iq3s": [STRATA_MODELS / "IQ3_S"]}
 RESERVE_BYTES = 64 * 2**30
-PORTS = {"vllm": 8001, "strata": 8080, "llamacpp": 8002, "ikllama": 8003, "inferssd": 8080, "colibri": 8005, "prism": 8006}
+PORTS = {"vllm": 8001, "strata": 8080, "llamacpp": 8002, "ikllama": 8003, "inferssd": 8080, "colibri": 8005, "prism": 8006,
+         "nariq": 8007}
 VLLM_IMAGE = "vllm/vllm-openai:v0.32.0"
 LLAMA_SERVER = LLM / "src/llama.cpp/build/bin/llama-server"
 STRATA = HOME / ".local/bin/strata"
 IK_SERVER = LLM / "src/ik_llama.cpp/build/bin/llama-server"
 PRISM_SERVER = LLM / "src/prism-llama.cpp/build/bin/llama-server"  # Prism ML fork (ternary PTQ1_0/PQ2_0 kernels)
+NARI_SERVER = LLM / "src/nari-llama.cpp/build/bin/llama-server"  # Nari Labs fork (NariQ trellis-coded tensor types)
 INFERSSD = HOME / ".local/bin/inferssd"
 COLI = LLM / "src/colibri/c/coli"
 CUDA_ENV = {**os.environ, "PATH": f"/usr/local/cuda/bin:{os.environ.get('PATH', '/usr/bin:/bin')}"}
@@ -319,6 +321,7 @@ STARTERS = {
     "llamacpp": lambda e: start_gguf_server(e, LLAMA_SERVER, PORTS["llamacpp"]),
     "ikllama": lambda e: start_gguf_server(e, IK_SERVER, PORTS["ikllama"]),
     "prism": lambda e: start_gguf_server(e, PRISM_SERVER, PORTS["prism"]),
+    "nariq": lambda e: start_gguf_server(e, NARI_SERVER, PORTS["nariq"]),
     "inferssd": start_inferssd,
     "colibri": start_colibri,
 }
@@ -392,7 +395,8 @@ def run_entry(entry: dict, defaults: dict, state: dict) -> None:
     # keep files for a retry, or for a following entry that reuses them on another engine (if installed)
     keep_for = entry.get("keep_for") or []
     keep_for = [keep_for] if isinstance(keep_for, str) else keep_for
-    reuse = any(ENGINE_BINARIES[name].exists() for name in keep_for)
+    # an engine with no binary path (vLLM runs in docker) is always available, so its files are always reused
+    reuse = any(name not in ENGINE_BINARIES or ENGINE_BINARIES[name].exists() for name in keep_for)
     removed = [] if entry.get("keep") or retry or reuse else delete_paths(entry_files(entry, new_dirs))
     status = "retry" if retry else ("failed" if failure else "done")
     record.update(status=status, attempts=attempts, failure=failure, removed=removed, evicted=evicted,
@@ -409,7 +413,7 @@ def finish_queue() -> None:
 
 
 ENGINE_BINARIES = {"strata": STRATA, "llamacpp": LLAMA_SERVER, "ikllama": IK_SERVER, "prism": PRISM_SERVER, "inferssd": INFERSSD,
-                   "colibri": COLI}
+                   "colibri": COLI, "nariq": NARI_SERVER}
 
 
 def engine_ready(entry: dict) -> bool:
@@ -418,6 +422,18 @@ def engine_ready(entry: dict) -> bool:
         return False
     binary = ENGINE_BINARIES.get(entry["engine"])
     return binary is None or binary.exists()
+
+
+# free = Apache-2.0/MIT, conditional = commercial use with conditions, non_commercial = cannot ship.
+# automation/tools/tag_licenses.py writes license_class; docs/licenses.md holds the detail and source URLs.
+LICENSE_RANK = {"free": 0, "conditional": 1, "unknown": 1, "non_commercial": 2}
+
+
+def order_key(entry: dict):
+    """Entries whose weights are already on disk run first so an engine chain is not split, then the
+    licence class (deliverable models before restricted ones), then the smallest download."""
+    need = download_bytes(entry)
+    return (need > 0, LICENSE_RANK.get(entry.get("license_class", "unknown"), 1), need)
 
 
 def pending_entries(queue: dict, state: dict) -> list[dict]:
@@ -480,8 +496,8 @@ def main() -> None:
         # "deferred" follow-ups run only when no regular entry can run now (e.g. all wait for the weekly budget)
         regular = [e for e in ready if not e.get("deferred")]
         pool = regular or ready
-        # smallest download first; already-downloaded (shared) files cost 0, so engine chains stay together
-        entry = min(pool, key=lambda e: (download_bytes(e), pending.index(e))) if pool else None
+        # order: finish what is on disk (engine chains), then unrestricted licences, then the smallest download
+        entry = min(pool, key=order_key) if pool else None
         if entry is None:
             # remaining entries wait for an engine or for the weekly download budget: sleep instead of finishing
             log(f"waiting: engines/budget for {len(pending)} entries")

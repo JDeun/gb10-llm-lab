@@ -1,0 +1,17 @@
+{
+ "set": "tools-ko",
+ "label": "tools-ko-subset-zeroshot",
+ "planned_requests": 12,
+ "attempted_requests": 12,
+ "final_text_complete_requests": 12,
+ "truncated_outputs": 0,
+ "transport_failures": 0,
+ "planned_correctness_requests": 12,
+ "correctness_evaluated": 12,
+ "correctness_passed": 12,
+ "accuracy_on_attempted": 1.0,
+ "accuracy_on_completed": 1.0,
+ "completion_tokens_mean": 93.2,
+ "wall_s": 16.3,
+ "metrics": {}
+}

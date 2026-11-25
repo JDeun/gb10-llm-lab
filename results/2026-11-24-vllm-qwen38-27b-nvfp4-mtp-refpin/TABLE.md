@@ -1,0 +1,35 @@
+| part | attempted/planned | complete | correct/graded | truncated | prompt tok (med) | TTFT s (med) | TTFT cold s (max, no cache reuse) | prefill tok/s (engine) | decode tok/s (engine) | e2e tok/s | errors |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| capacity-cap1 | 1/1 | 0 | - | 1 | 210 | 0.18 | None | None | None | 5.47 | - |
+| capacity-cap16 | 1/1 | 0 | - | 1 | 210 | 0.59 | None | None | None | 13.36 | - |
+| capacity-cap256 | 1/1 | 0 | - | 1 | 210 | 0.17 | None | None | None | 16.73 | - |
+| capacity-cap64 | 1/1 | 0 | - | 1 | 210 | 0.17 | None | None | None | 17.54 | - |
+| concurrency1-client1 | 2/2 | 0 | - | 2 | 210 | 0.18 | None | None | None | 16.63 | - |
+| concurrency4-client1 | 2/2 | 0 | - | 2 | 210 | 0.55 | None | None | None | 15.45 | - |
+| concurrency4-client2 | 2/2 | 0 | - | 2 | 210 | 0.56 | None | None | None | 15.77 | - |
+| concurrency4-client3 | 2/2 | 0 | - | 2 | 210 | 0.56 | None | None | None | 16.18 | - |
+| concurrency4-client4 | 2/2 | 0 | - | 2 | 210 | 0.56 | None | None | None | 16.62 | - |
+| concurrency8-client1 | 2/2 | 0 | - | 2 | 210 | 0.51 | None | None | None | 14.99 | - |
+| concurrency8-client2 | 2/2 | 0 | - | 2 | 210 | 0.59 | None | None | None | 14.11 | - |
+| concurrency8-client3 | 2/2 | 0 | - | 2 | 210 | 0.67 | None | None | None | 14.16 | - |
+| concurrency8-client4 | 2/2 | 0 | - | 2 | 210 | 0.67 | None | None | None | 17.09 | - |
+| concurrency8-client5 | 2/2 | 0 | - | 2 | 210 | 0.68 | None | None | None | 13.97 | - |
+| concurrency8-client6 | 2/2 | 0 | - | 2 | 210 | 0.7 | None | None | None | 14.29 | - |
+| concurrency8-client7 | 2/2 | 0 | - | 2 | 210 | 0.74 | None | None | None | 14.47 | - |
+| concurrency8-client8 | 2/2 | 0 | - | 2 | 210 | 0.69 | None | None | None | 14.36 | - |
+| context-2k | 3/3 | 3 | 3/3 | 0 | 2906 | 1.29 | None | None | None | 16.68 | - |
+| context-32k | 3/3 | 3 | 3/3 | 0 | 44945 | 1.36 | None | None | None | 14.33 | - |
+| context-512 | 3/3 | 3 | 3/3 | 0 | 805 | 0.49 | None | None | None | 19.59 | - |
+| context-60k | 3/3 | 3 | 3/3 | 0 | 82071 | 2.36 | None | None | None | 12.46 | - |
+| context-8k | 3/3 | 3 | 3/3 | 0 | 11311 | 0.92 | None | None | None | 17.24 | - |
+| quality-gsm8k | 100/100 | 100 | 96/100 | 0 | 124 | None | None | None | None | None | - |
+| quality-hrm8k-gsm8k | 100/100 | 100 | 96/100 | 0 | 140 | None | None | None | None | None | - |
+| quality-humaneval | 164/164 | 158 | 150/158 | 6 | 194 | None | None | None | None | None | - |
+| quality-kmmlu | 100/100 | 75 | 59/75 | 25 | 177 | None | None | None | None | None | - |
+| quality-mmlu-pro | 140/140 | 126 | 111/126 | 14 | 227 | None | None | None | None | None | - |
+| quality-open-ko | 12/12 | 12 | - | 0 | 94 | None | None | None | None | None | - |
+| quality-tools-ko | 12/12 | 12 | 12/12 | 0 | 794 | None | None | None | None | None | - |
+| sanity-512 | 12/12 | 12 | 12/12 | 0 | 86 | 0.32 | None | None | None | 21.54 | - |
+| throughput-1 | 1/1 | 0 | - | 1 | 210 | 0.17 | None | None | None | 16.58 | - |
+| throughput-2 | 1/1 | 0 | - | 1 | 210 | 0.16 | None | None | None | 16.64 | - |
+| throughput-3 | 1/1 | 0 | - | 1 | 210 | 0.17 | None | None | None | 16.64 | - |
