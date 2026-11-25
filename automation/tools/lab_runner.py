@@ -424,6 +424,18 @@ def engine_ready(entry: dict) -> bool:
     return binary is None or binary.exists()
 
 
+# free = Apache-2.0/MIT, conditional = commercial use with conditions, non_commercial = cannot ship.
+# automation/tools/tag_licenses.py writes license_class; docs/licenses.md holds the detail and source URLs.
+LICENSE_RANK = {"free": 0, "conditional": 1, "unknown": 1, "non_commercial": 2}
+
+
+def order_key(entry: dict):
+    """Entries whose weights are already on disk run first so an engine chain is not split, then the
+    licence class (deliverable models before restricted ones), then the smallest download."""
+    need = download_bytes(entry)
+    return (need > 0, LICENSE_RANK.get(entry.get("license_class", "unknown"), 1), need)
+
+
 def pending_entries(queue: dict, state: dict) -> list[dict]:
     return [e for e in queue["entries"] if state.get(e["id"], {}).get("status") not in ("done", "failed", "skipped")]
 
@@ -484,8 +496,8 @@ def main() -> None:
         # "deferred" follow-ups run only when no regular entry can run now (e.g. all wait for the weekly budget)
         regular = [e for e in ready if not e.get("deferred")]
         pool = regular or ready
-        # smallest download first; already-downloaded (shared) files cost 0, so engine chains stay together
-        entry = min(pool, key=lambda e: (download_bytes(e), pending.index(e))) if pool else None
+        # order: finish what is on disk (engine chains), then unrestricted licences, then the smallest download
+        entry = min(pool, key=order_key) if pool else None
         if entry is None:
             # remaining entries wait for an engine or for the weekly download budget: sleep instead of finishing
             log(f"waiting: engines/budget for {len(pending)} entries")

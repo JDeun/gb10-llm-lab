@@ -192,7 +192,39 @@
 
 ---
 
-## 6. 다음에 할 일
+## 6. 모델을 새로 추가할 때의 절차
+
+새 모델을 후보에 넣을 때는 **측정보다 라이선스 확인이 먼저**입니다.
+
+1. **라이선스와 URL을 확인합니다.**
+   ```bash
+   curl -s https://huggingface.co/api/models/<owner>/<repo> \
+     | python3 -c "import sys,json;c=json.load(sys.stdin).get('cardData',{});print(c.get('license'),c.get('license_name'))"
+   curl -s https://huggingface.co/<owner>/<repo>/raw/main/LICENSE | head -40
+   ```
+   `other`로 나오면 **반드시 LICENSE 원문을 읽습니다.** 상업적 사용, 매출·사용자 수 기준, 브랜드 표시, 면책 조항을 봅니다.
+2. **재배포본이면 원본 모델의 라이선스를 확인합니다.** 재배포자가 원본보다 느슨한 조건을 붙일 수는 없습니다(예: ISTA-DASLab의 Qwen3.8-Flash-Next는 Apache 2.0으로 표기돼 있지만 원본은 Qwen Community 1.0입니다).
+3. **이 문서에 줄을 추가합니다.** 모델명, 라이선스, Hugging Face URL, 확인한 조항을 적습니다.
+4. **큐 항목에 등급을 부여합니다.**
+   ```bash
+   python3 automation/tools/tag_licenses.py configs/queue.json   # 또는 GB10의 ~/llm/queue.json
+   ```
+   저장소별 라이선스를 조회해 `license_class`를 씁니다. 원본 라이선스를 따라야 하는 예외는 그 스크립트의 `OVERRIDE`에 적습니다.
+
+### 실행 순서 규칙 (2026-11-25부터)
+
+runner가 다음 항목을 고르는 기준입니다(`automation/tools/lab_runner.py`의 `order_key`).
+
+| 순위 | 기준 | 이유 |
+|---|---|---|
+| 1 | 이미 받아둔 파일이 있는 항목 | 엔진 체인이 끊기지 않게 함 |
+| 2 | `free` → `conditional`/`unknown` → `non_commercial` | **납품 가능한 모델을 먼저 측정** |
+| 3 | 다운로드가 작은 것 | 주간 예산을 아낌 |
+
+- `non_commercial`(EXAONE)은 맨 뒤로 밀려서, 사실상 다른 모든 측정이 끝난 뒤에만 돌아갑니다.
+- 등급별 현황은 `python3 -c "import json;from collections import Counter;print(Counter(e['license_class'] for e in json.load(open('configs/queue.json'))['entries']))"`로 볼 수 있습니다.
+
+## 7. 다음에 할 일
 
 - [ ] **EXAONE 4.5를 후보에서 제외 표시** (상업적 사용 불가)
 - [ ] **Qwen3.8-Flash-Next의 "내부 사용" 예외 범위 법무 검토** — 온프레미스 납품이 해당되는지

@@ -43,7 +43,8 @@
    "delete_paths": [
     ".local/share/strata/Strata-data/models/deepseek-v4.1-flash-IST-DAS-2.00bpw",
     ".local/share/strata/Strata-data/models/deepseek-v4.1-flash-shared"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-gpt-oss-120b",
@@ -70,7 +71,8 @@
     "0.7",
     "--max-num-seqs",
     "4"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-nemotron3-super-120b-nvfp4",
@@ -94,7 +96,8 @@
     "--max-num-seqs",
     "4",
     "--trust-remote-code"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-qwen38-27b-fp8",
@@ -119,7 +122,8 @@
     "4",
     "--reasoning-parser",
     "qwen3"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-nemotron3-super-120b-nvfp4-reasoning-parser",
@@ -148,7 +152,8 @@
    ],
    "notes": [
     "Re-run: first run returned reasoning + </think> inside content (sanity 0/12 by exact match). Only change: --reasoning-parser deepseek_r1."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-gemma4-26b-a4b",
@@ -171,7 +176,8 @@
     "4",
     "--gpu-memory-utilization",
     "0.7"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-ornith-1.0-35b",
@@ -195,7 +201,8 @@
     "--gpu-memory-utilization",
     "0.8",
     "--trust-remote-code"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-qwen36-27b-fp8",
@@ -220,7 +227,8 @@
     "0.6",
     "--reasoning-parser",
     "qwen3"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-qwen36-35b-udq4kxl",
@@ -252,7 +260,8 @@
    ],
    "notes": [
     "Engine set A (same file)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-qwen36-35b-udq4kxl",
@@ -283,7 +292,8 @@
    ],
    "notes": [
     "Engine set A."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-qwen36-35b-udq4kxl",
@@ -309,7 +319,8 @@
    ],
    "notes": [
     "Engine set A."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-ornith-1.0-35b-reasoning-parser",
@@ -338,7 +349,8 @@
    ],
    "notes": [
     "Re-run: first run put 'Thinking Process:' text in content (sanity 0/12). Only change: --reasoning-parser qwen3."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-qwen36-35b-udq4kxl-ctx64k",
@@ -368,7 +380,8 @@
    ],
    "notes": [
     "Re-run with 64K context: first run used -c 32768 and refused the 44,903-token prompt."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-qwen36-35b-udq4kxl-ctx64k",
@@ -398,7 +411,8 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "colibri-qwen36-35b-udq4kxl",
@@ -426,7 +440,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "Engine set A."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-kr-exaone-4.5-33b-awq",
@@ -455,7 +470,8 @@
    ],
    "notes": [
     "Korean model (LG AI Research)."
-   ]
+   ],
+   "license_class": "non_commercial"
   },
   {
    "id": "vllm-kr-hyperclovax-seed-think-32b",
@@ -484,7 +500,8 @@
    ],
    "notes": [
     "Korean model (NAVER)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-kr-gravity-30b-a5b",
@@ -511,7 +528,8 @@
    ],
    "notes": [
     "Korean model (Trillion Labs)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-kr-solar-open-100b-q4km",
@@ -534,7 +552,8 @@
    ],
    "notes": [
     "Korean model (Upstage)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-kr-exaone-4.5-33b-awq-vision4k",
@@ -560,7 +579,8 @@
    "notes": [
     "Re-run of the image check with a 4096-token budget: the first run's reasoning used all 1024 tokens on every image (0/3, finish_reason=length)."
    ],
-   "vision_max_tokens": 4096
+   "vision_max_tokens": 4096,
+   "license_class": "non_commercial"
   },
   {
    "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-impl",
@@ -591,7 +611,8 @@
    ],
    "notes": [
     "Retry of vllm-kr-hyperclovax-seed-think-32b: vLLM 0.32 has no native class for this architecture; try the Transformers backend."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-kr-gravity-30b-a5b-transformers-impl",
@@ -620,7 +641,8 @@
    ],
    "notes": [
     "Retry of vllm-kr-gravity-30b-a5b: vLLM 0.32 has no native class for this architecture; try the Transformers backend."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-kr-hyperclovax-seed-think-32b-transformers-64k",
@@ -650,7 +672,8 @@
    ],
    "notes": [
     "Transformers backend loads the model; first try needed 36 GiB KV for 131072 tokens with 34 GiB available. 64K context, utilization 0.85."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-ling-3.0-flash-q4km",
@@ -670,7 +693,8 @@
    "llama_args": [
     "-c",
     "32768"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-glm53-flash-udq2kxl",
@@ -695,7 +719,8 @@
    "keep_for": [
     "ikllama",
     "colibri"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-glm53-flash-udq2kxl",
@@ -726,7 +751,8 @@
    ],
    "notes": [
     "Engine set B."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "colibri-glm53-flash-udq2kxl",
@@ -753,7 +779,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "Engine set B."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "sweep-vllm-qwen36-mtp-conc16",
@@ -799,7 +826,8 @@
    "quality": true,
    "notes": [
     "Reference config with MTP, 16 seqs: concurrency 1/4/8/16 + answer quality."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "sweep-vllm-qwen36-think-budget16k",
@@ -849,7 +877,8 @@
     "kmmlu",
     "humaneval"
    ],
-   "quality_workers": 8
+   "quality_workers": 8,
+   "license_class": "free"
   },
   {
    "id": "sweep-vllm-qwen36-nomtp-conc16",
@@ -893,7 +922,8 @@
    "quality": false,
    "notes": [
     "Only change vs reference: speculative decoding (MTP) off."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "sweep-vllm-qwen36-kvauto",
@@ -933,7 +963,8 @@
    "quality": true,
    "notes": [
     "Only change: KV cache dtype auto (BF16) instead of fp8; quality compared with the reference."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "sweep-vllm-qwen36-nothink",
@@ -978,7 +1009,8 @@
    },
    "notes": [
     "Only change: thinking off per request."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "sweep-strata-qwen38fn-iq3s-quality",
@@ -1007,7 +1039,8 @@
    "quality": true,
    "notes": [
     "Reference Strata config; adds answer quality for Qwen3.8-Flash-Next IQ3_S."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "sweep-strata-qwen38fn-iq3s-parallel4",
@@ -1043,7 +1076,8 @@
    "quality": false,
    "notes": [
     "Only change: --parallel 4."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "sweep-strata-qwen38fn-iq3s-kvq4",
@@ -1074,7 +1108,8 @@
    "quality": true,
    "notes": [
     "Only change: KV q4_0 instead of int8."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "sweep-strata-qwen38fn-iq3s-dflash2",
@@ -1103,7 +1138,8 @@
    "quality": false,
    "notes": [
     "Only change: DFlash2 drafter instead of MTP."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "quality-vllm-gpt-oss-120b",
@@ -1128,7 +1164,8 @@
    "quality": true,
    "notes": [
     "Answer-quality re-run of vllm-gpt-oss-120b (same engine args)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-gemma4-26b-a4b",
@@ -1149,7 +1186,8 @@
    "quality": true,
    "notes": [
     "Answer-quality re-run of vllm-gemma4-26b-a4b (same engine args)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-ornith-1.0-35b-reasoning-parser",
@@ -1173,7 +1211,8 @@
    "notes": [
     "Answer-quality re-run of vllm-ornith-1.0-35b-reasoning-parser (same engine args)."
    ],
-   "quality": true
+   "quality": true,
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-nemotron3-super-120b-nvfp4-reasoning-parser",
@@ -1197,7 +1236,8 @@
    "notes": [
     "Answer-quality re-run of vllm-nemotron3-super-120b-nvfp4-reasoning-parser (same engine args)."
    ],
-   "quality": true
+   "quality": true,
+   "license_class": "conditional"
   },
   {
    "id": "quality-vllm-qwen38-27b-fp8",
@@ -1220,7 +1260,8 @@
    "quality": true,
    "notes": [
     "Answer-quality re-run of vllm-qwen38-27b-fp8 (same engine args)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-qwen36-27b-fp8",
@@ -1243,7 +1284,8 @@
    "quality": true,
    "notes": [
     "Answer-quality re-run of vllm-qwen36-27b-fp8 (same engine args)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-kr-exaone-4.5-33b-awq",
@@ -1267,7 +1309,8 @@
    "notes": [
     "Answer-quality re-run of vllm-kr-exaone-4.5-33b-awq (same engine args)."
    ],
-   "quality": true
+   "quality": true,
+   "license_class": "non_commercial"
   },
   {
    "id": "quality-vllm-kr-hyperclovax-seed-think-32b-transformers-64k",
@@ -1293,7 +1336,8 @@
    "notes": [
     "Answer-quality re-run of vllm-kr-hyperclovax-seed-think-32b-transformers-64k (same engine args)."
    ],
-   "quality": true
+   "quality": true,
+   "license_class": "conditional"
   },
   {
    "id": "quality-vllm-mistral-medium-3.5-128b-nvfp4",
@@ -1316,7 +1360,8 @@
    ],
    "quality": true,
    "quality_limit": 30,
-   "quality_timeout_factor": 12
+   "quality_timeout_factor": 12,
+   "license_class": "conditional"
   },
   {
    "id": "quality-ikllama-glm53-flash-udq2kxl",
@@ -1343,7 +1388,8 @@
    ],
    "quality": true,
    "quality_limit": 30,
-   "quality_timeout_factor": 8
+   "quality_timeout_factor": 8,
+   "license_class": "free"
   },
   {
    "id": "quality-llamacpp-kr-solar-open-100b-q4km-nothink",
@@ -1374,7 +1420,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "conditional"
   },
   {
    "id": "strata-qwen36-35b-udq4kxl",
@@ -1403,7 +1450,8 @@
    ],
    "notes": [
     "Engine matrix: completes the Qwen3.6-35B set (vLLM, llama.cpp, ik_llama.cpp, colibri, InferSSD, Strata)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-qwen38fn-iq4xs",
@@ -1435,7 +1483,8 @@
     "ikllama",
     "colibri",
     "inferssd"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-qwen38fn-iq4xs",
@@ -1466,7 +1515,8 @@
    "keep_for": [
     "colibri",
     "inferssd"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-qwen38fn-iq4xs",
@@ -1497,7 +1547,8 @@
    "start_timeout_s": 21600,
    "keep_for": [
     "inferssd"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-qwen38fn-nvfp4-official",
@@ -1524,7 +1575,8 @@
    ],
    "notes": [
     "Capacity attempt: 132.7 GB checkpoint vs 121.6 GiB unified memory; expected to fail (recorded either way). Container memory capped."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-qwen38fn-razor-65b-nvfp4",
@@ -1552,7 +1604,8 @@
    ],
    "notes": [
     "Community pruned variant (65B, experts removed): a different model from Qwen3.8-Flash-Next; compare with care."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-gpt-oss-120b-mxfp4",
@@ -1584,7 +1637,8 @@
    "keep_for": [
     "ikllama",
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-gpt-oss-120b-mxfp4",
@@ -1615,7 +1669,8 @@
    ],
    "keep_for": [
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-gpt-oss-120b-mxfp4",
@@ -1643,7 +1698,8 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-gemma4-26b-udq4kxl",
@@ -1675,7 +1731,8 @@
    "keep_for": [
     "ikllama",
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-gemma4-26b-udq4kxl",
@@ -1706,7 +1763,8 @@
    ],
    "keep_for": [
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-gemma4-26b-udq4kxl",
@@ -1734,7 +1792,8 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-deepseek-v41-flash-q8",
@@ -1767,7 +1826,8 @@
     "ikllama",
     "colibri",
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-deepseek-v41-flash-q8",
@@ -1800,7 +1860,8 @@
    "keep_for": [
     "colibri",
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "colibri-deepseek-v41-flash-q8",
@@ -1831,7 +1892,8 @@
    "start_timeout_s": 21600,
    "keep_for": [
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-minimax-m31-flash-udiq2xxs",
@@ -1852,7 +1914,8 @@
     "-c",
     "32768",
     "--cpu-moe"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-kr-solar-open2-250b-q2k",
@@ -1876,7 +1939,8 @@
    ],
    "notes": [
     "Korean model (Upstage), community GGUF."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-mistral-medium-3.5-128b-nvfp4",
@@ -1900,7 +1964,8 @@
    ],
    "notes": [
     "Dense 128B; expected slow."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "strata-qwen38fn-udq4kxl",
@@ -1928,7 +1993,8 @@
     "mtp",
     "--tune",
     "skip"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "strata-qwen38fn-q8",
@@ -1956,7 +2022,8 @@
     "mtp",
     "--tune",
     "skip"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "strata-deepseek-v41-flash-225bpw",
@@ -1991,7 +2058,8 @@
    ],
    "notes": [
     "Strata extreme: highest-quality DeepSeek set, full six experts."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-nemotron3-ultra-550b-udiq2xxs",
@@ -2010,7 +2078,8 @@
     "-c",
     "8192",
     "--cpu-moe"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-kr-ax-k2-iq4xs",
@@ -2035,7 +2104,8 @@
    ],
    "notes": [
     "Korean model (SKT), 692B, official GGUF."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-qwen38fn-iq4xs",
@@ -2056,7 +2126,8 @@
    ],
    "notes": [
     "Engine comparison against Strata on the same model family (InferSSD tested profile)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "inferssd-deepseek-v41-flash-q8",
@@ -2076,7 +2147,8 @@
    ],
    "notes": [
     "Near-original precision DeepSeek-V4.1-Flash (experts MXFP4 native) streamed from SSD; compare with Strata 2.00/2.25bpw."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-muse-spark-open-816b",
@@ -2102,7 +2174,8 @@
    "keep_for": [
     "colibri",
     "llamacpp"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-muse-spark-open-816b-udq4kxl",
@@ -2132,7 +2205,8 @@
    ],
    "notes": [
     "Engine set C."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-muse-spark-open-816b-udq4kxl",
@@ -2162,7 +2236,8 @@
    ],
    "keep_for": [
     "ikllama"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-muse-spark-open-816b-udq4kxl",
@@ -2187,7 +2262,8 @@
    ],
    "notes": [
     "Engine matrix: adds ik_llama.cpp to set C."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-qwen38-24t-udiq1s",
@@ -2213,7 +2289,8 @@
    "keep_for": [
     "ikllama",
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-qwen38-24t-udiq1s",
@@ -2239,7 +2316,8 @@
    ],
    "keep_for": [
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-qwen38-24t-udiq1s",
@@ -2265,7 +2343,8 @@
    "notes": [
     "Qwen3.8-2.4T is the qwen3_5_moe_text architecture (same family as Qwen3.5/3.6), which colibri's qwen36 engine reads as qwen35moe.",
     "License: qwen3.8-max. Same GGUF as the llama.cpp / ik_llama.cpp entries before it."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-mistral-large-4-1t-udiq1s",
@@ -2294,7 +2373,8 @@
    "keep_for": [
     "ikllama",
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-mistral-large-4-1t-udiq1s",
@@ -2323,7 +2403,8 @@
    ],
    "keep_for": [
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-mistral-large-4-1t-udiq1s",
@@ -2348,7 +2429,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "1T total / 52B active; colibri-only extreme candidate (not supported by Strata)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "llamacpp-glm-5.3-744b-udiq1s",
@@ -2377,7 +2459,8 @@
    "keep_for": [
     "ikllama",
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-glm-5.3-744b-udiq1s",
@@ -2406,7 +2489,8 @@
    ],
    "keep_for": [
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-glm-5.3-744b-udiq1s",
@@ -2431,7 +2515,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "744B; colibri GLM engine (glm-dsa) on the published GGUF."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-mimo-v2.6-flash-q2k",
@@ -2455,7 +2540,8 @@
     "--ctx",
     "32768"
    ],
-   "start_timeout_s": 21600
+   "start_timeout_s": 21600,
+   "license_class": "free"
   },
   {
    "id": "colibri-inkling-975b-udiq1m",
@@ -2480,7 +2566,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "975B; colibri inkling engine."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "colibri-mimo-v2.6-pro-1t-bpw2",
@@ -2505,7 +2592,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "1.02T; colibri mimo engine."
-   ]
+   ],
+   "license_class": "unknown"
   },
   {
    "id": "llamacpp-kimi-k3-iq1s-xs",
@@ -2531,7 +2619,8 @@
    "keep_for": [
     "ikllama",
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "ikllama-kimi-k3-iq1s-xs",
@@ -2557,7 +2646,8 @@
    ],
    "keep_for": [
     "colibri"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "colibri-kimi-k3-iq1s-xs",
@@ -2582,7 +2672,8 @@
    "start_timeout_s": 21600,
    "notes": [
     "Same GGUF files as the llama.cpp / ik_llama.cpp Kimi entries (reused when kept)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "issue14-strata-qwen38fn-iq3s-tune-quick",
@@ -2618,7 +2709,8 @@
    "notes": [
     "Strata auto-tuning (quick); all earlier runs used --tune skip.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "issue14-strata-qwen38fn-iq3s-tune-thorough",
@@ -2654,7 +2746,8 @@
    "notes": [
     "Strata auto-tuning (thorough).",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "issue14-strata-qwen38fn-iq3s-ctx32k-kvq4",
@@ -2692,7 +2785,8 @@
    "notes": [
     "32K context + KV q4_0 for short-context serving.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "issue14-strata-qwen38fn-iq3xxs",
@@ -2728,7 +2822,8 @@
    "notes": [
     "Lighter quant IQ3_XXS: speed vs quality loss.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "issue14-strata-qwen38fn-iq2xs",
@@ -2764,7 +2859,8 @@
    "notes": [
     "Lighter quant IQ2_XS: speed vs quality loss.",
     "GitHub issue #14 (speed improvement for Qwen3.8-Flash-Next)."
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "engine": "llamacpp",
@@ -2794,7 +2890,8 @@
    "notes": [
     "Ternary (1.58-bit, g128, Hadamard-rotated) Qwen3.8-27B from Prism ML, stock-llama.cpp Q2_0 packing (7.63 GB).",
     "Compare with Qwen3.8-27B FP8 on vLLM (27 GB, ~8 tok/s). Model card: think budget >=16K tokens."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "engine": "llamacpp",
@@ -2818,7 +2915,8 @@
    },
    "notes": [
     "Same file; reasoning_effort=medium (model card: shorter reasoning, fewer cut-offs)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "prism-bonsai2-27b-ternary-ptq1_0",
@@ -2845,7 +2943,8 @@
    "notes": [
     "Dense trit packing, 1.75 bits/weight (5.95 GB).",
     "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "prism-bonsai2-27b-ternary-pq2_0",
@@ -2872,7 +2971,8 @@
    "notes": [
     "Trit in a 2-bit slot, 2.13 bits/weight (7.21 GB).",
     "Prism ML llama.cpp fork (prism branch) with ternary hybrid-attention kernels."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "confirm-strata-qwen38fn-iq3s-ctx32k-kvq4",
@@ -2914,7 +3014,8 @@
     1,
     4,
     8
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "confirm-vllm-qwen36-nothink",
@@ -2971,7 +3072,8 @@
     8,
     16
    ],
-   "deferred": true
+   "deferred": true,
+   "license_class": "free"
   },
   {
    "id": "llamacpp-inkling2mini-udq4kxl",
@@ -3004,7 +3106,8 @@
    "keep_for": [
     "ikllama",
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "ikllama-inkling2mini-udq4kxl",
@@ -3036,7 +3139,8 @@
    ],
    "keep_for": [
     "inferssd"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "inferssd-inkling2mini-udq4kxl",
@@ -3065,7 +3169,8 @@
    "inferssd_args": [
     "--context",
     "65536"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-inkling2mini-nvfp4",
@@ -3094,7 +3199,8 @@
    "hold": "vLLM PR #69028 (Add Inkling 2 Mini) not merged; current vLLM v0.32.0",
    "notes": [
     "Native checkpoint: NVFP4 weights, MXFP8 in the last 4 layers (20.2 GB)."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "llamacpp-inkling2small-iq1s",
@@ -3125,7 +3231,8 @@
    ],
    "keep_for": [
     "colibri"
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "colibri-inkling2small-iq1s",
@@ -3154,7 +3261,8 @@
     "--ctx",
     "8192"
    ],
-   "start_timeout_s": 21600
+   "start_timeout_s": 21600,
+   "license_class": "free"
   },
   {
    "id": "vllm-qwen38-27b-nvfp4-mtp-refpin",
@@ -3199,7 +3307,8 @@
    "notes": [
     "Reference production setting: 27B dense NVFP4 + MTP-3, util 0.45, 8 seqs, 128K context, thinking on (engine default).",
     "Compare with Qwen3.6-35B-A3B NVFP4 (vLLM, thinking off) and the earlier Qwen3.8-27B FP8 run without MTP."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "vllm-qwen38-27b-nvfp4-mtp-nothink-matched",
@@ -3246,7 +3355,8 @@
    },
    "notes": [
     "Same engine settings and thinking off as sweep/confirm-vllm-qwen36-nothink, for a like-for-like 27B vs 35B-A3B comparison."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-llamacpp-inkling2mini-effort00",
@@ -3276,7 +3386,8 @@
     "chat_template_kwargs": {
      "reasoning_effort": 0.0
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-llamacpp-inkling2mini-rest",
@@ -3307,7 +3418,8 @@
     "tools-ko",
     "open-ko"
    ],
-   "quality_timeout_factor": 8
+   "quality_timeout_factor": 8,
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-kr-hyperclovax-seed-think-32b-rest",
@@ -3342,7 +3454,8 @@
     "open-ko"
    ],
    "quality_timeout_factor": 8,
-   "quality_max_tokens": 16384
+   "quality_max_tokens": 16384,
+   "license_class": "conditional"
   },
   {
    "id": "quality-llamacpp-inkling2mini-effort05",
@@ -3372,7 +3485,8 @@
     "chat_template_kwargs": {
      "reasoning_effort": 0.5
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-llamacpp-gemma4-26b-nothink",
@@ -3398,7 +3512,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-llamacpp-kr-solar-open-100b-effort-minimal",
@@ -3426,7 +3541,8 @@
     "chat_template_kwargs": {
      "reasoning_effort": "minimal"
     }
-   }
+   },
+   "license_class": "conditional"
   },
   {
    "id": "quality-vllm-kr-exaone-4.5-33b-awq-nothink",
@@ -3456,7 +3572,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "non_commercial"
   },
   {
    "id": "quality-vllm-qwen36-27b-fp8-nothink",
@@ -3485,7 +3602,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-vllm-kr-hyperclovax-seed-think-32b-noreason",
@@ -3517,7 +3635,8 @@
     "chat_template_kwargs": {
      "skip_reasoning": true
     }
-   }
+   },
+   "license_class": "conditional"
   },
   {
    "engine": "llamacpp",
@@ -3544,7 +3663,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-prism-bonsai2-27b-ternary-ptq1_0-effort-medium",
@@ -3569,7 +3689,8 @@
    ],
    "extra_body": {
     "reasoning_effort": "medium"
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "quality-prism-bonsai2-27b-ternary-ptq1_0-nothink",
@@ -3596,7 +3717,8 @@
     "chat_template_kwargs": {
      "enable_thinking": false
     }
-   }
+   },
+   "license_class": "free"
   },
   {
    "id": "nariq-qwen38-27b-3.0bpw",
@@ -3640,7 +3762,8 @@
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
     "Default file (10.12 GB). Sampling flags are the vendor's thinking-mode settings.",
     "2026-11-25: -c 65536 rejected the 60K case (82,071-token prompt); raised to the model full 262K."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "nariq-qwen38-27b-2.5bpw",
@@ -3682,7 +3805,8 @@
     "Needs the nari-llama.cpp fork (b12431-nariv0); stock llama.cpp cannot load the tensor types.",
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
     "8.44 GB; vendor reports BF16-level agent scores at this size."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "nariq-qwen38-27b-2.0bpw",
@@ -3721,7 +3845,8 @@
     "Needs the nari-llama.cpp fork (b12431-nariv0); stock llama.cpp cannot load the tensor types.",
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
     "6.75 GB; vendor reports it is weaker on math and agent tasks."
-   ]
+   ],
+   "license_class": "free"
   },
   {
    "id": "quality-nariq-qwen38-27b-2.0bpw-rest",
@@ -3757,7 +3882,8 @@
     "tools-ko",
     "open-ko"
    ],
-   "quality_timeout_factor": 8
+   "quality_timeout_factor": 8,
+   "license_class": "free"
   },
   {
    "id": "vllm-qwen38-27b-qad-mtp-refpin",
@@ -3807,7 +3933,8 @@
    ],
    "keep_for": [
     "vllm"
-   ]
+   ],
+   "license_class": "conditional"
   },
   {
    "id": "vllm-qwen38-27b-qad-mtp-nothink-matched",
@@ -3860,7 +3987,8 @@
     "19.9 GB vs 24.7 GB for RedHatAI/Qwen3.8-27B-NVFP4 (the delivery pin). Needs --quantization modelopt.",
     "Vendor tested on vLLM nightly; our vLLM is v0.32.0, so the entry may fail on this engine version.",
     "Same settings as the Qwen3.6 confirm run with thinking off (the best setting found for this model family)."
-   ]
+   ],
+   "license_class": "conditional"
   }
  ],
  "excluded": [

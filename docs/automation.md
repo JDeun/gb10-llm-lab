@@ -130,3 +130,5 @@ GB10에서 `echo <항목 ID> >> ~/llm/queue-reset.txt`를 실행하면 실행기
 - 2026-11-23: Wi-Fi가 14시간 끊긴 채 다시 붙지 않은 사건(11-22~23, 재부팅은 없음). 절전 꺼짐과 자동 재연결 무제한 설정은 이미 돼 있었습니다. 그래서 `automation/netwatch/` watchdog을 root timer로 추가했습니다. 1분마다 게이트웨이나 1.1.1.1로 ping하고, 끊긴 상태가 이어지면 3분에 프로필 재연결, 6분에 Wi-Fi 끄고 켜기, 9분에 NetworkManager 재시작 순서로 단계를 올립니다. LAN은 되는데 Tailscale이 꺼져 있으면 tailscaled를 재시작합니다. 설치: `sudo bash ~/llm/netwatch/install.sh`, 로그: `journalctl -t net-watchdog`.
 
 - 2026-11-24: **같은 측정을 반복하던 사고.** `keep_for`에 `vllm`처럼 실행 파일 경로가 없는 엔진을 적으면 정리 단계에서 `ENGINE_BINARIES[name]`이 KeyError를 냈습니다. 결과는 이미 커밋된 뒤라 측정은 멀쩡했지만 완료 기록이 저장되지 않아, runner가 같은 항목을 처음부터 다시 돌렸습니다(`vllm-qwen38-27b-nvfp4-mtp-refpin` 3회, 약 12시간 낭비). 고침: 실행 파일 경로가 없는 엔진(도커로 도는 vLLM)은 항상 사용 가능한 것으로 봅니다. 교훈: `keep_for` 값은 `ENGINE_BINARIES`에 있는 이름만 쓰거나, 없으면 항상 참으로 처리해야 합니다.
+
+- 2026-11-25: **라이선스 우선순위 적용.** 큐 항목마다 `license_class`(`free`/`conditional`/`non_commercial`/`unknown`)를 두고, runner가 ① 이미 받아둔 파일 ② 라이선스 등급 ③ 다운로드 크기 순으로 다음 항목을 고릅니다. 납품 가능한 모델을 먼저 측정하고, 상업적 사용이 불가한 모델(EXAONE 4.5)은 맨 뒤로 밉니다. 등급 부여는 `automation/tools/tag_licenses.py`, 근거와 URL은 `docs/licenses.md`입니다.
