@@ -1,122 +1,121 @@
 # GB10 LLM Lab
 
-**GB10 한 대와 내장 SSD 1TB에서 모델 크기·정확성·속도·메모리·안정성을 측정해, 조건별로 사용할 수 있는 최대 모델을 찾습니다.**
+**GB10 한 대(통합 메모리 121.6 GiB, NVMe 1 TB)에서 "돌아가는가"와 "쓸 만한가"를 함께 측정합니다.** 모델과 엔진 조합별로 속도·품질·컨텍스트·메모리를 재고, 용도별로 가장 효율적인 조합을 찾습니다.
 
-현재 상태: 측정 도구와 실험 프로토콜 준비. **사용자 GB10의 실측 결과는 아직 없습니다.** RAM 용량, 실제 빈 SSD 공간, 현재 서빙 프로그램은 확인 전입니다. 현재 Qwen3.6-35B-A3B-NVFP4 실행 사실과 SSD 1TB는 사용자 제공 정보입니다.
+측정은 GB10에서 자동으로 진행됩니다. 큐에 쌓인 조합을 하나씩 실행하고, 결과를 정리해 저장소에 커밋합니다.
 
-## 결과로 답할 질문
+| 현황 (2026-11-25) | |
+|---|---|
+| 측정 완료 / 실패 | 60 / 17 |
+| 결과 묶음 | 102개 (품질 측정 포함 32개) |
+| 큐에 남은 조합 | 128개 |
+| 후보 모델 | 41개 |
+| 엔진 | vLLM, llama.cpp, ik_llama.cpp, Strata, InferSSD, colibri, Prism, NariQ 포크 |
 
-1. 전체 전문가를 유지한 모델 중 어떤 규모까지 지정된 작업을 완료하는가?
-2. 그 모델은 고정된 문제를 얼마나 정확하게, 얼마나 자주 끝까지 해결하는가?
-3. 품질·첫 응답 시간·생성 속도·컨텍스트 조건을 주었을 때 가장 큰 모델은 무엇인가?
-4. 같은 체크포인트와 정밀도를 유지하며 어떤 실행 설정이 빨라지는가?
+## 먼저 볼 문서
 
-가용성 기준은 임의의 한 숫자로 정하지 않습니다. `configs/policy.json`의 미정 기준은 null입니다. 기준을 정하기 전에는 크기–품질–속도의 비교표를 만들고, 최종 확인 실험 전에 조건을 고정합니다. **미정 값을 통과로 처리하지 않습니다.**
+| 무엇을 알고 싶은가 | 문서 |
+|---|---|
+| **용도별 추천 조합** (파레토 최적) | [`results/RECOMMENDATION.md`](results/RECOMMENDATION.md) |
+| 전체 측정 결과 표 | [`results/SUMMARY.md`](results/SUMMARY.md) |
+| **모델별 라이선스와 출처 URL** | [`docs/licenses.md`](docs/licenses.md) |
+| 후보 모델 목록과 선정 근거 | [`docs/candidates.md`](docs/candidates.md) |
+| 품질 평가 방법 | [`docs/quality.md`](docs/quality.md) |
+| 자동화 구조와 사고 기록 | [`docs/automation.md`](docs/automation.md) |
+| 서버 운영 (서빙·복구) | [`docs/operations.md`](docs/operations.md) |
+| 측정 지표 정의 | [`docs/metrics.md`](docs/metrics.md) · [`docs/protocol.md`](docs/protocol.md) |
 
-## 지금 할 일: GB10에서 장비 정보 수집
+## 지금까지의 결론
 
-Python 3.10 이상과 표준 라이브러리만 필요합니다.
+품질은 객관식·수학·코드·툴 호출 부분집합의 평균 정답률입니다. **공식 벤치마크 점수가 아닙니다.** 문항이 100~420개라 ±5%p 안팎 차이는 같은 수준으로 봅니다.
 
-```bash
-git clone https://github.com/JDeun/gb10-llm-lab.git
-cd gb10-llm-lab
-mkdir -p local
-python3 benchmarks/bench.py inventory \
-  --model-dir /실제/모델/디렉터리 \
-  --output local/inventory.json
+| 용도 | 추천 | 품질 | 단일 | 동시 16명 | 라이선스 |
+|---|---|---|---|---|---|
+| **여러 명이 쓰는 서비스** | Qwen3.6-35B-A3B NVFP4 · vLLM · 생각 끔 | 0.889 | 95 tok/s | 484 tok/s | Apache 2.0 |
+| **품질 최우선** | Qwen3.8-Flash-Next IQ3_S · Strata | 0.919 | 54 tok/s | 83 tok/s | Qwen Community 1.0 (조건부) |
+| **코딩·에이전트** | gpt-oss-120b · llama.cpp | 코드·툴 0.985 | 55 tok/s | — | Apache 2.0 |
+
+**측정하면서 반복해서 확인된 것**
+
+- **생각(추론)을 끄거나 줄이면 품질이 올라가는 경우가 많습니다.** 생각이 길면 답이 출력 한도에 걸려 잘리고, 잘린 답은 오답이 됩니다. 모델마다 최적점이 달라서(완전히 끔 / 중간 / 켬) 조합마다 따로 재야 합니다. → [`docs/quality.md`](docs/quality.md)
+- **같은 모델도 엔진에 따라 크게 달라집니다.** Gemma 4는 vLLM에서 잘림 0%, llama.cpp에서 35%였습니다. 엔진 기본값이 달라서입니다.
+- **작게 압축한 모델이 의외로 강합니다.** 27B를 3진 압축한 6 GB 파일이 원본 FP8(27 GB)보다 품질과 속도 모두 앞섰습니다.
+- **라이선스를 먼저 봐야 합니다.** 품질 1위 모델은 Apache 2.0이 아니고, 후보 중 하나는 상업적 사용이 금지돼 있습니다.
+
+## 측정 방식
+
+### 자동 실행
+
+GB10의 user systemd 서비스(`lab-runner`)가 큐를 읽어 한 번에 하나씩 실행합니다.
+
+```
+큐에서 다음 항목 선택 → 가중치 다운로드 → 엔진 기동 → 측정 → 결과 커밋 → 모델 삭제
 ```
 
-`--model-dir`를 모델을 저장할 **실제 존재하는 경로**로 바꿉니다. 메모리·디스크 정보는 이 명령을 실행한 컴퓨터의 정보입니다. **GB10 자체에서 실행**해야 합니다. 새 출력 파일만 허용하므로 다시 실행할 때는 다른 이름을 사용합니다.
+- **선택 순서:** ① 이미 받아둔 파일이 있는 항목(엔진 체인 유지) → ② 라이선스 등급(`free` → `conditional` → `non_commercial`) → ③ 다운로드 크기
+- **다운로드 예산:** 주당 500 GB. 회사 네트워크 제한 때문이며, 저장소당 주 1회만 차감합니다.
+- GB10은 **로컬 커밋까지만** 합니다. 원격 푸시와 PR은 사람이 확인한 뒤 진행합니다.
+- 측정이 끝난 모델 파일은 자동으로 지웁니다. 다음 엔진이 같은 파일을 쓰면 남겨둡니다(`keep_for`).
 
-다음으로 필요한 정보는 `local/inventory.json`, 현재 Qwen의 **서빙 프로그램/실행 명령**, **API 주소와 모델 별칭**입니다. 결과를 공유하기 전 경로 등 필요한 내용을 확인합니다. `local/`는 Git에서 제외됩니다.
+### 측정 항목
 
-## 현재 Qwen으로 측정 경로 확인
+| 단계 | 무엇을 재나 |
+|---|---|
+| capacity | 출력 길이를 늘려가며 한계 확인 |
+| context | 512 / 2K / 8K / 32K / 60K 입력에서 정답을 내는지 |
+| throughput | 단일 요청 생성 속도 (5회 반복) |
+| concurrency | 동시 1·4·8·16명일 때 합계 처리량과 첫 응답 시간 |
+| quality | MMLU-Pro, KMMLU, GSM8K, HRM8K, HumanEval, 툴 호출, 한국어 자유 답변 |
 
-이미 실행 중인 서버에 한 요청만 보냅니다. 아래 API 주소와 별칭은 실제 값으로 바꿉니다.
+- **잘린 답은 오답과 따로 셉니다.** 생각이 길어 출력 한도에 걸린 것과 틀린 것은 다른 문제입니다.
+- HumanEval은 네트워크를 끊은 도커 샌드박스에서 채점합니다.
+- 한국어 자유 답변은 Mac의 Codex CLI가 모델 이름을 가리고 A/B 위치를 바꿔가며 비교합니다.
+- 최종 후보는 `confirm` 프로필(문항 3배, 속도 5회 반복)로 다시 확인합니다.
 
-```bash
-python3 benchmarks/bench.py run \
-  --base-url http://127.0.0.1:8000 \
-  --model '실제_API_모델_별칭' \
-  --model-dir /실제/모델/디렉터리 \
-  --max-tokens 32 \
-  --repeats 1 \
-  --case-label qwen-api-check \
-  --output-dir local/qwen-api-check
+### 결과 구조
+
+```
+results/<날짜>-<항목id>/
+  README.md      측정 조건과 결과 표
+  manifest.json  모델·엔진 리비전, 체크섬
+  steps.json     단계별 성공/실패
+  runs/          단계별 원시 응답과 집계
+  concurrency*-summary.json
 ```
 
-기본은 산술 문제 한 개입니다. 추론 중 출력 제한에 걸리면 **미완료**로 남으며, 완성 오답과 구분합니다. 이 확인이 끝나면 `configs/manifest.example.json`을 복사해 실제 모델/엔진 설정을 기록하고 다음 단계로 진행합니다.
+## 모델을 새로 추가할 때
 
-### 정상 동작 검사
+**측정보다 라이선스 확인이 먼저입니다.**
 
-```bash
-python3 benchmarks/bench.py run \
-  --base-url http://127.0.0.1:8000 \
-  --model '실제_API_모델_별칭' \
-  --cases-file prompts/sanity.jsonl \
-  --max-tokens 512 \
-  --repeats 1 \
-  --manifest local/manifest.json \
-  --case-label integration-sanity-v1 \
-  --output-dir local/qwen-sanity
+1. Hugging Face에서 라이선스를 확인합니다. `other`로 나오면 LICENSE 원문을 읽습니다.
+2. 재배포본이면 원본 모델의 라이선스도 봅니다. 재배포자가 원본보다 느슨한 조건을 붙일 수는 없습니다.
+3. [`docs/licenses.md`](docs/licenses.md)에 모델명·라이선스·URL·확인한 조항을 적습니다.
+4. 큐에 항목을 넣고 등급을 부여합니다.
+   ```bash
+   python3 automation/tools/tag_licenses.py configs/queue.json
+   ```
+
+절차 상세는 [`docs/licenses.md` §6](docs/licenses.md)에 있습니다.
+
+## 저장소 구조
+
+```
+automation/tools/   실행기와 측정 도구 (lab_runner, lab_suite, quality_eval, judge_codex, recommend ...)
+automation/systemd/ GB10 서비스 정의
+automation/netwatch/ 네트워크 끊김 복구 watchdog
+configs/queue.json  측정할 조합 (GB10 큐의 사본)
+configs/models.json 후보 모델 목록
+docs/               방법론·라이선스·후보·사고 기록
+results/            측정 결과 묶음과 종합 표
+benchmarks/         수동 측정용 CLI (초기 도구)
 ```
 
-이는 직접 작성한 **12개 정상 동작 검사**입니다. 일반 능력 벤치마크가 아니며 512토큰이 모든 reasoning 모델에 충분한 것도 아닙니다. 정식 품질 평가는 별도 고정 문제·채점기·생성 예산을 사용합니다. 계획 대비 실행 비율, 미완료율, 조건부 정답률과 예산 내 성공률을 함께 기록합니다.
+## 읽을 때 주의할 점
 
-### 출력 속도 탐색
-
-```bash
-python3 benchmarks/bench.py run \
-  --base-url http://127.0.0.1:8000 \
-  --model '실제_API_모델_별칭' \
-  --prompt-file prompts/throughput_ko.txt \
-  --max-tokens 256 \
-  --repeats 1 \
-  --manifest local/manifest.json \
-  --telemetry \
-  --case-label qwen-throughput-pilot \
-  --output-dir local/qwen-throughput-pilot
-```
-
-실제 출력 토큰 수는 서버 usage에서 가져옵니다. SSE 청크를 토큰으로 세지 않습니다. 엔진 내부 생성 시간은 서버가 명시적으로 제공할 때만 기록합니다. 전체 응답시간으로 계산한 처리량은 순수 decode 속도와 다릅니다.
-
-## 큰 모델로 넘어가기 전
-
-```bash
-python3 benchmarks/preflight.py \
-  --inventory local/inventory.json \
-  --catalog configs/models.json \
-  --candidate kimi-k3-iq1s-xs \
-  --output local/kimi-storage-preflight.json
-```
-
-파일이 들어갈 공간을 추정하는 도구입니다. **RAM 적합성이나 엔진 지원을 보증하지 않습니다.** 추가 준비 공간이 미확인이면 하한만 검사하고 미확정으로 표시합니다. 기본 64GiB 여유는 조정 가능한 계획 값이며 하드웨어의 공식 요구량이 아닙니다.
-
-최대 후보는 전체 전문가를 유지한 Kimi K3 저비트 GGUF 약 580~594GB입니다. 단일 GB10에서의 실행 경로는 아직 검증하지 못했습니다. 337GB DeepSeek V4 Pro CPU+mmap 개인 사례는 재현 후보, Strata DeepSeek는 대형 모델 대조군입니다. **1.61TB Kimi FTW는 현재 1TB 범위에서 제외**합니다. 후보별 근거와 한계는 [후보 문서](docs/candidates.md)에 있습니다.
-
-한 번에 하나의 양자화 버전을 다룹니다. 모델별 설치와 다운로드 명령은 실제 RAM·빈 공간·지원 엔진·고정 리비전을 확인한 뒤 기록합니다.
-
-## 실험 순서
-
-| 단계 | 실행 | 남길 결과 |
-|---|---|---|
-| 0 | 장비·공간·현재 서버 확인 | inventory와 기준 manifest |
-| 1 | 현재 Qwen 기준 측정 | 정상 동작, 완료율, TTFT, 실제 출력량 |
-| 2 | 대형 후보 실행 경로 검증 | 성공과 실패 원인, 고정 체크포인트 |
-| 3 | 출력 길이와 입력 컨텍스트를 각각 확대 | 용량 한계와 메모리/I/O |
-| 4 | 고정 품질 평가와 반복 속도 측정 | 점수·분모·불확실성·지연 |
-| 5 | 같은 모델의 최적화 A/B | 변경 한 가지의 효과, 품질 유지 여부 |
-| 6 | 유망한 최종 구성 지속 실행 | 조건별 최대치와 한계 |
-
-자세한 정의는 [프로토콜](docs/protocol.md), 집계 필드는 [측정 지표](docs/metrics.md), 외부 평가 연동 범위는 [품질 평가 계획](docs/quality.md)을 따릅니다.
-
-## 도구의 범위
-
-모델 다운로드·설치·서버 기동/종료·전역 캐시 삭제·전원 설정 변경을 자동 수행하지 않습니다. 초기 GitHub Actions는 **CPU에서 측정 코드만 검사**합니다. 실제 GB10 벤치는 수동으로 실행하며, 공개 저장소 이벤트에 연결된 self-hosted GPU runner는 구성하지 않습니다.
-
-`--timeout 1200`은 소켓 무응답 시간이며 총 실행시간 제한이 아닙니다. Ctrl-C는 클라이언트를 종료하며 서버의 추론 취소 여부는 해당 서버에 달려 있습니다. 서버가 별도 reasoning 필드를 주지 않으면 content 안의 생각과 답변을 자동 구분하지 않습니다.
-
-`--api-key-env`로 기존 환경변수의 키를 사용할 수 있습니다. `--extra-body`는 API별 옵션을 명시하는 JSON 파일입니다. 지원하지 않는 API 옵션에 자동 재시도하지 않습니다.
+- 품질 점수는 **부분집합 zero-shot 정답률**입니다. 공식 리더보드 점수와 비교하면 안 됩니다.
+- 속도는 짧은 프롬프트와 짧은 출력 기준입니다. 실제 사용 패턴(긴 문맥, 긴 답변)에서는 달라집니다.
+- 외부에서 공개한 수치는 우리 측정과 구분해 표기합니다.
+- 공개 저장소이므로 IP·호스트명·API 키는 들어가지 않습니다. 결과 공개 전에 자동으로 걸러냅니다.
 
 ## 개발 검증
 
@@ -125,8 +124,4 @@ python3 -m unittest discover -s tests -v
 python3 benchmarks/validate_project.py
 ```
 
-로컬 모의 HTTP/SSE와 파일시스템 예산 계산만 검사합니다. **CPU CI 통과는 모델 정확성이나 GB10 성능 측정 결과가 아닙니다.**
-
-## 결과 저장
-
-원시 실행은 `local/`에 보관합니다. 공개할 결과만 검토 후 `results/`에 넣습니다. 가중치와 다운로드 캐시는 Git에 넣지 않습니다. 외부 제작자의 수치는 자신의 실측과 구분합니다.
+로컬 모의 HTTP/SSE와 예산 계산만 검사합니다. **CI 통과는 측정 결과의 정확성을 보증하지 않습니다.**
