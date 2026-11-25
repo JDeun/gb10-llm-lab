@@ -3615,7 +3615,7 @@
    "quality_max_tokens": 16384,
    "llama_args": [
     "-c",
-    "65536",
+    "262144",
     "--temp",
     "1.0",
     "--top-p",
@@ -3625,7 +3625,6 @@
     "--min-p",
     "0"
    ],
-   "hold": "nari-llama.cpp fork not built yet (no arm64 release; build from source, untested on GB10)",
    "hf_include": [
     "Qwen3.8-27B-NariQ-3.0bpw.gguf",
     "Qwen3.8-27B-NariQ-mmproj-BF16.gguf"
@@ -3639,7 +3638,8 @@
     "Vendor claims 3.0/2.5bpw match BF16 on long-horizon agent tasks, math and image understanding.",
     "Needs the nari-llama.cpp fork (b12431-nariv0); stock llama.cpp cannot load the tensor types.",
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
-    "Default file (10.12 GB). Sampling flags are the vendor's thinking-mode settings."
+    "Default file (10.12 GB). Sampling flags are the vendor's thinking-mode settings.",
+    "2026-11-25: -c 65536 rejected the 60K case (82,071-token prompt); raised to the model full 262K."
    ]
   },
   {
@@ -3669,7 +3669,6 @@
     "--min-p",
     "0"
    ],
-   "hold": "nari-llama.cpp fork not built yet (no arm64 release; build from source, untested on GB10)",
    "hf_include": [
     "Qwen3.8-27B-NariQ-2.5bpw.gguf"
    ],
@@ -3712,7 +3711,6 @@
     "--min-p",
     "0"
    ],
-   "hold": "nari-llama.cpp fork not built yet (no arm64 release; build from source, untested on GB10)",
    "hf_include": [
     "Qwen3.8-27B-NariQ-2.0bpw.gguf"
    ],
@@ -3724,6 +3722,42 @@
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
     "6.75 GB; vendor reports it is weaker on math and agent tasks."
    ]
+  },
+  {
+   "id": "quality-nariq-qwen38-27b-2.0bpw-rest",
+   "engine": "nariq",
+   "vision": false,
+   "repository": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+   "profile": "quality",
+   "context": [],
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "llama_args": [
+    "-c",
+    "65536",
+    "--temp",
+    "1.0",
+    "--top-p",
+    "0.95",
+    "--top-k",
+    "20",
+    "--min-p",
+    "0"
+   ],
+   "hf_include": [
+    "Qwen3.8-27B-NariQ-2.0bpw.gguf"
+   ],
+   "size_bytes": 6750000000,
+   "notes": [
+    "2026-11-25: nariq-qwen38-27b-2.0bpw quality hit the 8 h step limit after gsm8k/hrm8k/mmlu-pro; this re-runs the missing sets with a 16 h limit."
+   ],
+   "quality_sets": [
+    "kmmlu",
+    "humaneval",
+    "tools-ko",
+    "open-ko"
+   ],
+   "quality_timeout_factor": 8
   }
  ],
  "excluded": [
