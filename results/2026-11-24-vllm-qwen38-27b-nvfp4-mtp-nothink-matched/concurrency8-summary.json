@@ -1,0 +1,10 @@
+{
+ "clients": 8,
+ "requests": 16,
+ "errors": 0,
+ "wall_s": 37.06,
+ "completion_tokens_total": 4096,
+ "aggregate_completion_tokens_per_s": 110.52,
+ "per_request_e2e_tokens_per_s_median": 14.223411807550228,
+ "note": "Aggregate = all completion tokens / wall time from first start to last end; includes prefill."
+}

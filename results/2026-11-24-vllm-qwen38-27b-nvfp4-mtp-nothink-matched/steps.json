@@ -1,0 +1,15 @@
+{
+ "capacity-cap1": "ok",
+ "capacity-cap16": "ok",
+ "capacity-cap64": "ok",
+ "capacity-cap256": "ok",
+ "sanity-512": "ok",
+ "throughput-1": "ok",
+ "throughput-2": "ok",
+ "throughput-3": "ok",
+ "concurrency1": "ok",
+ "concurrency4": "ok",
+ "concurrency8": "ok",
+ "concurrency16": "ok",
+ "quality": "ok"
+}
