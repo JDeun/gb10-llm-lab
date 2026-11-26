@@ -3991,6 +3991,140 @@
     "Same settings as the Qwen3.6 confirm run with thinking off (the best setting found for this model family)."
    ],
    "license_class": "conditional"
+  },
+  {
+   "id": "llamacpp-raon1-mini-q4km",
+   "engine": "llamacpp",
+   "profile": "standard",
+   "vision": false,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "license_class": "free",
+   "repository": "KRAFTON/Raon-1-mini-gguf",
+   "hf_include": [
+    "raon-1-mini-Q4_K_M.gguf"
+   ],
+   "size_bytes": 19700000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "keep_for": [
+    "ikllama",
+    "inferssd"
+   ],
+   "hold": "llama.cpp build after 2026-11-25 (PR #32176 adds the Raon architecture); current build 44c20b1 (11-21)",
+   "notes": [
+    "Raon-1 mini (KRAFTON, 2026-11-24, Apache 2.0): 28.8B total / 4.3B active MoE trained from scratch, hybrid Raon Delta Attention, 262K context.",
+    "Vendor benchmarks put it far ahead on internal Korean chat (92.7 vs Qwen3.6-35B 74.5) and ahead on MultiChallenge, while trailing on MMLU-Pro.",
+    "reasoning_effort has six levels (none/low/medium/high/xhigh/max); 'none' or enable_thinking=false turns thinking off.",
+    "Q4_K_M (19.7 GB). Korean-first candidate for the in-house chatbot use case."
+   ]
+  },
+  {
+   "id": "quality-llamacpp-raon1-mini-q4km-nothink",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "license_class": "free",
+   "repository": "KRAFTON/Raon-1-mini-gguf",
+   "hf_include": [
+    "raon-1-mini-Q4_K_M.gguf"
+   ],
+   "size_bytes": 19700000000,
+   "context": [],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "extra_body": {
+    "reasoning_effort": "none"
+   },
+   "hold": "llama.cpp build after 2026-11-25 (PR #32176 adds the Raon architecture); current build 44c20b1 (11-21)",
+   "notes": [
+    "Raon-1 mini (KRAFTON, 2026-11-24, Apache 2.0): 28.8B total / 4.3B active MoE trained from scratch, hybrid Raon Delta Attention, 262K context.",
+    "Vendor benchmarks put it far ahead on internal Korean chat (92.7 vs Qwen3.6-35B 74.5) and ahead on MultiChallenge, while trailing on MMLU-Pro.",
+    "reasoning_effort has six levels (none/low/medium/high/xhigh/max); 'none' or enable_thinking=false turns thinking off.",
+    "Thinking off, to pair with the other nothink runs."
+   ]
+  },
+  {
+   "id": "quality-llamacpp-raon1-mini-q4km-effort-medium",
+   "engine": "llamacpp",
+   "profile": "quality",
+   "vision": false,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "license_class": "free",
+   "repository": "KRAFTON/Raon-1-mini-gguf",
+   "hf_include": [
+    "raon-1-mini-Q4_K_M.gguf"
+   ],
+   "size_bytes": 19700000000,
+   "context": [],
+   "llama_args": [
+    "-c",
+    "65536"
+   ],
+   "extra_body": {
+    "reasoning_effort": "medium"
+   },
+   "hold": "llama.cpp build after 2026-11-25 (PR #32176 adds the Raon architecture); current build 44c20b1 (11-21)",
+   "notes": [
+    "Raon-1 mini (KRAFTON, 2026-11-24, Apache 2.0): 28.8B total / 4.3B active MoE trained from scratch, hybrid Raon Delta Attention, 262K context.",
+    "Vendor benchmarks put it far ahead on internal Korean chat (92.7 vs Qwen3.6-35B 74.5) and ahead on MultiChallenge, while trailing on MMLU-Pro.",
+    "reasoning_effort has six levels (none/low/medium/high/xhigh/max); 'none' or enable_thinking=false turns thinking off.",
+    "Middle reasoning effort; Bonsai showed the middle setting can beat both extremes."
+   ]
+  },
+  {
+   "id": "vllm-raon1-mini-nvfp4",
+   "engine": "vllm",
+   "profile": "full",
+   "vision": false,
+   "quality": true,
+   "quality_max_tokens": 16384,
+   "license_class": "free",
+   "repository": "KRAFTON/Raon-1-mini-nvfp4",
+   "size_bytes": 17600000000,
+   "context": [
+    "512",
+    "2k",
+    "8k",
+    "32k",
+    "60k"
+   ],
+   "vllm_args": [
+    "--max-model-len",
+    "65536",
+    "--trust-remote-code",
+    "--gpu-memory-utilization",
+    "0.6",
+    "--max-num-seqs",
+    "16"
+   ],
+   "concurrency_levels": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "hold": "needs KRAFTON's vLLM fork (github.com/krafton-ai/vllm); stock vLLM v0.32.0 cannot load raon1_mini",
+   "notes": [
+    "Raon-1 mini (KRAFTON, 2026-11-24, Apache 2.0): 28.8B total / 4.3B active MoE trained from scratch, hybrid Raon Delta Attention, 262K context.",
+    "Vendor benchmarks put it far ahead on internal Korean chat (92.7 vs Qwen3.6-35B 74.5) and ahead on MultiChallenge, while trailing on MMLU-Pro.",
+    "reasoning_effort has six levels (none/low/medium/high/xhigh/max); 'none' or enable_thinking=false turns thinking off.",
+    "Native NVFP4 (17.6 GB). Needs the KRAFTON vLLM fork, so this stays on hold until that engine is built."
+   ]
   }
  ],
  "excluded": [

@@ -1033,6 +1033,41 @@
         "NVIDIA Open Model Agreement: derivatives may carry your own terms, but the licence copy, notices and the NVIDIA indemnity travel with it"
       ],
       "license_class": "conditional"
+    },
+    {
+      "id": "raon-1-mini",
+      "name": "KRAFTON/Raon-1-mini",
+      "role": "queued_candidate",
+      "total_parameters_billion_approx": 28.8,
+      "active_parameters_billion_approx": 4.3,
+      "checkpoint_bytes_estimate": 19700000000,
+      "additional_preparation_bytes_estimate": 17600000000,
+      "checkpoint_revision": null,
+      "engine_revision": null,
+      "license_class": "free",
+      "planned_engines": [
+        "llamacpp",
+        "vllm"
+      ],
+      "queue_entries": [
+        "llamacpp-raon1-mini-q4km",
+        "quality-llamacpp-raon1-mini-q4km-nothink",
+        "quality-llamacpp-raon1-mini-q4km-effort-medium",
+        "vllm-raon1-mini-nvfp4"
+      ],
+      "excluded_from_current_scope": false,
+      "added_on": "2026-11-26",
+      "sources": [
+        "https://huggingface.co/KRAFTON/Raon-1-mini",
+        "https://huggingface.co/KRAFTON/Raon-1-mini-gguf",
+        "https://huggingface.co/KRAFTON/Raon-1-mini-nvfp4"
+      ],
+      "notes": [
+        "Korean MoE trained from scratch by KRAFTON; Apache 2.0.",
+        "Vendor table claims 92.7 on its internal Korean chat benchmark vs 74.5 for Qwen3.6-35B-A3B and 81.9 for Inkling 2 Mini.",
+        "llama.cpp support merged 2026-11-25 (PR #32176); our build is 11-21, so entries are on hold until the engine is updated.",
+        "vLLM needs KRAFTON's fork, so the NVFP4 entry stays on hold."
+      ]
     }
   ],
   "excluded": [
