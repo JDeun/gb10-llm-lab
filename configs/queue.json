@@ -3196,11 +3196,12 @@
     "--gpu-memory-utilization",
     "0.7"
    ],
-   "hold": "vLLM PR #69028 (Add Inkling 2 Mini) not merged; current vLLM v0.32.0",
    "notes": [
-    "Native checkpoint: NVFP4 weights, MXFP8 in the last 4 layers (20.2 GB)."
+    "Native checkpoint: NVFP4 weights, MXFP8 in the last 4 layers (20.2 GB).",
+    "2026-11-26: PR #69028 merged 11-21; using the purpose-built arm64 image vllm/vllm-openai:inkling-2-mini-arm64-7cb5dae (11.3 GB) since no release carries it yet."
    ],
-   "license_class": "free"
+   "license_class": "free",
+   "vllm_image": "vllm/vllm-openai:inkling-2-mini-arm64-7cb5dae"
   },
   {
    "id": "llamacpp-inkling2small-iq1s",

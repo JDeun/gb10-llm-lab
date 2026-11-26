@@ -11,7 +11,7 @@ cd "$SRC" && rm -rf llama.cpp-next llama.cpp-9fba51d 2>/dev/null; rm -rf llama.c
   && grep -rqi inkling src/ && echo "inkling support present" \
   && cmake -B build -DGGML_CUDA=ON -DGGML_NATIVE=ON -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF \
        -DCMAKE_BUILD_RPATH='$ORIGIN' -DCMAKE_SKIP_INSTALL_RPATH=ON >/dev/null \
-  && cmake --build build -j 10 --target llama-server llama-cli llama-bench >/dev/null \
+  && nice -n 19 cmake --build build -j 8 --target llama-server llama-cli llama-bench >/dev/null \
   && ldd build/bin/llama-server | grep -q "llama.cpp-next/build/bin/libllama" && echo BUILD_OK; } >"$BUILD" 2>&1 \
   || { echo BUILD_FAIL >>"$BUILD"; echo "[llama.cpp update] build failed; kept the current build (see $BUILD)" >>"$LOG"; exit 1; }
 grep -q BUILD_OK "$BUILD" || { echo "[llama.cpp update] build check failed; kept the current build" >>"$LOG"; exit 1; }

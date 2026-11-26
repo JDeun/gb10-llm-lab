@@ -12,7 +12,7 @@ cd "$SRC" && rm -rf nari-llama.cpp
   && cmake -B build -DGGML_CUDA=ON -DGGML_NATIVE=ON -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF \
        -DCMAKE_CUDA_ARCHITECTURES=121 -DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF \
        -DCMAKE_BUILD_RPATH='$ORIGIN' -DCMAKE_SKIP_INSTALL_RPATH=ON \
-  && cmake --build build -j 10 --target llama-server llama-cli \
+  && nice -n 19 cmake --build build -j 8 --target llama-server llama-cli \
   && ./build/bin/llama-server --version 2>&1 | head -3 && echo BUILD_OK; } >>"$BUILD" 2>&1
 grep -q BUILD_OK "$BUILD" || { echo "[nariq] build failed; entries stay on hold (see $BUILD)" >>"$LOG"; exit 1; }
 python3 - <<'PY'
