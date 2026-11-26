@@ -8,6 +8,7 @@ When every entry is done or failed, the default server is restored and the
 runner service disables itself.
 """
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -333,9 +334,28 @@ def stop_servers() -> None:
     run([str(STRATA), "launch", "--stop"], check=False, timeout=300)
     if COLI.exists():
         run(["python3", str(COLI), "stop"], check=False, timeout=120)
-    for binary in (LLAMA_SERVER, IK_SERVER, PRISM_SERVER, INFERSSD, COLI.parent):
+    for binary in (LLAMA_SERVER, IK_SERVER, PRISM_SERVER, NARI_SERVER, INFERSSD, COLI.parent):
         run(["pkill", "-f", str(binary)], check=False)
     time.sleep(10)
+    free_engine_ports()
+
+
+def free_engine_ports() -> None:
+    """Kill anything still listening on an engine port.
+
+    A leftover server answers the health check of the next entry, which then measures the previous
+    model under the new entry's name (2026-11-26: the NariQ binary was missing from the list above,
+    so 2.5bpw and 3.0bpw were both measured against the 2.0bpw server). Killing by port does not
+    depend on remembering to add each new engine's binary here.
+    """
+    listening = run(["ss", "-ltnpH"], check=False).stdout
+    for port in set(PORTS.values()):
+        for line in listening.splitlines():
+            if f"127.0.0.1:{port} " in line or f"0.0.0.0:{port} " in line:
+                for pid in re.findall(r"pid=(\d+)", line):
+                    log(f"stale server on port {port} (pid {pid}); killing")
+                    run(["kill", "-9", pid], check=False)
+    time.sleep(2)
 
 
 def engine_log_tail(entry: dict) -> str:

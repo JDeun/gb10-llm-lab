@@ -3761,7 +3761,8 @@
     "Needs the nari-llama.cpp fork (b12431-nariv0); stock llama.cpp cannot load the tensor types.",
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
     "Default file (10.12 GB). Sampling flags are the vendor's thinking-mode settings.",
-    "2026-11-25: -c 65536 rejected the 60K case (82,071-token prompt); raised to the model full 262K."
+    "2026-11-25: -c 65536 rejected the 60K case (82,071-token prompt); raised to the model full 262K.",
+    "2026-11-26: the first run measured the leftover 2.0bpw server (the NariQ binary was missing from stop_servers), so it is being re-measured."
    ],
    "license_class": "free"
   },
@@ -3804,7 +3805,8 @@
     "Vendor claims 3.0/2.5bpw match BF16 on long-horizon agent tasks, math and image understanding.",
     "Needs the nari-llama.cpp fork (b12431-nariv0); stock llama.cpp cannot load the tensor types.",
     "Vision (mmproj) not measured: the runner's GGUF server does not pass --mmproj yet.",
-    "8.44 GB; vendor reports BF16-level agent scores at this size."
+    "8.44 GB; vendor reports BF16-level agent scores at this size.",
+    "2026-11-26: the first run measured the leftover 2.0bpw server (the NariQ binary was missing from stop_servers), so it is being re-measured."
    ],
    "license_class": "free"
   },
