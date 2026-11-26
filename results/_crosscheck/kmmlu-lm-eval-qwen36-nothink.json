@@ -1,0 +1,30 @@
+{
+ "tool": "lm-eval-harness d800e04 (OmniEvaluator pinned commit)",
+ "task": "kmmlu loglikelihood, 20 subjects x 5 items",
+ "model": "nvidia/Qwen3.6-35B-A3B-NVFP4 on vLLM v0.32.0, same args as confirm-vllm-qwen36-nothink",
+ "date": "2026-11-26",
+ "standard_kmmlu_mean": 0.56,
+ "our_generative_kmmlu": 0.71,
+ "per_subject": {
+  "kmmlu_accounting": 0.6,
+  "kmmlu_biology": 0.4,
+  "kmmlu_chemistry": 0.6,
+  "kmmlu_civil_engineering": 0.4,
+  "kmmlu_computer_science": 0.8,
+  "kmmlu_criminal_law": 0.8,
+  "kmmlu_economics": 0.6,
+  "kmmlu_education": 1.0,
+  "kmmlu_electrical_engineering": 0.4,
+  "kmmlu_health": 1.0,
+  "kmmlu_korean_history": 0.4,
+  "kmmlu_law": 0.0,
+  "kmmlu_management": 0.4,
+  "kmmlu_math": 0.4,
+  "kmmlu_mechanical_engineering": 0.4,
+  "kmmlu_patent": 0.8,
+  "kmmlu_political_science_and_sociology": 0.6,
+  "kmmlu_psychology": 0.4,
+  "kmmlu_real_estate": 0.2,
+  "kmmlu_taxation": 1.0
+ }
+}
